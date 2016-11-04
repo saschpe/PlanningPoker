@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<saschpe.poker.view.CardListItemLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="4dp"
+    android:paddingTop="4dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        card_view:cardCornerRadius="4dp">
+        app:cardCornerRadius="8dp">
 
         <TextView
-            android:id="@+id/value"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.WearDiag.Title"
-            android:contentDescription="@string/poker_points"
-            android:textSize="36sp"
-            tools:text="5" />
+            android:id="@+id/center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/points"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="48sp"
+            tools:text="5"
+            android:textStyle="normal|bold" />
 
     </android.support.v7.widget.CardView>
 
-</LinearLayout>
+</saschpe.poker.view.CardListItemLayout>

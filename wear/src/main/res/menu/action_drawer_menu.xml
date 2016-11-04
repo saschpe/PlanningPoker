@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/fibonacci"
+        android:icon="@drawable/ic_casino_black_24dp"
+        android:title="@string/fibonacci" />
+
+    <item
+        android:id="@+id/t_shirt_sizes"
+        android:icon="@drawable/ic_casino_black_24dp"
+        android:title="@string/t_shirt_sizes" />
+
+</menu>

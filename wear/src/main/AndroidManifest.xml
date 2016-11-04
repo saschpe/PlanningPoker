@@ -1,7 +1,11 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="saschpe.poker">
 
     <uses-feature android:name="android.hardware.type.watch" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -11,13 +15,18 @@
         android:theme="@android:style/Theme.DeviceDefault">
 
         <activity
-            android:name="saschpe.poker.activity.MainActivity">
+            android:name=".activity.WearActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Light">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <uses-library
+            android:name="com.google.android.wearable"
+            android:required="false" />
 
     </application>
 

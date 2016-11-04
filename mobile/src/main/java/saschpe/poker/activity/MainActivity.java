@@ -12,20 +12,15 @@ import android.view.MenuItem;
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
 import saschpe.poker.adapter.CardArrayAdapter;
-import saschpe.poker.util.Constants;
+import saschpe.poker.util.PlanningPoker;
 import saschpe.versioninfo.widget.VersionInfoDialogFragment;
 
 public final class MainActivity extends AppCompatActivity {
     private static final String STATE_FLAVOR = "flavor";
 
-    private enum Flavor {
-        FIBONACCI,
-        T_SHIRT_SIZES
-    }
-
     private CardArrayAdapter arrayAdapter;
+    private PlanningPoker.Flavor flavor;
     private RecyclerView recyclerView;
-    private Flavor flavor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +28,9 @@ public final class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState != null) {
-            flavor = (Flavor) savedInstanceState.getSerializable(STATE_FLAVOR);
+            flavor = (PlanningPoker.Flavor) savedInstanceState.getSerializable(STATE_FLAVOR);
         } else {
-            flavor = Flavor.FIBONACCI;
+            flavor = PlanningPoker.Flavor.FIBONACCI;
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -65,12 +60,12 @@ public final class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.fibonacci:
-                flavor = Flavor.FIBONACCI;
+                flavor = PlanningPoker.Flavor.FIBONACCI;
                 updateFlavor();
                 item.setChecked(true);
                 break;
             case R.id.t_shirt_sizes:
-                flavor = Flavor.T_SHIRT_SIZES;
+                flavor = PlanningPoker.Flavor.T_SHIRT_SIZES;
                 updateFlavor();
                 item.setChecked(true);
                 break;
@@ -97,19 +92,19 @@ public final class MainActivity extends AppCompatActivity {
         switch (flavor) {
             case FIBONACCI:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new CardArrayAdapter(Constants.FIBONACCI_LIST);
+                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST);
                 } else {
-                    arrayAdapter.replace(Constants.FIBONACCI_LIST);
+                    arrayAdapter.replace(PlanningPoker.FIBONACCI_LIST);
                 }
-                recyclerView.scrollToPosition(Constants.FIBONACCI_POSITION);
+                recyclerView.scrollToPosition(PlanningPoker.FIBONACCI_POSITION);
                 break;
             case T_SHIRT_SIZES:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new CardArrayAdapter(Constants.T_SHIRT_SIZE_LIST);
+                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST);
                 } else {
-                    arrayAdapter.replace(Constants.T_SHIRT_SIZE_LIST);
+                    arrayAdapter.replace(PlanningPoker.T_SHIRT_SIZE_LIST);
                 }
-                recyclerView.scrollToPosition(Constants.T_SHIRT_SIZE_POSITION);
+                recyclerView.scrollToPosition(PlanningPoker.T_SHIRT_SIZE_POSITION);
                 break;
         }
     }
