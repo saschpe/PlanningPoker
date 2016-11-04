@@ -1,13 +1,13 @@
 package saschpe.poker.adapter.base;
 
-import android.support.wearable.view.WearableListView;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public abstract class ArrayAdapter<T, VH extends WearableListView.ViewHolder>
-        extends WearableListView.GenericAdapter<VH> {
+public abstract class ArrayAdapter<T, VH extends RecyclerView.ViewHolder>
+        extends RecyclerView.Adapter<VH> {
     private List<T> objects;
 
     public ArrayAdapter(final List<T> objects) {

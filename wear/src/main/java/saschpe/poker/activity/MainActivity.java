@@ -7,7 +7,7 @@ import android.support.wearable.view.WearableRecyclerView;
 import java.util.Arrays;
 import java.util.List;
 
-import saschpe.poker.wear.R;
+import saschpe.poker.R;
 import saschpe.poker.adapter.CardArrayAdapter;
 
 public class MainActivity extends Activity {

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import saschpe.poker.wear.R;
+import saschpe.poker.R;
 import saschpe.poker.adapter.base.ArrayAdapter;
 
 public class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapter.CardViewHolder> {
