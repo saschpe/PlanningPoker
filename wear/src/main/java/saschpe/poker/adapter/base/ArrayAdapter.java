@@ -1,4 +1,4 @@
-package saschpe.poker.wear.adapter.base;
+package saschpe.poker.adapter.base;
 
 import android.support.wearable.view.WearableListView;
 

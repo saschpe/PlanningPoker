@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">Planning Poker</string>
-
-    <string name="poker_points">Poker points</string>
 </resources>

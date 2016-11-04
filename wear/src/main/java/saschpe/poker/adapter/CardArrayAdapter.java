@@ -1,4 +1,4 @@
-package saschpe.poker.wear.adapter;
+package saschpe.poker.adapter;
 
 import android.support.wearable.view.WearableListView;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import saschpe.poker.wear.R;
-import saschpe.poker.wear.adapter.base.ArrayAdapter;
+import saschpe.poker.adapter.base.ArrayAdapter;
 
 public class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapter.CardViewHolder> {
     public CardArrayAdapter(List<String> objects) {
