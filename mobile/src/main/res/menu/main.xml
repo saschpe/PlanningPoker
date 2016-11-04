@@ -8,7 +8,8 @@
 
         <item
             android:id="@+id/fibonacci"
-            android:title="@string/fibonacci" />
+            android:title="@string/fibonacci"
+            app:showAsAction="collapseActionView" />
 
         <item
             android:id="@+id/t_shirt_sizes"

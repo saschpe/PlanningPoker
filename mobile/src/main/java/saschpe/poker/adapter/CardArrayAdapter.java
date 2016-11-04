@@ -11,7 +11,7 @@ import java.util.List;
 import saschpe.poker.R;
 import saschpe.poker.adapter.base.ArrayAdapter;
 
-public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapter.CardViewHolder> {
+public class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapter.CardViewHolder> {
     public CardArrayAdapter(List<String> objects) {
         super(objects);
     }
