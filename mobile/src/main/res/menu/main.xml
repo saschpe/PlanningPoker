@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/flavor"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/fibonacci"
+            android:title="@string/fibonacci" />
+
+        <item
+            android:id="@+id/t_shirt_sizes"
+            android:title="@string/t_shirt_sizes" />
+
+    </group>
+
+    <item
+        android:id="@+id/action_version_info"
+        android:orderInCategory="101"
+        android:title="@string/version_info"
+        app:showAsAction="never" />
+
+</menu>

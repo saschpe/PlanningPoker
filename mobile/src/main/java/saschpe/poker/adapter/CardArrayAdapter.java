@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 import saschpe.poker.R;
 import saschpe.poker.adapter.base.ArrayAdapter;
 
-public class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapter.CardViewHolder> {
+public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapter.CardViewHolder> {
     public CardArrayAdapter(List<String> objects) {
         super(objects);
     }
@@ -25,19 +24,21 @@ public class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapter.Card
 
     @Override
     public void onBindViewHolder(CardViewHolder holder, int position) {
-        holder.value.setText(getItem(position));
+        holder.bottomLeft.setText(getItem(position));
+        holder.center.setText(getItem(position));
+        holder.topRight.setText(getItem(position));
     }
 
     static final class CardViewHolder extends RecyclerView.ViewHolder {
-        ImageView left;
-        TextView value;
-        ImageView right;
+        TextView bottomLeft;
+        TextView center;
+        TextView topRight;
 
         CardViewHolder(View itemView) {
             super(itemView);
-            left = (ImageView) itemView.findViewById(R.id.left);
-            value = (TextView) itemView.findViewById(R.id.value);
-            right = (ImageView) itemView.findViewById(R.id.right);
+            bottomLeft = (TextView) itemView.findViewById(R.id.bottomLeft);
+            center = (TextView) itemView.findViewById(R.id.center);
+            topRight = (TextView) itemView.findViewById(R.id.topRight);
         }
     }
 }

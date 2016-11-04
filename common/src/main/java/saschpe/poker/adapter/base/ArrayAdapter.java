@@ -33,6 +33,14 @@ public abstract class ArrayAdapter<T, VH extends RecyclerView.ViewHolder>
         notifyItemRangeRemoved(0, size);
     }
 
+    /**
+     * Replace all elements with a new list.
+     */
+    public void replace(final List<T> objects) {
+        this.objects = objects;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return objects.size();
@@ -65,7 +73,6 @@ public abstract class ArrayAdapter<T, VH extends RecyclerView.ViewHolder>
     public void insert(final T object, int index) {
         objects.add(index, object);
         notifyItemInserted(index);
-
     }
 
     /**
