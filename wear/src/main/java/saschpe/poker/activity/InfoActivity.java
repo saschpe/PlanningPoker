@@ -1,13 +1,12 @@
 package saschpe.poker.activity;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.CardFragment;
 
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
+import saschpe.versioninfo.VersionInfoUtils;
 
 public class InfoActivity extends WearableActivity {
     @Override
@@ -15,13 +14,14 @@ public class InfoActivity extends WearableActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        String description = VersionInfoUtils.getFormattedVersion(this, getPackageName(), BuildConfig.VERSION_NAME) + "\n" + VersionInfoUtils.getFormattedCopyright(this, getPackageName(), "Sascha Peilicke");
+
         CardFragment cardFragment = CardFragment.create(
-                getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME,
-                "Sascha Peilicke",
+                getString(R.string.app_name), description,
                 R.mipmap.ic_launcher);
-        fragmentTransaction.add(R.id.frame_layout, cardFragment);
-        fragmentTransaction.commit();
+
+        getFragmentManager().beginTransaction()
+                .add(R.id.frame_layout, cardFragment)
+                .commit();
     }
 }

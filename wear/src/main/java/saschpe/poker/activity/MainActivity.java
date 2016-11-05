@@ -1,18 +1,14 @@
 package saschpe.poker.activity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.WearableListView;
 import android.support.wearable.view.drawer.WearableActionDrawer;
 import android.support.wearable.view.drawer.WearableDrawerLayout;
-import android.support.wearable.view.drawer.WearableNavigationDrawer;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import java.lang.ref.WeakReference;
 
 import saschpe.poker.R;
 import saschpe.poker.adapter.PokerCardArrayAdapter;
@@ -26,7 +22,6 @@ public class MainActivity extends WearableActivity implements
     private PokerCardArrayAdapter arrayAdapter;
     private WearableActionDrawer actionDrawer;
     private WearableDrawerLayout drawerLayout;
-    private WearableNavigationDrawer navigationDrawer;
     private WearableListView recyclerView;
 
     @Override
@@ -47,12 +42,6 @@ public class MainActivity extends WearableActivity implements
 
         // Main Wearable Drawer Layout that wraps all content
         drawerLayout = (WearableDrawerLayout) findViewById(R.id.drawer_layout);
-
-        // Top Navigation Drawer
-        navigationDrawer = (WearableNavigationDrawer) findViewById(R.id.top_navigation_drawer);
-        navigationDrawer.setAdapter(new NavigationDrawerAdapter(this));
-        // Peeks Navigation drawer on the top.
-        drawerLayout.peekDrawer(Gravity.TOP);
 
         // Bottom Action Drawer
         actionDrawer = (WearableActionDrawer) findViewById(R.id.bottom_action_drawer);
@@ -109,6 +98,9 @@ public class MainActivity extends WearableActivity implements
                 updateFlavor();
                 item.setChecked(true);
                 break;
+            case R.id.version_info:
+                startActivity(new Intent(this, InfoActivity.class));
+                break;
         }
         actionDrawer.closeDrawer();
         return super.onOptionsItemSelected(item);
@@ -144,52 +136,6 @@ public class MainActivity extends WearableActivity implements
                 }
                 recyclerView.scrollToPosition(PlanningPoker.T_SHIRT_SIZE_POSITION);
                 break;
-        }
-    }
-
-    static final class NavigationDrawerAdapter extends WearableNavigationDrawer.WearableNavigationDrawerAdapter {
-        private final String versionInfoString;
-        private final Drawable versionInfoDrawable;
-        private final WeakReference<MainActivity> ref;
-
-        NavigationDrawerAdapter(MainActivity mainActivity) {
-            versionInfoString = mainActivity.getString(R.string.info);
-            versionInfoDrawable = mainActivity.getDrawable(R.drawable.ic_info_white_24dp);
-            ref = new WeakReference<>(mainActivity);
-        }
-
-        @Override
-        public String getItemText(int i) {
-            return versionInfoString;
-        }
-
-        @Override
-        public Drawable getItemDrawable(int i) {
-            return versionInfoDrawable;
-        }
-
-        @Override
-        public void onItemSelected(int i) {
-            MainActivity activity = ref.get();
-            if (activity == null || activity.isFinishing() || activity.isDestroyed()) {
-                return;
-            }
-
-            activity.startActivity(new Intent(activity, InfoActivity.class));
-
-            //TODO:
-            /*VersionInfoDialogFragment
-                    .newInstance(
-                            activity.getString(R.string.app_name),
-                            BuildConfig.VERSION_NAME,
-                            "Sascha Peilicke",
-                            R.mipmap.ic_launcher)
-                    .show(activity.getFragmentManager(), "version_info");*/
-        }
-
-        @Override
-        public int getCount() {
-            return 1;
         }
     }
 }

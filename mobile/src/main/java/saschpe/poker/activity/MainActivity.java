@@ -69,7 +69,7 @@ public final class MainActivity extends AppCompatActivity {
                 updateFlavor();
                 item.setChecked(true);
                 break;
-            case R.id.action_version_info:
+            case R.id.version_info:
                 VersionInfoDialogFragment
                         .newInstance(
                                 getString(R.string.app_name),
