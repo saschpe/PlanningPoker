@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<saschpe.poker.view.CardListItemLayout
+<saschpe.poker.view.PokerCardListItemLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,6 +13,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="8dp">
 
         <TextView
@@ -21,12 +22,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="@string/points"
+            android:textColor="@color/card_text_color"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="48sp"
             android:textStyle="normal|bold"
             tools:text="5" />
 
     </android.support.v7.widget.CardView>
 
-</saschpe.poker.view.CardListItemLayout>
+</saschpe.poker.view.PokerCardListItemLayout>

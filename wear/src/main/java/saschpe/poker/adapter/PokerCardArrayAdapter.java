@@ -13,17 +13,17 @@ import java.util.List;
 import saschpe.poker.R;
 import saschpe.poker.adapter.base.WearableArrayAdapter;
 
-public class CardArrayAdapter extends WearableArrayAdapter<String, CardArrayAdapter.CardViewHolder> {
+public class PokerCardArrayAdapter extends WearableArrayAdapter<String, PokerCardArrayAdapter.CardViewHolder> {
     private final LayoutInflater inflater;
 
-    public CardArrayAdapter(@NonNull Context context, @NonNull List<String> objects) {
+    public PokerCardArrayAdapter(@NonNull Context context, @NonNull List<String> objects) {
         super(objects);
         inflater = LayoutInflater.from(context);
     }
 
     @Override
     public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new CardViewHolder(inflater.inflate(R.layout.view_card, parent, false));
+        return new CardViewHolder(inflater.inflate(R.layout.view_poker_card, parent, false));
     }
 
     @Override

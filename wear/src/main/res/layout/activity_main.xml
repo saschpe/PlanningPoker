@@ -10,8 +10,7 @@
     <android.support.wearable.view.WearableListView
         android:id="@+id/wearable_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black" />
+        android:layout_height="match_parent" />
 
     <android.support.wearable.view.drawer.WearableNavigationDrawer
         android:id="@+id/top_navigation_drawer"
@@ -23,6 +22,6 @@
         android:id="@+id/bottom_action_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary"/>
+        android:background="@color/primary" />
 
 </android.support.wearable.view.drawer.WearableDrawerLayout>

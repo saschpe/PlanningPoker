@@ -4,25 +4,26 @@
 
     <group
         android:id="@+id/flavor"
+        android:menuCategory="alternative"
         android:checkableBehavior="single">
 
         <item
             android:id="@+id/fibonacci"
-            android:title="@string/fibonacci"
-            app:srcCompat="@drawable/ic_casino_black_24dp" />
+            android:icon="@drawable/ic_casino"
+            android:title="@string/fibonacci" />
 
         <item
             android:id="@+id/t_shirt_sizes"
-            android:title="@string/t_shirt_sizes"
-            app:srcCompat="@drawable/ic_casino_black_24dp" />
+            android:icon="@drawable/ic_casino"
+            android:title="@string/t_shirt_sizes" />
 
     </group>
 
     <item
         android:id="@+id/action_version_info"
+        android:icon="@drawable/ic_info"
         android:orderInCategory="101"
         android:title="@string/version_info"
-        app:showAsAction="never"
-        app:srcCompat="@drawable/ic_info_black_24dp" />
+        app:showAsAction="ifRoom" />
 
 </menu>

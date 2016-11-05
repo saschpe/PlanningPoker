@@ -1,5 +1,7 @@
 package saschpe.poker.activity;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.WearableListView;
@@ -10,16 +12,18 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.lang.ref.WeakReference;
+
 import saschpe.poker.R;
-import saschpe.poker.adapter.CardArrayAdapter;
+import saschpe.poker.adapter.PokerCardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
 
-public class WearActivity extends WearableActivity implements
+public class MainActivity extends WearableActivity implements
         WearableActionDrawer.OnMenuItemClickListener {
     private static final String STATE_FLAVOR = "flavor";
 
     private PlanningPoker.Flavor flavor;
-    private CardArrayAdapter arrayAdapter;
+    private PokerCardArrayAdapter arrayAdapter;
     private WearableActionDrawer actionDrawer;
     private WearableDrawerLayout drawerLayout;
     private WearableNavigationDrawer navigationDrawer;
@@ -28,7 +32,7 @@ public class WearActivity extends WearableActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wear);
+        setContentView(R.layout.activity_main);
         setAmbientEnabled();
 
         if (savedInstanceState != null) {
@@ -46,7 +50,7 @@ public class WearActivity extends WearableActivity implements
 
         // Top Navigation Drawer
         navigationDrawer = (WearableNavigationDrawer) findViewById(R.id.top_navigation_drawer);
-        //TODO:navigationDrawer.setAdapter(new YourImplementationNavigationAdapter(this));
+        navigationDrawer.setAdapter(new NavigationDrawerAdapter(this));
         // Peeks Navigation drawer on the top.
         drawerLayout.peekDrawer(Gravity.TOP);
 
@@ -126,7 +130,7 @@ public class WearActivity extends WearableActivity implements
         switch (flavor) {
             case FIBONACCI:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST);
+                    arrayAdapter = new PokerCardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST);
                 } else {
                     arrayAdapter.replace(PlanningPoker.FIBONACCI_LIST);
                 }
@@ -134,12 +138,58 @@ public class WearActivity extends WearableActivity implements
                 break;
             case T_SHIRT_SIZES:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST);
+                    arrayAdapter = new PokerCardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST);
                 } else {
                     arrayAdapter.replace(PlanningPoker.T_SHIRT_SIZE_LIST);
                 }
                 recyclerView.scrollToPosition(PlanningPoker.T_SHIRT_SIZE_POSITION);
                 break;
+        }
+    }
+
+    static final class NavigationDrawerAdapter extends WearableNavigationDrawer.WearableNavigationDrawerAdapter {
+        private final String versionInfoString;
+        private final Drawable versionInfoDrawable;
+        private final WeakReference<MainActivity> ref;
+
+        NavigationDrawerAdapter(MainActivity mainActivity) {
+            versionInfoString = mainActivity.getString(R.string.info);
+            versionInfoDrawable = mainActivity.getDrawable(R.drawable.ic_info_white_24dp);
+            ref = new WeakReference<>(mainActivity);
+        }
+
+        @Override
+        public String getItemText(int i) {
+            return versionInfoString;
+        }
+
+        @Override
+        public Drawable getItemDrawable(int i) {
+            return versionInfoDrawable;
+        }
+
+        @Override
+        public void onItemSelected(int i) {
+            MainActivity activity = ref.get();
+            if (activity == null || activity.isFinishing() || activity.isDestroyed()) {
+                return;
+            }
+
+            activity.startActivity(new Intent(activity, InfoActivity.class));
+
+            //TODO:
+            /*VersionInfoDialogFragment
+                    .newInstance(
+                            activity.getString(R.string.app_name),
+                            BuildConfig.VERSION_NAME,
+                            "Sascha Peilicke",
+                            R.mipmap.ic_launcher)
+                    .show(activity.getFragmentManager(), "version_info");*/
+        }
+
+        @Override
+        public int getCount() {
+            return 1;
         }
     }
 }
