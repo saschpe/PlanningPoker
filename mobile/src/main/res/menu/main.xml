@@ -8,13 +8,13 @@
 
         <item
             android:id="@+id/fibonacci"
-            android:icon="@drawable/ic_casino_black_24dp"
-            android:title="@string/fibonacci" />
+            android:title="@string/fibonacci"
+            app:srcCompat="@drawable/ic_casino_black_24dp" />
 
         <item
             android:id="@+id/t_shirt_sizes"
-            android:icon="@drawable/ic_casino_black_24dp"
-            android:title="@string/t_shirt_sizes" />
+            android:title="@string/t_shirt_sizes"
+            app:srcCompat="@drawable/ic_casino_black_24dp" />
 
     </group>
 
@@ -22,6 +22,7 @@
         android:id="@+id/action_version_info"
         android:orderInCategory="101"
         android:title="@string/version_info"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        app:srcCompat="@drawable/ic_info_black_24dp" />
 
 </menu>
