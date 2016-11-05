@@ -1,5 +1,4 @@
 <resources>
-
     <style name="AppTheme" parent="AppThemeBase">
         <!-- Have some fun with the global navigation bar -->
         <item name="android:navigationBarColor">@color/primary_dark</item>
@@ -12,5 +11,4 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
 </resources>

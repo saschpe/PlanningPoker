@@ -10,8 +10,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        archivesBaseName = "poker-${versionName}"
-
+        archivesBaseName = "${applicationId}-${versionName}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

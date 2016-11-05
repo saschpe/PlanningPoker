@@ -5,5 +5,5 @@
     <dimen name="activity_horizontal_margin">64dp</dimen>
 
     <dimen name="center_text_size">384sp</dimen>
-    <dimen name="corner_text_size">48sp</dimen>
+    <dimen name="corner_text_size">64sp</dimen>
 </resources>
