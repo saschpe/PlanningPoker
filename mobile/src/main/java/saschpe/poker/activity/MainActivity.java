@@ -1,6 +1,7 @@
 package saschpe.poker.activity;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
@@ -16,6 +17,7 @@ import saschpe.poker.util.PlanningPoker;
 import saschpe.versioninfo.widget.VersionInfoDialogFragment;
 
 public final class MainActivity extends AppCompatActivity {
+    private static final String PREFS_FLAVOR = "flavor";
     private static final String STATE_FLAVOR = "flavor";
 
     private CardArrayAdapter arrayAdapter;
@@ -30,7 +32,11 @@ public final class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             flavor = (PlanningPoker.Flavor) savedInstanceState.getSerializable(STATE_FLAVOR);
         } else {
-            flavor = PlanningPoker.Flavor.FIBONACCI;
+            // Either load flavor from previous invocation or use default
+            String flavorString = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getString(PREFS_FLAVOR, PlanningPoker.Flavor.FIBONACCI.toString());
+
+            flavor = PlanningPoker.Flavor.fromString(flavorString);
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -40,6 +46,17 @@ public final class MainActivity extends AppCompatActivity {
 
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Persist current flavor for next invocation
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .edit()
+                .putString(PREFS_FLAVOR, flavor.toString())
+                .apply();
     }
 
     @Override

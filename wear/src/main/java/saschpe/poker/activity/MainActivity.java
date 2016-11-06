@@ -2,6 +2,7 @@ package saschpe.poker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.WearableListView;
 import android.support.wearable.view.drawer.WearableActionDrawer;
@@ -16,6 +17,7 @@ import saschpe.poker.util.PlanningPoker;
 
 public class MainActivity extends WearableActivity implements
         WearableActionDrawer.OnMenuItemClickListener {
+    private static final String PREFS_FLAVOR = "flavor";
     private static final String STATE_FLAVOR = "flavor";
 
     private PlanningPoker.Flavor flavor;
@@ -33,7 +35,11 @@ public class MainActivity extends WearableActivity implements
         if (savedInstanceState != null) {
             flavor = (PlanningPoker.Flavor) savedInstanceState.getSerializable(STATE_FLAVOR);
         } else {
-            flavor = PlanningPoker.Flavor.FIBONACCI;
+            // Either load flavor from previous invocation or use default
+            String flavorString = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getString(PREFS_FLAVOR, PlanningPoker.Flavor.FIBONACCI.toString());
+
+            flavor = PlanningPoker.Flavor.fromString(flavorString);
         }
 
         recyclerView = (WearableListView) findViewById(R.id.wearable_list);
@@ -59,6 +65,17 @@ public class MainActivity extends WearableActivity implements
         actionDrawer.setOnMenuItemClickListener(this);
         // Peeks action drawer on the bottom.
         drawerLayout.peekDrawer(Gravity.BOTTOM);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Persist current flavor for next invocation
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .edit()
+                .putString(PREFS_FLAVOR, flavor.toString())
+                .apply();
     }
 
     @Override

@@ -11,6 +11,16 @@ public final class PlanningPoker {
 
     public enum Flavor {
         FIBONACCI,
-        T_SHIRT_SIZES
+        T_SHIRT_SIZES;
+
+        public static Flavor fromString(String string) {
+            if (string.equals(Flavor.FIBONACCI.toString())) {
+                return Flavor.FIBONACCI;
+            } else if (string.equals(Flavor.T_SHIRT_SIZES.toString())) {
+                return Flavor.T_SHIRT_SIZES;
+            }
+            return null;
+        }
     }
+
 }
