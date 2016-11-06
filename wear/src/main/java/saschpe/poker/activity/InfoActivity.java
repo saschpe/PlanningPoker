@@ -17,8 +17,7 @@ public class InfoActivity extends WearableActivity {
         String description = VersionInfoUtils.getFormattedVersion(this, getPackageName(), BuildConfig.VERSION_NAME) + "\n" + VersionInfoUtils.getFormattedCopyright(this, getPackageName(), "Sascha Peilicke");
 
         CardFragment cardFragment = CardFragment.create(
-                getString(R.string.app_name), description,
-                R.mipmap.ic_launcher);
+                getString(R.string.app_name), description);
 
         getFragmentManager().beginTransaction()
                 .add(R.id.frame_layout, cardFragment)
