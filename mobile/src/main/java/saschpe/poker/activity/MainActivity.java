@@ -7,12 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
 import saschpe.poker.adapter.CardArrayAdapter;
+import saschpe.poker.widget.recycler.SpacesItemDecoration;
 import saschpe.poker.util.PlanningPoker;
 import saschpe.versioninfo.widget.VersionInfoDialogFragment;
 
@@ -39,8 +41,15 @@ public final class MainActivity extends AppCompatActivity {
             flavor = PlanningPoker.Flavor.fromString(flavorString);
         }
 
+        // Compute spacing between cards
+        float marginDp = getResources().getDimension(R.dimen.activity_horizontal_margin) / 8;
+        int spacePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
+
+        // Setup recycler
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, layoutManager.getOrientation()));
         updateFlavor();
         recyclerView.setAdapter(arrayAdapter);
 
@@ -53,8 +62,7 @@ public final class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         // Persist current flavor for next invocation
-        PreferenceManager.getDefaultSharedPreferences(this)
-                .edit()
+        PreferenceManager.getDefaultSharedPreferences(this).edit()
                 .putString(PREFS_FLAVOR, flavor.toString())
                 .apply();
     }
@@ -109,17 +117,17 @@ public final class MainActivity extends AppCompatActivity {
         switch (flavor) {
             case FIBONACCI:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST);
+                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST, CardArrayAdapter.BIG_CARD_VIEW_TYPE);
                 } else {
-                    arrayAdapter.replace(PlanningPoker.FIBONACCI_LIST);
+                    arrayAdapter.replaceAll(PlanningPoker.FIBONACCI_LIST);
                 }
                 recyclerView.scrollToPosition(PlanningPoker.FIBONACCI_POSITION);
                 break;
             case T_SHIRT_SIZES:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST);
+                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST, CardArrayAdapter.BIG_CARD_VIEW_TYPE);
                 } else {
-                    arrayAdapter.replace(PlanningPoker.T_SHIRT_SIZE_LIST);
+                    arrayAdapter.replaceAll(PlanningPoker.T_SHIRT_SIZE_LIST);
                 }
                 recyclerView.scrollToPosition(PlanningPoker.T_SHIRT_SIZE_POSITION);
                 break;

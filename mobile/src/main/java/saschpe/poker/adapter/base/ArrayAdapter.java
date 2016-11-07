@@ -36,7 +36,7 @@ public abstract class ArrayAdapter<T, VH extends RecyclerView.ViewHolder>
     /**
      * Replace all elements with a new list.
      */
-    public void replace(final List<T> objects) {
+    public void replaceAll(final List<T> objects) {
         this.objects = objects;
         notifyDataSetChanged();
     }

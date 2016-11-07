@@ -3,6 +3,6 @@
     <dimen name="activity_horizontal_margin">8dp</dimen>
     <dimen name="activity_vertical_margin">8dp</dimen>
 
-    <dimen name="center_text_size">116sp</dimen>
+    <dimen name="center_text_size">108sp</dimen>
     <dimen name="corner_text_size">24sp</dimen>
 </resources>
