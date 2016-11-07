@@ -1,7 +1,12 @@
 <resources>
+    <string name="app_help">How to use the app</string>
+    <string name="app_help_text">Swipe left or right to change the selected poker card. Adjust the card deck between Fibonacci and T-Shirt sizes in the top right option menu.</string>
     <string name="app_name">Planning Poker</string>
+    <string name="dismiss">Dismiss</string>
     <string name="fibonacci">Fibonacci</string>
     <string name="info">Info</string>
     <string name="points">Story points</string>
+    <string name="poker_help">How to play planning poker</string>
+    <string name="poker_help_text">In planning poker, members of the group make estimates by playing numbered cards face-down to the table, instead of speaking them aloud. The cards are revealed, and the estimates are then discussed. \n&#8212; Wikipedia</string>
     <string name="t_shirt_sizes">T-Shirt sizes</string>
 </resources>

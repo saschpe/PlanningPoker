@@ -8,19 +8,19 @@ import android.widget.TextView;
 
 import saschpe.poker.R;
 
-public class PokerCardListItemLayout extends LinearLayout implements WearableListView.OnCenterProximityListener {
+public class CardListItemLayout extends LinearLayout implements WearableListView.OnCenterProximityListener {
     private TextView center;
     private final float fadedTextAlpha;
 
-    public PokerCardListItemLayout(Context context) {
+    public CardListItemLayout(Context context) {
         this(context, null);
     }
 
-    public PokerCardListItemLayout(Context context, AttributeSet attrs) {
+    public CardListItemLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public PokerCardListItemLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CardListItemLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         fadedTextAlpha = 0.5f;
     }

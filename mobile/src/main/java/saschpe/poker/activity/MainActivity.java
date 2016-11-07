@@ -117,7 +117,7 @@ public final class MainActivity extends AppCompatActivity {
         switch (flavor) {
             case FIBONACCI:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST, CardArrayAdapter.BIG_CARD_VIEW_TYPE);
+                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST, CardArrayAdapter.BIG_CARD_VIEW_TYPE, PlanningPoker.FIBONACCI_POSITION);
                 } else {
                     arrayAdapter.replaceAll(PlanningPoker.FIBONACCI_LIST);
                 }
@@ -125,7 +125,7 @@ public final class MainActivity extends AppCompatActivity {
                 break;
             case T_SHIRT_SIZES:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST, CardArrayAdapter.BIG_CARD_VIEW_TYPE);
+                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST, CardArrayAdapter.BIG_CARD_VIEW_TYPE, PlanningPoker.T_SHIRT_SIZE_POSITION);
                 } else {
                     arrayAdapter.replaceAll(PlanningPoker.T_SHIRT_SIZE_LIST);
                 }

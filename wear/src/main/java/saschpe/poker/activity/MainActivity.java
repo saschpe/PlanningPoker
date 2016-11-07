@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import saschpe.poker.R;
-import saschpe.poker.adapter.PokerCardArrayAdapter;
+import saschpe.poker.adapter.WearCardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
 
 public class MainActivity extends WearableActivity implements
@@ -21,7 +21,7 @@ public class MainActivity extends WearableActivity implements
     private static final String STATE_FLAVOR = "flavor";
 
     private PlanningPoker.Flavor flavor;
-    private PokerCardArrayAdapter arrayAdapter;
+    private WearCardArrayAdapter arrayAdapter;
     private WearableActionDrawer actionDrawer;
     private WearableDrawerLayout drawerLayout;
     private WearableListView recyclerView;
@@ -139,7 +139,7 @@ public class MainActivity extends WearableActivity implements
         switch (flavor) {
             case FIBONACCI:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new PokerCardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST);
+                    arrayAdapter = new WearCardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST);
                 } else {
                     arrayAdapter.replace(PlanningPoker.FIBONACCI_LIST);
                 }
@@ -147,7 +147,7 @@ public class MainActivity extends WearableActivity implements
                 break;
             case T_SHIRT_SIZES:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new PokerCardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST);
+                    arrayAdapter = new WearCardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST);
                 } else {
                     arrayAdapter.replace(PlanningPoker.T_SHIRT_SIZE_LIST);
                 }
