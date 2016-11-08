@@ -36,6 +36,7 @@ public class MainActivity extends WearableActivity implements
     private PlanningPoker.Flavor flavor;
     private WearCardArrayAdapter arrayAdapter;
     private WearableActionDrawer actionDrawer;
+    private WearableDrawerLayout drawerLayout;
     private RecyclerView recyclerView;
     private TextView clock;
 
@@ -73,7 +74,7 @@ public class MainActivity extends WearableActivity implements
         snapHelper.attachToRecyclerView(recyclerView);
 
         // Main Wearable Drawer Layout that wraps all content
-        WearableDrawerLayout drawerLayout = (WearableDrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (WearableDrawerLayout) findViewById(R.id.drawer_layout);
 
         // Bottom Action Drawer
         actionDrawer = (WearableActionDrawer) findViewById(R.id.bottom_action_drawer);
@@ -154,6 +155,7 @@ public class MainActivity extends WearableActivity implements
             arrayAdapter.setViewType(WearCardArrayAdapter.DARK_CARD_VIEW_TYPE);
             clock.setText(AMBIENT_DATE_FORMAT.format(new Date()));
             clock.setVisibility(View.VISIBLE);
+            drawerLayout.closeDrawer(Gravity.BOTTOM);
         } else {
             arrayAdapter.setViewType(WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
             clock.setVisibility(View.GONE);
