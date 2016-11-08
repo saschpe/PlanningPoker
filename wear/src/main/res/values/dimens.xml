@@ -1,3 +1,4 @@
 <resources>
     <dimen name="wear_text_size">92sp</dimen>
+    <dimen name="card_radius">16dp</dimen>
 </resources>

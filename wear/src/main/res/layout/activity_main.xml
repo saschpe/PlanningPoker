@@ -20,6 +20,14 @@
             android:clipToPadding="false"
             app:layout_box="left|right" />
 
+        <TextView
+            android:id="@+id/clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:textColor="@android:color/white"
+            app:layout_box="all" />
+
     </android.support.wearable.view.BoxInsetLayout>
 
     <android.support.wearable.view.drawer.WearableActionDrawer

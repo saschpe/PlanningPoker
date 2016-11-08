@@ -14,6 +14,12 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import saschpe.poker.R;
 import saschpe.poker.adapter.WearCardArrayAdapter;
@@ -24,11 +30,14 @@ public class MainActivity extends WearableActivity implements
         WearableActionDrawer.OnMenuItemClickListener {
     private static final String PREFS_FLAVOR = "flavor";
     private static final String STATE_FLAVOR = "flavor";
+    private static final SimpleDateFormat AMBIENT_DATE_FORMAT =
+            new SimpleDateFormat("HH:mm", Locale.US);
 
     private PlanningPoker.Flavor flavor;
     private WearCardArrayAdapter arrayAdapter;
     private WearableActionDrawer actionDrawer;
     private RecyclerView recyclerView;
+    private TextView clock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +54,8 @@ public class MainActivity extends WearableActivity implements
 
             flavor = PlanningPoker.Flavor.fromString(flavorString);
         }
+
+        clock = (TextView) findViewById(R.id.clock);
 
         // Compute spacing between cards
         float marginDp = getResources().getDimension(R.dimen.activity_horizontal_margin) / 8;
@@ -140,13 +151,12 @@ public class MainActivity extends WearableActivity implements
 
     private void updateDisplay() {
         if (isAmbient()) {
-            //boxInsetLayout.setBackgroundColor(getResources().getColor(android.R.color.black));
-           /* mTextView.setTextColor(getResources().getColor(android.R.color.white));
-            mClockView.setVisibility(View.VISIBLE);*/
+            arrayAdapter.setViewType(WearCardArrayAdapter.DARK_CARD_VIEW_TYPE);
+            clock.setText(AMBIENT_DATE_FORMAT.format(new Date()));
+            clock.setVisibility(View.VISIBLE);
         } else {
-            //boxInsetLayout.setBackground(null);
-            /*mTextView.setTextColor(getResources().getColor(android.R.color.black));
-            mClockView.setVisibility(View.GONE);*/
+            arrayAdapter.setViewType(WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
+            clock.setVisibility(View.GONE);
         }
     }
 
@@ -154,7 +164,7 @@ public class MainActivity extends WearableActivity implements
         switch (flavor) {
             case FIBONACCI:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new WearCardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST);
+                    arrayAdapter = new WearCardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST, WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
                 } else {
                     arrayAdapter.replaceAll(PlanningPoker.FIBONACCI_LIST);
                 }
@@ -162,7 +172,7 @@ public class MainActivity extends WearableActivity implements
                 break;
             case T_SHIRT_SIZES:
                 if (arrayAdapter == null) {
-                    arrayAdapter = new WearCardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST);
+                    arrayAdapter = new WearCardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST, WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
                 } else {
                     arrayAdapter.replaceAll(PlanningPoker.T_SHIRT_SIZE_LIST);
                 }
