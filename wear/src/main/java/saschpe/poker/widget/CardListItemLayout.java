@@ -1,4 +1,4 @@
-package saschpe.poker.view;
+package saschpe.poker.widget;
 
 import android.content.Context;
 import android.support.wearable.view.WearableListView;

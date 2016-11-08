@@ -14,8 +14,8 @@ import android.view.MenuItem;
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
 import saschpe.poker.adapter.CardArrayAdapter;
-import saschpe.poker.widget.recycler.SpacesItemDecoration;
 import saschpe.poker.util.PlanningPoker;
+import saschpe.poker.widget.recycler.SpacesItemDecoration;
 import saschpe.versioninfo.widget.VersionInfoDialogFragment;
 
 public final class MainActivity extends AppCompatActivity {

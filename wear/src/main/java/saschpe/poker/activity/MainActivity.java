@@ -3,10 +3,14 @@ package saschpe.poker.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.support.wearable.activity.WearableActivity;
-import android.support.wearable.view.WearableListView;
 import android.support.wearable.view.drawer.WearableActionDrawer;
 import android.support.wearable.view.drawer.WearableDrawerLayout;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +18,7 @@ import android.view.MenuItem;
 import saschpe.poker.R;
 import saschpe.poker.adapter.WearCardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
+import saschpe.poker.widget.recycler.SpacesItemDecoration;
 
 public class MainActivity extends WearableActivity implements
         WearableActionDrawer.OnMenuItemClickListener {
@@ -23,8 +28,7 @@ public class MainActivity extends WearableActivity implements
     private PlanningPoker.Flavor flavor;
     private WearCardArrayAdapter arrayAdapter;
     private WearableActionDrawer actionDrawer;
-    private WearableDrawerLayout drawerLayout;
-    private WearableListView recyclerView;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +46,29 @@ public class MainActivity extends WearableActivity implements
             flavor = PlanningPoker.Flavor.fromString(flavorString);
         }
 
-        recyclerView = (WearableListView) findViewById(R.id.wearable_list);
+        // Compute spacing between cards
+        float marginDp = getResources().getDimension(R.dimen.activity_horizontal_margin) / 8;
+        int spacePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
+
+        // Setup recycler
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, layoutManager.getOrientation()));
         updateFlavor();
         recyclerView.setAdapter(arrayAdapter);
 
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
+
         // Main Wearable Drawer Layout that wraps all content
-        drawerLayout = (WearableDrawerLayout) findViewById(R.id.drawer_layout);
+        WearableDrawerLayout drawerLayout = (WearableDrawerLayout) findViewById(R.id.drawer_layout);
 
         // Bottom Action Drawer
         actionDrawer = (WearableActionDrawer) findViewById(R.id.bottom_action_drawer);
         // Populate Action Drawer Menu
         Menu menu = actionDrawer.getMenu();
-        getMenuInflater().inflate(R.menu.action_drawer_menu, menu);
+        getMenuInflater().inflate(R.menu.action_drawer, menu);
         switch (flavor) {
             case FIBONACCI:
                 menu.findItem(R.id.fibonacci).setChecked(true);
@@ -141,7 +156,7 @@ public class MainActivity extends WearableActivity implements
                 if (arrayAdapter == null) {
                     arrayAdapter = new WearCardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST);
                 } else {
-                    arrayAdapter.replace(PlanningPoker.FIBONACCI_LIST);
+                    arrayAdapter.replaceAll(PlanningPoker.FIBONACCI_LIST);
                 }
                 recyclerView.scrollToPosition(PlanningPoker.FIBONACCI_POSITION);
                 break;
@@ -149,7 +164,7 @@ public class MainActivity extends WearableActivity implements
                 if (arrayAdapter == null) {
                     arrayAdapter = new WearCardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST);
                 } else {
-                    arrayAdapter.replace(PlanningPoker.T_SHIRT_SIZE_LIST);
+                    arrayAdapter.replaceAll(PlanningPoker.T_SHIRT_SIZE_LIST);
                 }
                 recyclerView.scrollToPosition(PlanningPoker.T_SHIRT_SIZE_POSITION);
                 break;

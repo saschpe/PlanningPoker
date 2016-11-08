@@ -4,23 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="128dp"
+    android:layout_height="match_parent"
     app:cardBackgroundColor="@color/cardview_light_background"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="16dp">
 
     <TextView
         android:id="@+id/center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:contentDescription="@string/points"
-        android:textColor="@color/primary_text"
-        android:textSize="@dimen/corner_text_size"
+        android:textColor="@color/card_text_color"
+        android:textSize="@dimen/wear_text_size"
         android:textStyle="normal|bold"
         tools:text="13" />
 
