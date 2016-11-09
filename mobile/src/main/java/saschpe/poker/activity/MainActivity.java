@@ -42,7 +42,7 @@ public final class MainActivity extends AppCompatActivity {
         }
 
         // Compute spacing between cards
-        float marginDp = getResources().getDimension(R.dimen.activity_horizontal_margin) / 8;
+        float marginDp = 8;
         int spacePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
 
         // Setup recycler
