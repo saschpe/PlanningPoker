@@ -11,6 +11,8 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
 import saschpe.poker.adapter.CardArrayAdapter;
@@ -122,31 +124,28 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     private void updateFlavor() {
+        List<String> values;
+        int position;
         switch (flavor) {
             case FIBONACCI:
-                if (arrayAdapter == null) {
-                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.FIBONACCI_LIST, CardArrayAdapter.BIG_CARD_VIEW_TYPE, PlanningPoker.FIBONACCI_POSITION);
-                } else {
-                    arrayAdapter.replaceAll(PlanningPoker.FIBONACCI_LIST);
-                }
-                recyclerView.scrollToPosition(PlanningPoker.FIBONACCI_POSITION);
+            default:
+                values = PlanningPoker.FIBONACCI_LIST;
+                position = PlanningPoker.FIBONACCI_POSITION;
                 break;
             case T_SHIRT_SIZES:
-                if (arrayAdapter == null) {
-                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.T_SHIRT_SIZE_LIST, CardArrayAdapter.BIG_CARD_VIEW_TYPE, PlanningPoker.T_SHIRT_SIZE_POSITION);
-                } else {
-                    arrayAdapter.replaceAll(PlanningPoker.T_SHIRT_SIZE_LIST);
-                }
-                recyclerView.scrollToPosition(PlanningPoker.T_SHIRT_SIZE_POSITION);
+                values = PlanningPoker.T_SHIRT_SIZE_LIST;
+                position = PlanningPoker.T_SHIRT_SIZE_POSITION;
                 break;
             case IDEAL_DAYS:
-                if (arrayAdapter == null) {
-                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.IDEAL_DAYS_LIST, CardArrayAdapter.BIG_CARD_VIEW_TYPE, PlanningPoker.IDEAL_DAYS_POSITION);
-                } else {
-                    arrayAdapter.replaceAll(PlanningPoker.IDEAL_DAYS_LIST);
-                }
-                recyclerView.scrollToPosition(PlanningPoker.IDEAL_DAYS_POSITION);
+                values = PlanningPoker.IDEAL_DAYS_LIST;
+                position = PlanningPoker.IDEAL_DAYS_POSITION;
                 break;
         }
+        if (arrayAdapter == null) {
+            arrayAdapter = new CardArrayAdapter(this, values, CardArrayAdapter.BIG_CARD_VIEW_TYPE, position);
+        } else {
+            arrayAdapter.replaceAll(values);
+        }
+        recyclerView.scrollToPosition(position);
     }
 }
