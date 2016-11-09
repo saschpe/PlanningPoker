@@ -2,9 +2,9 @@ package saschpe.poker.widget.recycler;
 
 import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 
 /**
  * SpacesItemDecoration is a {@link RecyclerView.ItemDecoration} that can be used to add spacing
@@ -18,8 +18,8 @@ import android.widget.LinearLayout;
  * </pre>
  */
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
-    public static final int HORIZONTAL = LinearLayout.HORIZONTAL;
-    public static final int VERTICAL = LinearLayout.VERTICAL;
+    public static final int HORIZONTAL = OrientationHelper.HORIZONTAL;
+    public static final int VERTICAL = OrientationHelper.VERTICAL;
 
     private int mSpace;
 
