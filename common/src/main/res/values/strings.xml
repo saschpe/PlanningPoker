@@ -1,6 +1,6 @@
 <resources>
     <string name="app_help">How to use the app</string>
-    <string name="app_help_text">Swipe left or right to change the selected poker card. Adjust the card deck between Fibonacci and T-Shirt sizes in the top right option menu.</string>
+    <string name="app_help_text">Swipe left or right to change the selected poker card. Adjust the card deck style in the top right option menu.</string>
     <string name="app_name">Planning Poker</string>
     <string name="dismiss">Dismiss</string>
     <string name="fibonacci">Fibonacci</string>
