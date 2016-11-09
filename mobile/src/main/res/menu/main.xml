@@ -18,6 +18,11 @@
             android:icon="@drawable/ic_casino"
             android:title="@string/t_shirt_sizes" />
 
+        <item
+            android:id="@+id/ideal_days"
+            android:icon="@drawable/ic_casino"
+            android:title="@string/ideal_days" />
+
     </group>
 
     <item

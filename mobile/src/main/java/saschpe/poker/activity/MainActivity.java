@@ -77,6 +77,9 @@ public final class MainActivity extends AppCompatActivity {
             case T_SHIRT_SIZES:
                 menu.findItem(R.id.t_shirt_sizes).setChecked(true);
                 break;
+            case IDEAL_DAYS:
+                menu.findItem(R.id.ideal_days).setChecked(true);
+                break;
         }
         return true;
     }
@@ -91,6 +94,11 @@ public final class MainActivity extends AppCompatActivity {
                 break;
             case R.id.t_shirt_sizes:
                 flavor = PlanningPoker.Flavor.T_SHIRT_SIZES;
+                updateFlavor();
+                item.setChecked(true);
+                break;
+            case R.id.ideal_days:
+                flavor = PlanningPoker.Flavor.IDEAL_DAYS;
                 updateFlavor();
                 item.setChecked(true);
                 break;
@@ -130,6 +138,14 @@ public final class MainActivity extends AppCompatActivity {
                     arrayAdapter.replaceAll(PlanningPoker.T_SHIRT_SIZE_LIST);
                 }
                 recyclerView.scrollToPosition(PlanningPoker.T_SHIRT_SIZE_POSITION);
+                break;
+            case IDEAL_DAYS:
+                if (arrayAdapter == null) {
+                    arrayAdapter = new CardArrayAdapter(this, PlanningPoker.IDEAL_DAYS_LIST, CardArrayAdapter.BIG_CARD_VIEW_TYPE, PlanningPoker.IDEAL_DAYS_POSITION);
+                } else {
+                    arrayAdapter.replaceAll(PlanningPoker.IDEAL_DAYS_LIST);
+                }
+                recyclerView.scrollToPosition(PlanningPoker.IDEAL_DAYS_POSITION);
                 break;
         }
     }

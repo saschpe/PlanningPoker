@@ -88,6 +88,9 @@ public class MainActivity extends WearableActivity implements
             case T_SHIRT_SIZES:
                 menu.findItem(R.id.t_shirt_sizes).setChecked(true);
                 break;
+            case IDEAL_DAYS:
+                menu.findItem(R.id.ideal_days).setChecked(true);
+                break;
         }
         actionDrawer.setOnMenuItemClickListener(this);
         // Peeks action drawer on the bottom.
@@ -142,6 +145,11 @@ public class MainActivity extends WearableActivity implements
                 updateFlavor();
                 item.setChecked(true);
                 break;
+            case R.id.ideal_days:
+                flavor = PlanningPoker.Flavor.IDEAL_DAYS;
+                updateFlavor();
+                item.setChecked(true);
+                break;
             case R.id.version_info:
                 startActivity(new Intent(this, InfoActivity.class));
                 break;
@@ -179,6 +187,14 @@ public class MainActivity extends WearableActivity implements
                     arrayAdapter.replaceAll(PlanningPoker.T_SHIRT_SIZE_LIST);
                 }
                 recyclerView.scrollToPosition(PlanningPoker.T_SHIRT_SIZE_POSITION);
+                break;
+            case IDEAL_DAYS:
+                if (arrayAdapter == null) {
+                    arrayAdapter = new WearCardArrayAdapter(this, PlanningPoker.IDEAL_DAYS_LIST, WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
+                } else {
+                    arrayAdapter.replaceAll(PlanningPoker.IDEAL_DAYS_LIST);
+                }
+                recyclerView.scrollToPosition(PlanningPoker.IDEAL_DAYS_POSITION);
                 break;
         }
     }
