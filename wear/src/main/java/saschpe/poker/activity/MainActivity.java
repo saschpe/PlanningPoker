@@ -19,13 +19,15 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import saschpe.poker.R;
 import saschpe.poker.adapter.WearCardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
 import saschpe.poker.widget.recycler.SpacesItemDecoration;
+
+import static saschpe.poker.util.PlanningPoker.DEFAULTS;
+import static saschpe.poker.util.PlanningPoker.VALUES;
 
 public class MainActivity extends WearableActivity implements
         WearableActionDrawer.OnMenuItemClickListener {
@@ -68,15 +70,15 @@ public class MainActivity extends WearableActivity implements
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, layoutManager.getOrientation()));
-        updateFlavor();
+        arrayAdapter = new WearCardArrayAdapter(this, VALUES.get(flavor), WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
         recyclerView.setAdapter(arrayAdapter);
+        recyclerView.scrollToPosition(DEFAULTS.get(flavor));
 
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
 
         // Main Wearable Drawer Layout that wraps all content
         drawerLayout = (WearableDrawerLayout) findViewById(R.id.drawer_layout);
-
         // Bottom Action Drawer
         actionDrawer = (WearableActionDrawer) findViewById(R.id.bottom_action_drawer);
         // Populate Action Drawer Menu
@@ -101,7 +103,6 @@ public class MainActivity extends WearableActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         // Persist current flavor for next invocation
         PreferenceManager.getDefaultSharedPreferences(this).edit()
                 .putInt(PREFS_FLAVOR, flavor)
@@ -111,7 +112,37 @@ public class MainActivity extends WearableActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        // Save current flavor over configuration change
         outState.putInt(STATE_FLAVOR, flavor);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.fibonacci:
+                updateFlavor(PlanningPoker.FIBONACCI);
+                item.setChecked(true);
+                break;
+            case R.id.t_shirt_sizes:
+                updateFlavor(PlanningPoker.T_SHIRT_SIZES);
+                item.setChecked(true);
+                break;
+            case R.id.ideal_days:
+                updateFlavor(PlanningPoker.IDEAL_DAYS);
+                item.setChecked(true);
+                break;
+            case R.id.version_info:
+                startActivity(new Intent(this, InfoActivity.class));
+                break;
+        }
+        actionDrawer.closeDrawer();
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void updateFlavor(@PlanningPoker.Flavor int flavor) {
+        this.flavor = flavor;
+        arrayAdapter.replaceAll(VALUES.get(flavor));
+        recyclerView.scrollToPosition(DEFAULTS.get(flavor));
     }
 
     @Override
@@ -132,32 +163,6 @@ public class MainActivity extends WearableActivity implements
         super.onExitAmbient();
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.fibonacci:
-                flavor = PlanningPoker.FIBONACCI;
-                updateFlavor();
-                item.setChecked(true);
-                break;
-            case R.id.t_shirt_sizes:
-                flavor = PlanningPoker.T_SHIRT_SIZES;
-                updateFlavor();
-                item.setChecked(true);
-                break;
-            case R.id.ideal_days:
-                flavor = PlanningPoker.IDEAL_DAYS;
-                updateFlavor();
-                item.setChecked(true);
-                break;
-            case R.id.version_info:
-                startActivity(new Intent(this, InfoActivity.class));
-                break;
-        }
-        actionDrawer.closeDrawer();
-        return super.onOptionsItemSelected(item);
-    }
-
     private void updateDisplay() {
         if (isAmbient()) {
             arrayAdapter.setViewType(WearCardArrayAdapter.DARK_CARD_VIEW_TYPE);
@@ -168,31 +173,5 @@ public class MainActivity extends WearableActivity implements
             arrayAdapter.setViewType(WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
             clock.setVisibility(View.GONE);
         }
-    }
-
-    private void updateFlavor() {
-        List<String> values;
-        int position;
-        switch (flavor) {
-            case PlanningPoker.FIBONACCI:
-            default:
-                values = PlanningPoker.FIBONACCI_VALUES;
-                position = PlanningPoker.FIBONACCI_DEFAULT;
-                break;
-            case PlanningPoker.T_SHIRT_SIZES:
-                values = PlanningPoker.T_SHIRT_SIZE_VALUES;
-                position = PlanningPoker.T_SHIRT_SIZE_DEFAULT;
-                break;
-            case PlanningPoker.IDEAL_DAYS:
-                values = PlanningPoker.IDEAL_DAYS_VALUES;
-                position = PlanningPoker.IDEAL_DAYS_DEFAULT;
-                break;
-        }
-        if (arrayAdapter == null) {
-            arrayAdapter = new WearCardArrayAdapter(this, values, WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
-        } else {
-            arrayAdapter.replaceAll(values);
-        }
-        recyclerView.scrollToPosition(position);
     }
 }

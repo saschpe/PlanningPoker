@@ -1,7 +1,8 @@
 package saschpe.poker.util;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.IntDef;
+import android.support.v4.util.SimpleArrayMap;
+import android.util.SparseIntArray;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,16 +14,19 @@ public final class PlanningPoker {
     @IntDef({FIBONACCI, T_SHIRT_SIZES, IDEAL_DAYS})
     public @interface Flavor {}
 
-    // Use an "@" for coffee, because "☕" doesn't render correctly on most devices
-    public static final List<String> FIBONACCI_VALUES = Arrays.asList("0", "½", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?", "@");
-    public static final List<String> T_SHIRT_SIZE_VALUES = Arrays.asList("XS", "S", "M", "L", "XL", "XXL");
-    public static final List<String> IDEAL_DAYS_VALUES = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11+");
+    public static final SimpleArrayMap<Integer, List<String>> VALUES = new SimpleArrayMap<>(3);
+    static {
+        // Use an "@" for coffee, because "☕" doesn't render correctly on most devices
+        VALUES.put(FIBONACCI, Arrays.asList("0", "½", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?", "@"));
+        VALUES.put(T_SHIRT_SIZES, Arrays.asList("XS", "S", "M", "L", "XL", "XXL"));
+        VALUES.put(IDEAL_DAYS, Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11+"));
+    }
 
-    public static final int FIBONACCI_DEFAULT = 5;
-    public static final int T_SHIRT_SIZE_DEFAULT = 2;
-    public static final int IDEAL_DAYS_DEFAULT = 5;
-    @SuppressLint("UniqueConstants")
-    @IntDef({FIBONACCI_DEFAULT, T_SHIRT_SIZE_DEFAULT, IDEAL_DAYS_DEFAULT})
-    public @interface FlavorDefault {}
+    public static final SparseIntArray DEFAULTS = new SparseIntArray(3);
+    static {
+        DEFAULTS.append(FIBONACCI, 5);
+        DEFAULTS.append(T_SHIRT_SIZES, 2);
+        DEFAULTS.append(IDEAL_DAYS, 5);
+    }
 }
 

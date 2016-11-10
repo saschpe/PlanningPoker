@@ -11,14 +11,15 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.List;
-
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
 import saschpe.poker.adapter.CardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
 import saschpe.poker.widget.recycler.SpacesItemDecoration;
 import saschpe.versioninfo.widget.VersionInfoDialogFragment;
+
+import static saschpe.poker.util.PlanningPoker.DEFAULTS;
+import static saschpe.poker.util.PlanningPoker.VALUES;
 
 public final class MainActivity extends AppCompatActivity {
     private static final String PREFS_FLAVOR = "flavor2";
@@ -52,8 +53,9 @@ public final class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, layoutManager.getOrientation()));
-        updateFlavor();
+        arrayAdapter = new CardArrayAdapter(this, VALUES.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, DEFAULTS.get(flavor));
         recyclerView.setAdapter(arrayAdapter);
+        recyclerView.scrollToPosition(DEFAULTS.get(flavor));
 
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
@@ -62,11 +64,17 @@ public final class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         // Persist current flavor for next invocation
         PreferenceManager.getDefaultSharedPreferences(this).edit()
                 .putInt(PREFS_FLAVOR, flavor)
                 .apply();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save current flavor over configuration change
+        outState.putInt(STATE_FLAVOR, flavor);
     }
 
     @Override
@@ -90,18 +98,15 @@ public final class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.fibonacci:
-                flavor = PlanningPoker.FIBONACCI;
-                updateFlavor();
+                updateFlavor(PlanningPoker.FIBONACCI);
                 item.setChecked(true);
                 break;
             case R.id.t_shirt_sizes:
-                flavor = PlanningPoker.T_SHIRT_SIZES;
-                updateFlavor();
+                updateFlavor(PlanningPoker.T_SHIRT_SIZES);
                 item.setChecked(true);
                 break;
             case R.id.ideal_days:
-                flavor = PlanningPoker.IDEAL_DAYS;
-                updateFlavor();
+                updateFlavor(PlanningPoker.IDEAL_DAYS);
                 item.setChecked(true);
                 break;
             case R.id.version_info:
@@ -117,35 +122,9 @@ public final class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(STATE_FLAVOR, flavor);
-    }
-
-    private void updateFlavor() {
-        List<String> values;
-        int position;
-        switch (flavor) {
-            case PlanningPoker.FIBONACCI:
-            default:
-                values = PlanningPoker.FIBONACCI_VALUES;
-                position = PlanningPoker.FIBONACCI_DEFAULT;
-                break;
-            case PlanningPoker.T_SHIRT_SIZES:
-                values = PlanningPoker.T_SHIRT_SIZE_VALUES;
-                position = PlanningPoker.T_SHIRT_SIZE_DEFAULT;
-                break;
-            case PlanningPoker.IDEAL_DAYS:
-                values = PlanningPoker.IDEAL_DAYS_VALUES;
-                position = PlanningPoker.IDEAL_DAYS_DEFAULT;
-                break;
-        }
-        if (arrayAdapter == null) {
-            arrayAdapter = new CardArrayAdapter(this, values, CardArrayAdapter.BIG_CARD_VIEW_TYPE, position);
-        } else {
-            arrayAdapter.replaceAll(values);
-        }
-        recyclerView.scrollToPosition(position);
+    private void updateFlavor(@PlanningPoker.Flavor int flavor) {
+        this.flavor = flavor;
+        arrayAdapter.replaceAll(VALUES.get(flavor));
+        recyclerView.scrollToPosition(DEFAULTS.get(flavor));
     }
 }
