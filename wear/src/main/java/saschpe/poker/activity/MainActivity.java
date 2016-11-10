@@ -29,12 +29,12 @@ import saschpe.poker.widget.recycler.SpacesItemDecoration;
 
 public class MainActivity extends WearableActivity implements
         WearableActionDrawer.OnMenuItemClickListener {
-    private static final String PREFS_FLAVOR = "flavor";
+    private static final String PREFS_FLAVOR = "flavor2";
     private static final String STATE_FLAVOR = "flavor";
     private static final SimpleDateFormat AMBIENT_DATE_FORMAT =
             new SimpleDateFormat("HH:mm", Locale.US);
 
-    private PlanningPoker.Flavor flavor;
+    private @PlanningPoker.Flavor int flavor;
     private WearCardArrayAdapter arrayAdapter;
     private WearableActionDrawer actionDrawer;
     private WearableDrawerLayout drawerLayout;
@@ -48,13 +48,13 @@ public class MainActivity extends WearableActivity implements
         setAmbientEnabled();
 
         if (savedInstanceState != null) {
-            flavor = (PlanningPoker.Flavor) savedInstanceState.getSerializable(STATE_FLAVOR);
+            //noinspection WrongConstant
+            flavor = savedInstanceState.getInt(STATE_FLAVOR, PlanningPoker.FIBONACCI);
         } else {
             // Either load flavor from previous invocation or use default
-            String flavorString = PreferenceManager.getDefaultSharedPreferences(this)
-                    .getString(PREFS_FLAVOR, PlanningPoker.Flavor.FIBONACCI.toString());
-
-            flavor = PlanningPoker.Flavor.fromString(flavorString);
+            //noinspection WrongConstant
+            flavor = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getInt(PREFS_FLAVOR, PlanningPoker.FIBONACCI);
         }
 
         clock = (TextView) findViewById(R.id.clock);
@@ -83,13 +83,13 @@ public class MainActivity extends WearableActivity implements
         Menu menu = actionDrawer.getMenu();
         getMenuInflater().inflate(R.menu.action_drawer, menu);
         switch (flavor) {
-            case FIBONACCI:
+            case PlanningPoker.FIBONACCI:
                 menu.findItem(R.id.fibonacci).setChecked(true);
                 break;
-            case T_SHIRT_SIZES:
+            case PlanningPoker.T_SHIRT_SIZES:
                 menu.findItem(R.id.t_shirt_sizes).setChecked(true);
                 break;
-            case IDEAL_DAYS:
+            case PlanningPoker.IDEAL_DAYS:
                 menu.findItem(R.id.ideal_days).setChecked(true);
                 break;
         }
@@ -103,16 +103,15 @@ public class MainActivity extends WearableActivity implements
         super.onDestroy();
 
         // Persist current flavor for next invocation
-        PreferenceManager.getDefaultSharedPreferences(this)
-                .edit()
-                .putString(PREFS_FLAVOR, flavor.toString())
+        PreferenceManager.getDefaultSharedPreferences(this).edit()
+                .putInt(PREFS_FLAVOR, flavor)
                 .apply();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(STATE_FLAVOR, flavor);
+        outState.putInt(STATE_FLAVOR, flavor);
     }
 
     @Override
@@ -137,17 +136,17 @@ public class MainActivity extends WearableActivity implements
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.fibonacci:
-                flavor = PlanningPoker.Flavor.FIBONACCI;
+                flavor = PlanningPoker.FIBONACCI;
                 updateFlavor();
                 item.setChecked(true);
                 break;
             case R.id.t_shirt_sizes:
-                flavor = PlanningPoker.Flavor.T_SHIRT_SIZES;
+                flavor = PlanningPoker.T_SHIRT_SIZES;
                 updateFlavor();
                 item.setChecked(true);
                 break;
             case R.id.ideal_days:
-                flavor = PlanningPoker.Flavor.IDEAL_DAYS;
+                flavor = PlanningPoker.IDEAL_DAYS;
                 updateFlavor();
                 item.setChecked(true);
                 break;
@@ -175,18 +174,18 @@ public class MainActivity extends WearableActivity implements
         List<String> values;
         int position;
         switch (flavor) {
-            case FIBONACCI:
+            case PlanningPoker.FIBONACCI:
             default:
-                values = PlanningPoker.FIBONACCI_LIST;
-                position = PlanningPoker.FIBONACCI_POSITION;
+                values = PlanningPoker.FIBONACCI_VALUES;
+                position = PlanningPoker.FIBONACCI_DEFAULT;
                 break;
-            case T_SHIRT_SIZES:
-                values = PlanningPoker.T_SHIRT_SIZE_LIST;
-                position = PlanningPoker.T_SHIRT_SIZE_POSITION;
+            case PlanningPoker.T_SHIRT_SIZES:
+                values = PlanningPoker.T_SHIRT_SIZE_VALUES;
+                position = PlanningPoker.T_SHIRT_SIZE_DEFAULT;
                 break;
-            case IDEAL_DAYS:
-                values = PlanningPoker.IDEAL_DAYS_LIST;
-                position = PlanningPoker.IDEAL_DAYS_POSITION;
+            case PlanningPoker.IDEAL_DAYS:
+                values = PlanningPoker.IDEAL_DAYS_VALUES;
+                position = PlanningPoker.IDEAL_DAYS_DEFAULT;
                 break;
         }
         if (arrayAdapter == null) {

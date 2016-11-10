@@ -21,11 +21,11 @@ import saschpe.poker.widget.recycler.SpacesItemDecoration;
 import saschpe.versioninfo.widget.VersionInfoDialogFragment;
 
 public final class MainActivity extends AppCompatActivity {
-    private static final String PREFS_FLAVOR = "flavor";
+    private static final String PREFS_FLAVOR = "flavor2";
     private static final String STATE_FLAVOR = "flavor";
 
     private CardArrayAdapter arrayAdapter;
-    private PlanningPoker.Flavor flavor;
+    private @PlanningPoker.Flavor int flavor;
     private RecyclerView recyclerView;
 
     @Override
@@ -34,13 +34,13 @@ public final class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState != null) {
-            flavor = (PlanningPoker.Flavor) savedInstanceState.getSerializable(STATE_FLAVOR);
+            //noinspection WrongConstant
+            flavor = savedInstanceState.getInt(STATE_FLAVOR, PlanningPoker.FIBONACCI);
         } else {
             // Either load flavor from previous invocation or use default
-            String flavorString = PreferenceManager.getDefaultSharedPreferences(this)
-                    .getString(PREFS_FLAVOR, PlanningPoker.Flavor.FIBONACCI.toString());
-
-            flavor = PlanningPoker.Flavor.fromString(flavorString);
+            //noinspection WrongConstant
+            flavor = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getInt(PREFS_FLAVOR, PlanningPoker.FIBONACCI);
         }
 
         // Compute spacing between cards
@@ -65,7 +65,7 @@ public final class MainActivity extends AppCompatActivity {
 
         // Persist current flavor for next invocation
         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                .putString(PREFS_FLAVOR, flavor.toString())
+                .putInt(PREFS_FLAVOR, flavor)
                 .apply();
     }
 
@@ -73,13 +73,13 @@ public final class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         switch (flavor) {
-            case FIBONACCI:
+            case PlanningPoker.FIBONACCI:
                 menu.findItem(R.id.fibonacci).setChecked(true);
                 break;
-            case T_SHIRT_SIZES:
+            case PlanningPoker.T_SHIRT_SIZES:
                 menu.findItem(R.id.t_shirt_sizes).setChecked(true);
                 break;
-            case IDEAL_DAYS:
+            case PlanningPoker.IDEAL_DAYS:
                 menu.findItem(R.id.ideal_days).setChecked(true);
                 break;
         }
@@ -90,17 +90,17 @@ public final class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.fibonacci:
-                flavor = PlanningPoker.Flavor.FIBONACCI;
+                flavor = PlanningPoker.FIBONACCI;
                 updateFlavor();
                 item.setChecked(true);
                 break;
             case R.id.t_shirt_sizes:
-                flavor = PlanningPoker.Flavor.T_SHIRT_SIZES;
+                flavor = PlanningPoker.T_SHIRT_SIZES;
                 updateFlavor();
                 item.setChecked(true);
                 break;
             case R.id.ideal_days:
-                flavor = PlanningPoker.Flavor.IDEAL_DAYS;
+                flavor = PlanningPoker.IDEAL_DAYS;
                 updateFlavor();
                 item.setChecked(true);
                 break;
@@ -120,25 +120,25 @@ public final class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(STATE_FLAVOR, flavor);
+        outState.putInt(STATE_FLAVOR, flavor);
     }
 
     private void updateFlavor() {
         List<String> values;
         int position;
         switch (flavor) {
-            case FIBONACCI:
+            case PlanningPoker.FIBONACCI:
             default:
-                values = PlanningPoker.FIBONACCI_LIST;
-                position = PlanningPoker.FIBONACCI_POSITION;
+                values = PlanningPoker.FIBONACCI_VALUES;
+                position = PlanningPoker.FIBONACCI_DEFAULT;
                 break;
-            case T_SHIRT_SIZES:
-                values = PlanningPoker.T_SHIRT_SIZE_LIST;
-                position = PlanningPoker.T_SHIRT_SIZE_POSITION;
+            case PlanningPoker.T_SHIRT_SIZES:
+                values = PlanningPoker.T_SHIRT_SIZE_VALUES;
+                position = PlanningPoker.T_SHIRT_SIZE_DEFAULT;
                 break;
-            case IDEAL_DAYS:
-                values = PlanningPoker.IDEAL_DAYS_LIST;
-                position = PlanningPoker.IDEAL_DAYS_POSITION;
+            case PlanningPoker.IDEAL_DAYS:
+                values = PlanningPoker.IDEAL_DAYS_VALUES;
+                position = PlanningPoker.IDEAL_DAYS_DEFAULT;
                 break;
         }
         if (arrayAdapter == null) {
