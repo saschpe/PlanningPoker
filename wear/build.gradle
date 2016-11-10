@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "saschpe.poker"
-        minSdkVersion 23
+        minSdkVersion 22
         targetSdkVersion 25
         versionCode 231106
         versionName "1.0.6"
