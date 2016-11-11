@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_help">Como usar la app</string>
+    <string name="app_help_text">Desliza a la derecha o izquierda para cambiar la carta de pocker. Configura el estilo de la baraja en la parte superior del menu.</string>
+    <string name="app_name">Planning Poker</string>
+    <string name="dismiss">Cerrar</string>
+    <string name="fibonacci">Fibonacci</string>
+    <string name="ideal_days">Ideal days</string>
+    <string name="info">Info</string>
+    <string name="points">Story points </string>
+    <string name="poker_help">Como jugar al pocker planning</string>
+    <string name="poker_help_text">Con el planning pocker, los miembros del grupo estiman la tarea con la carta cubierta sobre la mesa, en vez de decirlo en alto. Las cartas son dadas la vuelta y la estimaciñón es discutida. \n&#8212; Wikipedia</string>
+    <string name="t_shirt_sizes">Tallas de camiseta</string>
+</resources>
