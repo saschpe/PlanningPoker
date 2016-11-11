@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="app_help">Com utilitzar l\'aplicació</string>
+    <string name="app_help_text"> Arrossega esquerra o dreta per seleccionar la carta de poker. Configura l\'estil de cartes a la part superior esquerra.</string>
+    <string name="app_name">Planning Poker</string>
+    <string name="dismiss">Descartar</string>
+    <string name="fibonacci">Fibonacci</string>
+    <string name="ideal_days">Dies ideals</string>
+    <string name="info">Info</string>
+    <string name="points">Punts per historia</string>
+    <string name="poker_help">Com utlitzar planning poker</string>
+    <string name="poker_help_text">Durant una sessió de planin, els membres del grup fan estimacions sobre una història posant la carta boca-avall. Quan tothom ha acabat, les cartes són ensenyades i llavors discutides\n— Wikipedia</string>
+    <string name="t_shirt_sizes">Talles de samarretes </string>
+</resources>

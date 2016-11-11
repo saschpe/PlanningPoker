@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <resources>
     <string name="app_help">How to use the app</string>
     <string name="app_help_text">Swipe left or right to change the selected poker card. Adjust the card deck style in the top right option menu.</string>
