@@ -1,6 +1,7 @@
 package saschpe.poker.activity;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ import static saschpe.poker.util.PlanningPoker.VALUES;
 public final class MainActivity extends AppCompatActivity {
     private static final String PREFS_FLAVOR = "flavor2";
     private static final String STATE_FLAVOR = "flavor";
+    private static final String STATE_LINEAR_LAYOUT_MANAGER = "linear_layout_manager";
 
     private CardArrayAdapter arrayAdapter;
     private FloatingActionButton fab;
@@ -41,19 +43,27 @@ public final class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Compute spacing between cards
+        float marginDp = 8;
+        int spacePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
+
+        // Setup recycler layout managers
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        linearSnapHelper = new LinearSnapHelper();
+        gridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        gridSpacesDecoration = new SpacesItemDecoration(spacePx, SpacesItemDecoration.VERTICAL);
+
+        Parcelable linearLayoutManagerState = null;
         if (savedInstanceState != null) {
             //noinspection WrongConstant
             flavor = savedInstanceState.getInt(STATE_FLAVOR, PlanningPoker.FIBONACCI);
+            linearLayoutManagerState = savedInstanceState.getParcelable(STATE_LINEAR_LAYOUT_MANAGER);
         } else {
             // Either load flavor from previous invocation or use default
             //noinspection WrongConstant
             flavor = PreferenceManager.getDefaultSharedPreferences(this)
                     .getInt(PREFS_FLAVOR, PlanningPoker.FIBONACCI);
         }
-
-        // Compute spacing between cards
-        float marginDp = 8;
-        int spacePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
 
         // Setup recycler adapter
         arrayAdapter = new CardArrayAdapter(this, VALUES.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, DEFAULTS.get(flavor));
@@ -65,18 +75,17 @@ public final class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Setup recycler layout managers
-        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        linearSnapHelper = new LinearSnapHelper();
-        gridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-        gridSpacesDecoration = new SpacesItemDecoration(spacePx, SpacesItemDecoration.VERTICAL);
-
         // Setup recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, SpacesItemDecoration.HORIZONTAL));
         recyclerView.setAdapter(arrayAdapter);
-        recyclerView.scrollToPosition(DEFAULTS.get(flavor));
+        recyclerView.setHasFixedSize(true);
+        if (linearLayoutManagerState != null) {
+            linearLayoutManager.onRestoreInstanceState(linearLayoutManagerState);
+        } else {
+            recyclerView.scrollToPosition(DEFAULTS.get(flavor));
+        }
         linearSnapHelper.attachToRecyclerView(recyclerView);
 
         // Setup floating action button
@@ -124,6 +133,7 @@ public final class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         // Save current flavor over configuration change
         outState.putInt(STATE_FLAVOR, flavor);
+        outState.putParcelable(STATE_LINEAR_LAYOUT_MANAGER, linearLayoutManager.onSaveInstanceState());
     }
 
     @Override
