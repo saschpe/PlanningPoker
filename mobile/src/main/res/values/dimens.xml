@@ -4,6 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="center_text_size">212sp</dimen>
+    <dimen name="center_text_size">96sp</dimen>
     <dimen name="corner_text_size">48sp</dimen>
 </resources>
