@@ -26,7 +26,7 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
     @IntDef({BIG_CARD_VIEW_TYPE, SMALL_CARD_VIEW_TYPE})
     @interface ViewType {}
 
-    public interface OnCardClickListener {
+    public interface OnSmallCardClickListener {
         void onCardClick(int position);
     }
 
@@ -35,7 +35,7 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
     private final SharedPreferences prefs;
     private boolean helpDismissed;
     private final int helpViewPosition;
-    private OnCardClickListener onSmallCardClickListener;
+    private OnSmallCardClickListener onSmallCardClickListener;
 
     public CardArrayAdapter(@NonNull Context context, @NonNull List<String> objects, @ViewType int viewType, int helpViewPosition) {
         super(objects);
@@ -51,7 +51,7 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
         notifyDataSetChanged();
     }
 
-    public void setOnSmallCardClickListener(OnCardClickListener onSmallCardClickListener) {
+    public void setOnSmallCardClickListener(OnSmallCardClickListener onSmallCardClickListener) {
         this.onSmallCardClickListener = onSmallCardClickListener;
     }
 

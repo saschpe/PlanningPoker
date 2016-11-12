@@ -55,14 +55,9 @@ public final class MainActivity extends AppCompatActivity {
         float marginDp = 8;
         int spacePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
 
-        // Setup recycler
-        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        linearSnapHelper = new LinearSnapHelper();
-        gridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-        gridSpacesDecoration = new SpacesItemDecoration(spacePx, SpacesItemDecoration.VERTICAL);
-
+        // Setup recycler adapter
         arrayAdapter = new CardArrayAdapter(this, VALUES.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, DEFAULTS.get(flavor));
-        arrayAdapter.setOnSmallCardClickListener(new CardArrayAdapter.OnCardClickListener() {
+        arrayAdapter.setOnSmallCardClickListener(new CardArrayAdapter.OnSmallCardClickListener() {
             @Override
             public void onCardClick(int position) {
                 displayBigCards();
@@ -70,7 +65,13 @@ public final class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Setup recycler
+        // Setup recycler layout managers
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        linearSnapHelper = new LinearSnapHelper();
+        gridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        gridSpacesDecoration = new SpacesItemDecoration(spacePx, SpacesItemDecoration.VERTICAL);
+
+        // Setup recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, SpacesItemDecoration.HORIZONTAL));
@@ -78,7 +79,7 @@ public final class MainActivity extends AppCompatActivity {
         recyclerView.scrollToPosition(DEFAULTS.get(flavor));
         linearSnapHelper.attachToRecyclerView(recyclerView);
 
-        // Floating action button
+        // Setup floating action button
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
