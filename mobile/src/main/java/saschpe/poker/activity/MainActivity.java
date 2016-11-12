@@ -13,6 +13,8 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
@@ -66,12 +68,30 @@ public final class MainActivity extends AppCompatActivity {
         }
 
         // Setup recycler adapter
+
+        final Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        final Animation smallCardClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         arrayAdapter = new CardArrayAdapter(this, VALUES.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, DEFAULTS.get(flavor));
         arrayAdapter.setOnSmallCardClickListener(new CardArrayAdapter.OnSmallCardClickListener() {
             @Override
-            public void onCardClick(int position) {
-                displayBigCards();
-                recyclerView.scrollToPosition(position);
+            public void onCardClick(final int position) {
+                smallCardClickFadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        displayBigCards();
+                        recyclerView.scrollToPosition(position);
+                        recyclerView.startAnimation(fadeInAnimation);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                    }
+                });
+                recyclerView.startAnimation(smallCardClickFadeOutAnimation);
             }
         });
 
@@ -89,16 +109,36 @@ public final class MainActivity extends AppCompatActivity {
         linearSnapHelper.attachToRecyclerView(recyclerView);
 
         // Setup floating action button
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        final Animation fabClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        fabClickFadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onClick(View view) {
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
                 if (recyclerView.getLayoutManager() == linearLayoutManager) {
                     displaySmallCards();
                 } else {
                     displayBigCards();
                     recyclerView.scrollToPosition(DEFAULTS.get(flavor));
                 }
+                recyclerView.startAnimation(fadeInAnimation);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.startAnimation(fabClickFadeOutAnimation);
             }
         });
     }

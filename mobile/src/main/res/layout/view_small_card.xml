@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="128dp"
+    android:clickable="true"
     app:cardBackgroundColor="@color/cardview_light_background"
     app:cardCornerRadius="16dp">
 
