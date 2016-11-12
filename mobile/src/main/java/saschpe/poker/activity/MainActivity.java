@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +29,7 @@ public final class MainActivity extends AppCompatActivity {
 
     private CardArrayAdapter arrayAdapter;
     private FloatingActionButton fab;
-    private GridLayoutManager gridLayoutManager;
+    private StaggeredGridLayoutManager gridLayoutManager;
     private LinearLayoutManager linearLayoutManager;
     private @PlanningPoker.Flavor int flavor;
     private RecyclerView recyclerView;
@@ -56,7 +56,7 @@ public final class MainActivity extends AppCompatActivity {
 
         // Setup recycler
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        gridLayoutManager = new GridLayoutManager(this, 3);
+        gridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         gridSpacesDecoration = new SpacesItemDecoration(spacePx, SpacesItemDecoration.VERTICAL);
 
         arrayAdapter = new CardArrayAdapter(this, VALUES.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, DEFAULTS.get(flavor));
