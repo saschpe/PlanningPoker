@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <resources>
     <string name="app_help">Com utilitzar l\'aplicació</string>
-    <string name="app_help_text"> Arrossega esquerra o dreta per seleccionar la carta de poker. Configura l\'estil de cartes a la part superior esquerra.</string>
+    <string name="app_help_text">Arrossega esquerra o dreta per seleccionar la carta de poker. Configura l\'estil de cartes a la part superior esquerra.</string>
     <string name="app_name">Planning Poker</string>
     <string name="dismiss">Descartar</string>
     <string name="fibonacci">Fibonacci</string>
