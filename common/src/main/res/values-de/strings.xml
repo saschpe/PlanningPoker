@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DEBUG Planning Poker</string>
+    <string name="app_name">Planning Poker</string>
     <string name="app_help">Wie benutze ich die App</string>
     <string name="dismiss">Alles klar</string>
     <string name="points">Story Punkte</string>
