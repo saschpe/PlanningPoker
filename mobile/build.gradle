@@ -30,6 +30,7 @@ android {
 dependencies {
     // Application dependencies
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta3'
+    compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:support-vector-drawable:25.0.0'
     compile 'saschpe:versioninfo:1.2.3'
     debugCompile project(path: ':common', configuration: 'debug')

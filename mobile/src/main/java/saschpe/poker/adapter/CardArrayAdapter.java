@@ -21,18 +21,21 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
     public static final int BIG_CARD_VIEW_TYPE = 1;
     public static final int SMALL_CARD_VIEW_TYPE = 2;
     private static final int HELP_CARD_VIEW_TYPE = 3;
-    // TODO: Allow to change this?
-
     private static final String PREF_HELP_DISMISSED = "help_dismissed";
 
     @IntDef({BIG_CARD_VIEW_TYPE, SMALL_CARD_VIEW_TYPE})
     @interface ViewType {}
+
+    public interface OnCardClickListener {
+        void onCardClick(int position);
+    }
 
     private @ViewType int viewType;
     private final LayoutInflater inflater;
     private final SharedPreferences prefs;
     private boolean helpDismissed;
     private final int helpViewPosition;
+    private OnCardClickListener onSmallCardClickListener;
 
     public CardArrayAdapter(@NonNull Context context, @NonNull List<String> objects, @ViewType int viewType, int helpViewPosition) {
         super(objects);
@@ -46,6 +49,10 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
     public void setViewType(int viewType) {
         this.viewType = viewType;
         notifyDataSetChanged();
+    }
+
+    public void setOnSmallCardClickListener(OnCardClickListener onSmallCardClickListener) {
+        this.onSmallCardClickListener = onSmallCardClickListener;
     }
 
     @Override
@@ -71,7 +78,7 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
     }
 
     @Override
-    public void onBindViewHolder(CardViewHolder holder, int position) {
+    public void onBindViewHolder(final CardViewHolder holder, int position) {
         if (!helpDismissed && position == helpViewPosition) {
             HelpCardViewHolder helpCardViewHolder = (HelpCardViewHolder) holder;
             helpCardViewHolder.dismiss.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +98,14 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
                 case SMALL_CARD_VIEW_TYPE:
                     SmallCardViewHolder smallCardViewHolder = (SmallCardViewHolder) holder;
                     smallCardViewHolder.center.setText(getItem(position));
+                    smallCardViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (onSmallCardClickListener != null) {
+                                onSmallCardClickListener.onCardClick(holder.getAdapterPosition());
+                            }
+                        }
+                    });
                     break;
                 case BIG_CARD_VIEW_TYPE:
                 default:

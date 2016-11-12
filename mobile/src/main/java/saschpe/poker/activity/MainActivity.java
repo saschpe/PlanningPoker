@@ -2,14 +2,16 @@ package saschpe.poker.activity;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
@@ -26,8 +28,12 @@ public final class MainActivity extends AppCompatActivity {
     private static final String STATE_FLAVOR = "flavor";
 
     private CardArrayAdapter arrayAdapter;
+    private FloatingActionButton fab;
+    private GridLayoutManager gridLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
     private @PlanningPoker.Flavor int flavor;
     private RecyclerView recyclerView;
+    private SpacesItemDecoration gridSpacesDecoration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +55,53 @@ public final class MainActivity extends AppCompatActivity {
         int spacePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
 
         // Setup recycler
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, layoutManager.getOrientation()));
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        gridLayoutManager = new GridLayoutManager(this, 3);
+        gridSpacesDecoration = new SpacesItemDecoration(spacePx, SpacesItemDecoration.VERTICAL);
+
         arrayAdapter = new CardArrayAdapter(this, VALUES.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, DEFAULTS.get(flavor));
+        arrayAdapter.setOnSmallCardClickListener(new CardArrayAdapter.OnCardClickListener() {
+            @Override
+            public void onCardClick(int position) {
+                displayBigCards();
+                recyclerView.scrollToPosition(position);
+            }
+        });
+
+        // Setup recycler
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, SpacesItemDecoration.HORIZONTAL));
         recyclerView.setAdapter(arrayAdapter);
         recyclerView.scrollToPosition(DEFAULTS.get(flavor));
+        new LinearSnapHelper().attachToRecyclerView(recyclerView);
 
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(recyclerView);
+        // Floating action button
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (recyclerView.getLayoutManager() == linearLayoutManager) {
+                    displaySmallCards();
+                } else {
+                    displayBigCards();
+                }
+            }
+        });
+    }
+
+    private void displayBigCards() {
+        arrayAdapter.setViewType(CardArrayAdapter.BIG_CARD_VIEW_TYPE);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.removeItemDecoration(gridSpacesDecoration);
+        fab.setImageResource(R.drawable.ic_view_module);
+    }
+
+    private void displaySmallCards() {
+        arrayAdapter.setViewType(CardArrayAdapter.SMALL_CARD_VIEW_TYPE);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addItemDecoration(gridSpacesDecoration);
+        fab.setImageResource(R.drawable.ic_view_array);
     }
 
     @Override
