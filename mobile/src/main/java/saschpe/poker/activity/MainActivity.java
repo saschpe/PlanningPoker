@@ -88,6 +88,7 @@ public final class MainActivity extends AppCompatActivity {
                     displaySmallCards();
                 } else {
                     displayBigCards();
+                    recyclerView.scrollToPosition(DEFAULTS.get(flavor));
                 }
             }
         });
