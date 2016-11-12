@@ -31,6 +31,7 @@ public final class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private StaggeredGridLayoutManager gridLayoutManager;
     private LinearLayoutManager linearLayoutManager;
+    private LinearSnapHelper linearSnapHelper;
     private @PlanningPoker.Flavor int flavor;
     private RecyclerView recyclerView;
     private SpacesItemDecoration gridSpacesDecoration;
@@ -56,6 +57,7 @@ public final class MainActivity extends AppCompatActivity {
 
         // Setup recycler
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        linearSnapHelper = new LinearSnapHelper();
         gridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         gridSpacesDecoration = new SpacesItemDecoration(spacePx, SpacesItemDecoration.VERTICAL);
 
@@ -74,7 +76,7 @@ public final class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, SpacesItemDecoration.HORIZONTAL));
         recyclerView.setAdapter(arrayAdapter);
         recyclerView.scrollToPosition(DEFAULTS.get(flavor));
-        new LinearSnapHelper().attachToRecyclerView(recyclerView);
+        linearSnapHelper.attachToRecyclerView(recyclerView);
 
         // Floating action button
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -94,6 +96,7 @@ public final class MainActivity extends AppCompatActivity {
         arrayAdapter.setViewType(CardArrayAdapter.BIG_CARD_VIEW_TYPE);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.removeItemDecoration(gridSpacesDecoration);
+        linearSnapHelper.attachToRecyclerView(recyclerView);
         fab.setImageResource(R.drawable.ic_view_module);
     }
 
@@ -101,6 +104,7 @@ public final class MainActivity extends AppCompatActivity {
         arrayAdapter.setViewType(CardArrayAdapter.SMALL_CARD_VIEW_TYPE);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(gridSpacesDecoration);
+        linearSnapHelper.attachToRecyclerView(null);
         fab.setImageResource(R.drawable.ic_view_array);
     }
 
