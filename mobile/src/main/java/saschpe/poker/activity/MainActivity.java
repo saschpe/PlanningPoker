@@ -68,7 +68,6 @@ public final class MainActivity extends AppCompatActivity {
         }
 
         // Setup recycler adapter
-
         final Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         final Animation smallCardClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         arrayAdapter = new CardArrayAdapter(this, VALUES.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, DEFAULTS.get(flavor));
