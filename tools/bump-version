@@ -22,7 +22,7 @@ if [ "$NEW_VERSION_NAME" \< "$OLD_VERSION_NAME" -o \
      "$NEW_VERSION_NAME" = "$OLD_VERSION_NAME" ] ; then
     die "Error: We are already at version $OLD_VERSION_NAME"
 fi
-sed -i -e "s|versionName \"$OLD_VERSION_NAME|versionName \"$NEW_VERSION_NAME|" \
+sed -i -e "s|versionName '$OLD_VERSION_NAME|versionName '$NEW_VERSION_NAME|" \
     ${MOBILE_GRADLE} ${WEAR_GRADLE}
 
 # Bump mobile app version code for Google's Play Store

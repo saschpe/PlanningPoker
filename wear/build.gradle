@@ -2,21 +2,21 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion '25.0.0'
     publishNonDefault true
 
     defaultConfig {
-        applicationId "saschpe.poker"
+        applicationId 'saschpe.poker'
         minSdkVersion 22
         targetSdkVersion 25
         versionCode 231110
-        versionName "1.0.10"
+        versionName '1.0.10'
         archivesBaseName = "${applicationId}-${versionName}"
     }
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
+            applicationIdSuffix '.debug'
         }
         release {
             minifyEnabled true
