@@ -19,6 +19,9 @@
     package="saschpe.poker">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- Pacify the Samsung Store
+         http://stackoverflow.com/questions/25068907/http-seller-samsungapps-com-choosing-a-category -->
+    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
 
     <application
         android:name=".Application"
