@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_help">Uygulama nasıl kullanılır</string>
+    <string name="app_help_text">Seçili poker kartını değiştirmek için sağa veya sola kaydır. Sağ üstteki seçenekler menüsünden deste görünümünü değiştir.</string>
+    <string name="app_name">Planning Poker</string>
+    <string name="dismiss">Kapat</string>
+    <string name="fibonacci">Fibonacci</string>
+    <string name="ideal_days">İdeal gün</string>
+    <string name="info">Bilgi</string>
+    <string name="points">Hikaye puanı</string>
+    <string name="poker_help">Planlama pokeri nasıl oynanır</string>
+    <string name="poker_help_text">Planlama pokerinde, grup üyeleri tahminlerini sesli olarak söylemek yerine, numaralandırılmış kartları kapalı şekilde masaya koyarak yaparlar. Tahminler kartlar açıldıktan sonra tartışılır.\n&#8212; Vikipedi</string>
+    <string name="t_shirt_sizes">Tişört ölçüsü</string>
+</resources>
