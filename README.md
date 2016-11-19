@@ -14,9 +14,10 @@ The source demonstrates how to create an Android app with phone, tablet and wear
 ## Screenshots
 <img alt="Phone screenshot 1" src="assets/device-art/device-phone-portrait-1.png" width="256" />
 <img alt="Phone screenshot 2" src="assets/device-art/device-phone-portrait-2.png" width="256" />
-<img alt="Wear screenshot 3" src="assets/device-art/device-wear-round-1.png" width="128" />
-<img alt="Wear screenshot 3" src="assets/device-art/device-wear-round-2.png" width="128" />
-<img alt="Wear screenshot 3" src="assets/device-art/device-wear-square-1.png" width="128" />
+<img alt="Phone screenshot 3" src="assets/device-art/device-phone-portrait-3.png" width="256" />
+<img alt="Wear screenshot 3" src="assets/device-art/device-wear-round-1.png" width="256" />
+<img alt="Wear screenshot 3" src="assets/device-art/device-wear-round-2.png" width="256" />
+<img alt="Wear screenshot 3" src="assets/device-art/device-wear-square-1.png" width="256" />
 
 ## Download
 <a href='https://play.google.com/store/apps/details?id=saschpe.poker&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="80"/></a>
