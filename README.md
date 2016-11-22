@@ -29,6 +29,7 @@ Translations:
 - Polish by Anna Szarik and Pavel Gracki
 - Spanish by Antonio Palmero
 - Romanian by Mia Maier
+- Russian by Dmitry Vilner
 - Turkish by Ugur Ozmen
 
 ## License
