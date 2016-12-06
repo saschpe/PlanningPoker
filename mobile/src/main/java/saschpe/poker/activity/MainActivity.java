@@ -36,7 +36,7 @@ import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
 import saschpe.poker.adapter.CardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
-import saschpe.poker.widget.recycler.SpacesItemDecoration;
+import saschpe.utils.widget.SpacesItemDecoration;
 import saschpe.versioninfo.widget.VersionInfoDialogFragment;
 
 import static saschpe.poker.util.PlanningPoker.DEFAULTS;

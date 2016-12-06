@@ -40,7 +40,7 @@ import java.util.Locale;
 import saschpe.poker.R;
 import saschpe.poker.adapter.WearCardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
-import saschpe.poker.widget.recycler.SpacesItemDecoration;
+import saschpe.utils.widget.SpacesItemDecoration;
 
 import static saschpe.poker.util.PlanningPoker.DEFAULTS;
 import static saschpe.poker.util.PlanningPoker.VALUES;
