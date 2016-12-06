@@ -57,7 +57,7 @@ dependencies {
 
     // Application dependencies
     compile 'com.google.android.support:wearable:2.0.0-alpha3'
-    compile 'com.google.android.gms:play-services-wearable:10.0.0'
+    compile 'com.google.android.gms:play-services-wearable:10.0.1'
     compile 'saschpe:versioninfo:1.2.3'
     debugCompile project(path: ':common', configuration: 'debug')
     releaseCompile project(path: ':common', configuration: 'release')
