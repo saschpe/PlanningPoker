@@ -16,16 +16,32 @@
   -->
 
 <resources>
+
     <string name="app_help">Com utilitzar l\'aplicació</string>
     <string name="app_help_text">Arrossega esquerra o dreta per seleccionar la carta de poker. Configura l\'estil de cartes a la part superior esquerra.</string>
     <string name="app_name">Planning Poker</string>
     <string name="dismiss">Descartar</string>
+    <string name="feedback_mail_subject_template">Retroalimentació per a %s</string>
     <string name="fibonacci">Fibonacci</string>
+    <string name="follow">Seguir</string>
+    <string name="follow_on_twitter">Segueix-nos a Twitter</string>
+    <string name="get_app_template">Obtenir el %s aplicació per Android</string>
     <string name="help_and_feedback">Ajuda i comentaris</string>
     <string name="ideal_days">Dies ideals</string>
     <string name="info">Info</string>
+    <string name="launcher">llançador</string>
+    <string name="open_source_licenses">Llicències de codi obert</string>
     <string name="points">Punts per historia</string>
     <string name="poker_help">Com utlitzar planning poker</string>
     <string name="poker_help_text">Durant una sessió de planin, els membres del grup fan estimacions sobre una història posant la carta boca-avall. Quan tothom ha acabat, les cartes són ensenyades i llavors discutides\n— Wikipedia</string>
+    <string name="provide_feedback">proporcionar retroalimentació</string>
+    <string name="rate_us_in_the_play_store">ens classificaria al Play Store</string>
+    <string name="recommend_to_a_friend">Recomanaria a un amic</string>
+    <string name="send_email">Envia un correu electrònic…</string>
+    <string name="share_via">Compartir a través de …</string>
+    <string name="social">Social</string>
+    <string name="support_us">dóna\'ns suport</string>
     <string name="t_shirt_sizes">Talles de samarretes </string>
+    <string name="version_info">informació de la versió</string>
+
 </resources>

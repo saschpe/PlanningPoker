@@ -16,16 +16,32 @@
   -->
 
 <resources>
+
     <string name="app_help">Uygulama nasıl kullanılır</string>
     <string name="app_help_text">Seçili poker kartını değiştirmek için sağa veya sola kaydır. Sağ üstteki seçenekler menüsünden deste görünümünü değiştir.</string>
     <string name="app_name">Planning Poker</string>
     <string name="dismiss">Kapat</string>
+    <string name="feedback_mail_subject_template">%s için geri bildirim</string>
     <string name="fibonacci">Fibonacci</string>
+    <string name="follow">Takip et</string>
+    <string name="follow_on_twitter">Bizi Twitter\'da takip edin</string>
+    <string name="get_app_template">%s Android uygulamasını edinin</string>
     <string name="help_and_feedback">Yardım ve geribildirim</string>
     <string name="ideal_days">İdeal gün</string>
     <string name="info">Bilgi</string>
+    <string name="launcher">Başlatıcı</string>
+    <string name="open_source_licenses">Açık Kaynak Lisansları</string>
     <string name="points">Hikaye puanı</string>
     <string name="poker_help">Planlama pokeri nasıl oynanır</string>
     <string name="poker_help_text">Planlama pokerinde, grup üyeleri tahminlerini sesli olarak söylemek yerine, numaralandırılmış kartları kapalı şekilde masaya koyarak yaparlar. Tahminler kartlar açıldıktan sonra tartışılır.\n&#8212; Vikipedi</string>
+    <string name="provide_feedback">Geribildirim sağlamak</string>
+    <string name="rate_us_in_the_play_store">Play Store\'da oy verin</string>
+    <string name="recommend_to_a_friend">Bunu bir arkadaşınıza önerin</string>
+    <string name="send_email">Eposta gönder…</string>
+    <string name="share_via">İle paylaş…</string>
+    <string name="social">Sosyal</string>
+    <string name="support_us">Bizi destekle</string>
     <string name="t_shirt_sizes">Tişört ölçüsü</string>
+    <string name="version_info">Versiyon bilgisi</string>
+
 </resources>

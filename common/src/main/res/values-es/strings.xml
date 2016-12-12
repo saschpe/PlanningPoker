@@ -16,16 +16,32 @@
   -->
 
 <resources>
+
     <string name="app_help">Como usar la app</string>
     <string name="app_help_text">Desliza a la derecha o izquierda para cambiar la carta de pocker. Configura el estilo de la baraja en la parte superior del menu.</string>
     <string name="app_name">Planning Poker</string>
     <string name="dismiss">Cerrar</string>
+    <string name="feedback_mail_subject_template">Reseña de %s</string>
     <string name="fibonacci">Fibonacci</string>
+    <string name="follow">Seguir</string>
+    <string name="follow_on_twitter">Síganos en Twitter</string>
+    <string name="get_app_template">Obtener la aplicación de Android de %s</string>
     <string name="help_and_feedback">Ayuda y comentarios</string>
     <string name="ideal_days">Ideal days</string>
     <string name="info">Info</string>
+    <string name="launcher">Lanzacohetes</string>
+    <string name="open_source_licenses">Licencias de código abierto</string>
     <string name="points">Story points </string>
     <string name="poker_help">Como jugar al pocker planning</string>
     <string name="poker_help_text">Con el planning pocker, los miembros del grupo estiman la tarea con la carta cubierta sobre la mesa, en vez de decirlo en alto. Las cartas son dadas la vuelta y la estimaciñón es discutida. \n&#8212; Wikipedia</string>
+    <string name="provide_feedback">Suministre realimentación</string>
+    <string name="rate_us_in_the_play_store">Escríbenos en Play Store</string>
+    <string name="recommend_to_a_friend">Recomiende a un amigo</string>
+    <string name="send_email">Enviar correo electrónico…</string>
+    <string name="share_via">Compartir vía…</string>
+    <string name="social">Social</string>
+    <string name="support_us">Apoyanos</string>
     <string name="t_shirt_sizes">Tallas de camiseta</string>
+    <string name="version_info">Información de la versión</string>
+
 </resources>
