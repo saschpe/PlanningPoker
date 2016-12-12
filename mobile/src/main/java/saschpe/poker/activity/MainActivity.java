@@ -16,6 +16,7 @@
 
 package saschpe.poker.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -32,12 +33,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
 import saschpe.poker.adapter.CardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
 import saschpe.utils.widget.SpacesItemDecoration;
-import saschpe.versioninfo.widget.VersionInfoDialogFragment;
 
 import static saschpe.poker.util.PlanningPoker.DEFAULTS;
 import static saschpe.poker.util.PlanningPoker.VALUES;
@@ -223,14 +222,8 @@ public final class MainActivity extends AppCompatActivity {
                 updateFlavor(PlanningPoker.IDEAL_DAYS);
                 item.setChecked(true);
                 break;
-            case R.id.version_info:
-                VersionInfoDialogFragment
-                        .newInstance(
-                                getString(R.string.app_name),
-                                BuildConfig.VERSION_NAME,
-                                "Sascha Peilicke",
-                                R.mipmap.ic_launcher)
-                        .show(getFragmentManager(), "version_info");
+            case R.id.help_and_feedback:
+                startActivity(new Intent(this, HelpActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

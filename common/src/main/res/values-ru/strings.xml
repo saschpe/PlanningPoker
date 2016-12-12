@@ -21,6 +21,7 @@
     <string name="app_name">Planning Poker</string>
     <string name="dismiss">Убрать</string>
     <string name="fibonacci">Фибоначчи</string>
+    <string name="help_and_feedback">Помощь и обратная связь</string>
     <string name="ideal_days">Идеальные дни</string>
     <string name="info">Информация</string>
     <string name="points">Баллы</string>

@@ -41,6 +41,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".activity.HelpActivity"
+            android:label="@string/help_and_feedback"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

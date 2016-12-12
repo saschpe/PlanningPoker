@@ -21,6 +21,7 @@
     <string name="app_name">Planning Poker</string>
     <string name="dismiss">Kapat</string>
     <string name="fibonacci">Fibonacci</string>
+    <string name="help_and_feedback">Yardım ve geribildirim</string>
     <string name="ideal_days">İdeal gün</string>
     <string name="info">Bilgi</string>
     <string name="points">Hikaye puanı</string>

@@ -16,15 +16,34 @@
   -->
 
 <resources>
+
     <string name="app_help">How to use the app</string>
     <string name="app_help_text">Swipe left or right to change the selected poker card. Adjust the card deck style in the top right option menu.</string>
     <string name="app_name">Planning Poker</string>
     <string name="dismiss">Dismiss</string>
+    <string name="feedback_mail_subject_template">Feedback for %s</string>
     <string name="fibonacci">Fibonacci</string>
+    <string name="follow">Follow</string>
+    <string name="follow_on_twitter">Follow us on Twitter</string>
+    <string name="get_app_template">Get the %s Android app</string>
+    <string name="help_and_feedback">Help &amp; feedback</string>
     <string name="ideal_days">Ideal days</string>
     <string name="info">Info</string>
+    <string name="launcher">Launcher</string>
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet.</string>
+    <string name="lorem_ipsum_long" translatable="false">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
+    <string name="open_source_licenses">Open Source Licenses</string>
     <string name="points">Story points</string>
     <string name="poker_help">How to play planning poker</string>
     <string name="poker_help_text">In planning poker, members of the group make estimates by playing numbered cards face-down to the table, instead of speaking them aloud. The cards are revealed, and the estimates are then discussed. \n&#8212; Wikipedia</string>
+    <string name="provide_feedback">Provide feedback</string>
+    <string name="rate_us_in_the_play_store">Rate us in the Play Store</string>
+    <string name="recommend_to_a_friend">Recommend it to a friend</string>
+    <string name="send_email">Send email…</string>
+    <string name="share_via">Share via…</string>
+    <string name="social">Social</string>
+    <string name="support_us">Support us</string>
     <string name="t_shirt_sizes">T-Shirt sizes</string>
+    <string name="version_info">Version info</string>
+
 </resources>

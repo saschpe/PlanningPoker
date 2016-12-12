@@ -17,13 +17,17 @@
 package saschpe.poker;
 
 import android.os.StrictMode;
+import android.support.v7.app.AppCompatDelegate;
 
 public class Application extends android.app.Application {
     @Override
     public void onCreate() {
+        super.onCreate();
         if (BuildConfig.DEBUG) {
             StrictMode.enableDefaults();
         }
-        super.onCreate();
+
+        // Support vector drawable support for pre-Lollipop devices
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 }

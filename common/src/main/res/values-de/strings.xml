@@ -18,13 +18,14 @@
 <resources>
     <string name="app_name">Planning Poker</string>
     <string name="app_help">Wie benutze ich die App</string>
-    <string name="dismiss">Alles klar</string>
-    <string name="points">Story Punkte</string>
-    <string name="t_shirt_sizes">T-Shirt Größen</string>
-    <string name="poker_help">Wie spielt man Planning Poker</string>
-    <string name="ideal_days">Ideale Tage</string>
-    <string name="fibonacci">Fibonacci</string>
-    <string name="info">Info</string>
     <string name="app_help_text">Wische nach links oder rechts um die ausgewählte Pokerkarte zu ändern. Wechsele den Stil des Kartendecks im Optionsmenu oben rechts.</string>
+    <string name="dismiss">Alles klar</string>
+    <string name="fibonacci">Fibonacci</string>
+    <string name="help_and_feedback">Hilfe &amp; Feedback</string>
+    <string name="ideal_days">Ideale Tage</string>
+    <string name="info">Info</string>
+    <string name="points">Story Punkte</string>
+    <string name="poker_help">Wie spielt man Planning Poker</string>
     <string name="poker_help_text">Beim Planning Poker treffen alle Gruppenmitglieder Schätzungen in dem sie eine der nummerierten Karten auswählen und verdeckt halten. Dann zeigen alle gleichzeitig ihre Schätzugen um diese gemeinsam zu diskutieren.</string>
+    <string name="t_shirt_sizes">T-Shirt Größen</string>
 </resources>

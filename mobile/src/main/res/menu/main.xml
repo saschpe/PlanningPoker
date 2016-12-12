@@ -42,10 +42,10 @@
     </group>
 
     <item
-        android:id="@+id/version_info"
+        android:id="@+id/help_and_feedback"
         android:icon="@drawable/ic_info"
         android:orderInCategory="101"
-        android:title="@string/info"
+        android:title="@string/help_and_feedback"
         app:showAsAction="ifRoom" />
 
 </menu>
