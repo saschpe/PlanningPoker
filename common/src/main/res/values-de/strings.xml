@@ -25,11 +25,13 @@
     <string name="fibonacci">Fibonacci</string>
     <string name="follow">Folgen</string>
     <string name="follow_on_twitter">Folge uns auf Twitter</string>
+    <string name="fork_on_githu">Forke uns auf Github</string>
     <string name="get_app_template">Lade die %s Android app</string>
     <string name="help_and_feedback">Hilfe &amp; Feedback</string>
     <string name="ideal_days">Ideale Tage</string>
     <string name="info">Info</string>
     <string name="launcher">Launcher</string>
+    <string name="open_source">Open Source</string>
     <string name="open_source_licenses">Open Source Lizensen</string>
     <string name="points">Story Punkte</string>
     <string name="poker_help">Wie spielt man Planning Poker</string>
