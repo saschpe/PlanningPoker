@@ -25,6 +25,7 @@
     <string name="fibonacci">Fibonacci</string>
     <string name="follow">Follow</string>
     <string name="follow_on_twitter">Follow us on Twitter</string>
+    <string name="fork_on_github">Fork on Github</string>
     <string name="get_app_template">Get the %s Android app</string>
     <string name="help_and_feedback">Help &amp; feedback</string>
     <string name="ideal_days">Ideal days</string>
@@ -32,6 +33,7 @@
     <string name="launcher">Launcher</string>
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet.</string>
     <string name="lorem_ipsum_long" translatable="false">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
+    <string name="open_source">Open Source</string>
     <string name="open_source_licenses">Open Source Licenses</string>
     <string name="points">Story points</string>
     <string name="poker_help">How to play planning poker</string>
@@ -45,5 +47,6 @@
     <string name="support_us">Support us</string>
     <string name="t_shirt_sizes">T-Shirt sizes</string>
     <string name="version_info">Version info</string>
+    <string name="report_bug_on_github">Report bug on Github</string>
 
 </resources>
