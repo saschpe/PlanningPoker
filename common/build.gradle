@@ -31,5 +31,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:cardview-v7:25.2.0'
     compile 'com.android.support:recyclerview-v7:25.2.0'
-    compile 'saschpe:utils:1.0.2'
+    compile 'saschpe.android:utils:1.0.6'
 }

@@ -30,8 +30,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import saschpe.android.utils.adapter.base.ArrayAdapter;
 import saschpe.poker.R;
-import saschpe.utils.adapter.base.ArrayAdapter;
 
 public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapter.CardViewHolder> {
     public static final int BIG_CARD_VIEW_TYPE = 1;

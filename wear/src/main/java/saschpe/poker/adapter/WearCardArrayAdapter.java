@@ -27,8 +27,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import saschpe.android.utils.adapter.base.ArrayAdapter;
 import saschpe.poker.R;
-import saschpe.utils.adapter.base.ArrayAdapter;
 
 public final class WearCardArrayAdapter extends ArrayAdapter<String, WearCardArrayAdapter.WearCardViewHolder> {
     public static final int LIGHT_CARD_VIEW_TYPE = 1;

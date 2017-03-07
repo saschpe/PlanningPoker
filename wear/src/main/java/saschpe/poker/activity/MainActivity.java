@@ -37,10 +37,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import saschpe.android.utils.widget.SpacesItemDecoration;
 import saschpe.poker.R;
 import saschpe.poker.adapter.WearCardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
-import saschpe.utils.widget.SpacesItemDecoration;
 
 import static saschpe.poker.util.PlanningPoker.DEFAULTS;
 import static saschpe.poker.util.PlanningPoker.VALUES;

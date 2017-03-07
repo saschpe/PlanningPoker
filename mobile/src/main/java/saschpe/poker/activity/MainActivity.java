@@ -33,10 +33,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import saschpe.android.utils.widget.SpacesItemDecoration;
 import saschpe.poker.R;
 import saschpe.poker.adapter.CardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
-import saschpe.utils.widget.SpacesItemDecoration;
 
 import static saschpe.poker.util.PlanningPoker.DEFAULTS;
 import static saschpe.poker.util.PlanningPoker.VALUES;
