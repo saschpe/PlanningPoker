@@ -20,9 +20,9 @@ import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.CardFragment;
 
+import saschpe.android.versioninfo.VersionInfoUtils;
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
-import saschpe.versioninfo.VersionInfoUtils;
 
 public class InfoActivity extends WearableActivity {
     @Override
