@@ -27,12 +27,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import saschpe.android.versioninfo.widget.VersionInfoDialogFragment;
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
 import saschpe.poker.fragment.OpenSourceLicensesFragment;
 import saschpe.poker.fragment.SocialFragment;
 import saschpe.utils.adapter.FragmentListPagerAdapter;
-import saschpe.versioninfo.widget.VersionInfoDialogFragment;
 
 public class HelpActivity extends AppCompatActivity {
     @Override
