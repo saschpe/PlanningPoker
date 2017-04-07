@@ -25,8 +25,8 @@ android {
         applicationId 'saschpe.poker'
         minSdkVersion 22
         targetSdkVersion 25
-        versionCode 231117
-        versionName '1.0.17'
+        versionCode 231118
+        versionName '1.0.18'
         archivesBaseName = "${applicationId}-${versionName}"
     }
 
