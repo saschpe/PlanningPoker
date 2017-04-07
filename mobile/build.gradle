@@ -48,8 +48,8 @@ android {
 dependencies {
     // Application dependencies
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:25.2.0'
-    compile 'com.android.support:support-vector-drawable:25.2.0'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-vector-drawable:25.3.1'
     debugCompile project(path: ':common', configuration: 'debug')
     releaseCompile project(path: ':common', configuration: 'release')
     wearApp project(path: ':wear', configuration: 'wear1Release')
