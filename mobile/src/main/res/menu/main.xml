@@ -19,27 +19,38 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group
-        android:id="@+id/flavor"
-        android:menuCategory="alternative"
-        android:checkableBehavior="single">
+    <item
+        android:icon="@drawable/ic_casino"
+        android:orderInCategory="100"
+        android:title="@string/points"
+        app:showAsAction="ifRoom">
 
-        <item
-            android:id="@+id/fibonacci"
-            android:icon="@drawable/ic_casino"
-            android:title="@string/fibonacci" />
+        <menu>
 
-        <item
-            android:id="@+id/t_shirt_sizes"
-            android:icon="@drawable/ic_casino"
-            android:title="@string/t_shirt_sizes" />
+            <group
+                android:id="@+id/flavor"
+                android:menuCategory="alternative"
+                android:checkableBehavior="single">
 
-        <item
-            android:id="@+id/ideal_days"
-            android:icon="@drawable/ic_casino"
-            android:title="@string/ideal_days" />
+                <item
+                    android:id="@+id/fibonacci"
+                    android:icon="@drawable/ic_casino"
+                    android:title="@string/fibonacci" />
 
-    </group>
+                <item
+                    android:id="@+id/t_shirt_sizes"
+                    android:icon="@drawable/ic_casino"
+                    android:title="@string/t_shirt_sizes" />
+
+                <item
+                    android:id="@+id/ideal_days"
+                    android:icon="@drawable/ic_casino"
+                    android:title="@string/ideal_days" />
+            </group>
+
+        </menu>
+
+    </item>
 
     <item
         android:id="@+id/help_and_feedback"
