@@ -24,6 +24,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
@@ -39,6 +41,7 @@ import android.view.animation.AnimationUtils;
 import saschpe.android.utils.widget.SpacesItemDecoration;
 import saschpe.poker.R;
 import saschpe.poker.adapter.CardArrayAdapter;
+import saschpe.poker.adapter.RecyclerViewDisabler;
 import saschpe.poker.util.PlanningPoker;
 import saschpe.poker.util.ShakeDetector;
 
@@ -51,17 +54,21 @@ public final class MainActivity extends AppCompatActivity {
     private static final String STATE_LINEAR_LAYOUT_MANAGER = "linear_layout_manager";
 
     private CardArrayAdapter arrayAdapter;
-    private FloatingActionButton fab;
+    private FloatingActionButton selectorFab;
+    private FloatingActionButton lockFab;
     private StaggeredGridLayoutManager gridLayoutManager;
     private LinearLayoutManager linearLayoutManager;
     private LinearSnapHelper linearSnapHelper;
     private @PlanningPoker.Flavor int flavor;
     private RecyclerView recyclerView;
+    private RecyclerView.OnItemTouchListener recyclerViewDisabler;
     private SpacesItemDecoration gridSpacesDecoration;
+    private boolean isLocked;
 
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private ShakeDetector shakeDetector;
+    private int margin8dpInPx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +76,13 @@ public final class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Compute spacing between cards
-        float marginDp = 8;
-        int spacePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
+        margin8dpInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
 
         // Recycler layout managers
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         linearSnapHelper = new LinearSnapHelper();
         gridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-        gridSpacesDecoration = new SpacesItemDecoration(spacePx, SpacesItemDecoration.VERTICAL);
+        gridSpacesDecoration = new SpacesItemDecoration(margin8dpInPx, SpacesItemDecoration.VERTICAL);
 
         Parcelable linearLayoutManagerState = null;
         if (savedInstanceState != null) {
@@ -120,7 +126,7 @@ public final class MainActivity extends AppCompatActivity {
         // Recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, SpacesItemDecoration.HORIZONTAL));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(margin8dpInPx, SpacesItemDecoration.HORIZONTAL));
         recyclerView.setAdapter(arrayAdapter);
         recyclerView.setHasFixedSize(true);
         if (linearLayoutManagerState != null) {
@@ -129,8 +135,9 @@ public final class MainActivity extends AppCompatActivity {
             recyclerView.scrollToPosition(DEFAULTS.get(flavor));
         }
         linearSnapHelper.attachToRecyclerView(recyclerView);
+        recyclerViewDisabler = new RecyclerViewDisabler();
 
-        // Floating action button
+        // Card selector floating action button
         final Animation fabClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         fabClickFadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -152,23 +159,86 @@ public final class MainActivity extends AppCompatActivity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        selectorFab = (FloatingActionButton) findViewById(R.id.select_fab);
+        selectorFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 recyclerView.startAnimation(fabClickFadeOutAnimation);
             }
         });
 
+        // Lock current card floating action button
+        isLocked = false;
+        final Animation lockAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        lockAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                lock();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        final Animation unlockAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        unlockAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                unlock();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        lockFab = (FloatingActionButton) findViewById(R.id.lock_fab);
+        lockFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isLocked) {
+                    recyclerView.startAnimation(unlockAnimation);
+                } else {
+                    recyclerView.startAnimation(lockAnimation);
+                }
+            }
+        });
+
         // Shaking!
         final Animation shakeAnimation = AnimationUtils.loadAnimation(this, R.anim.shake);
+        shakeAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                recyclerView.startAnimation(unlockAnimation);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         shakeDetector = new ShakeDetector();
         shakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
             @Override
             public void onShake(int count) {
-                recyclerView.startAnimation(shakeAnimation);
+                // Only start animation in big card view mode
+                if (recyclerView.getLayoutManager() == linearLayoutManager) {
+                    recyclerView.startAnimation(shakeAnimation);
+                } else {
+                    displayBigCards();
+                }
             }
         });
     }
@@ -220,6 +290,12 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.flavor).setVisible(!isLocked);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.fibonacci:
@@ -246,7 +322,8 @@ public final class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.removeItemDecoration(gridSpacesDecoration);
         linearSnapHelper.attachToRecyclerView(recyclerView);
-        fab.setImageResource(R.drawable.ic_view_module);
+        selectorFab.setImageResource(R.drawable.ic_view_module);
+        lockFab.show();
     }
 
     private void displaySmallCards() {
@@ -254,12 +331,31 @@ public final class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(gridSpacesDecoration);
         linearSnapHelper.attachToRecyclerView(null);
-        fab.setImageResource(R.drawable.ic_view_array);
+        selectorFab.setImageResource(R.drawable.ic_view_array);
+        lockFab.hide();
     }
 
     private void updateFlavor(@PlanningPoker.Flavor int flavor) {
         this.flavor = flavor;
         arrayAdapter.replaceAll(VALUES.get(flavor));
         recyclerView.scrollToPosition(DEFAULTS.get(flavor));
+    }
+
+    private void lock() {
+        isLocked = true;
+        recyclerView.addOnItemTouchListener(recyclerViewDisabler);
+        selectorFab.hide();
+        ActivityCompat.invalidateOptionsMenu(MainActivity.this);
+        arrayAdapter.setViewType(CardArrayAdapter.BIG_BLACK_CARD_VIEW_TYPE);
+        Snackbar.make(recyclerView, R.string.shake_to_reveal, Snackbar.LENGTH_SHORT)
+                .show();
+    }
+
+    private void unlock() {
+        isLocked = false;
+        displayBigCards();
+        selectorFab.show();
+        ActivityCompat.invalidateOptionsMenu(MainActivity.this);
+        recyclerView.removeOnItemTouchListener(recyclerViewDisabler);
     }
 }

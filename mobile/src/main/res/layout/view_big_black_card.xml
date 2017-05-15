@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2016 Sascha Peilicke
+  ~ Copyright 2017 Sascha Peilicke
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -14,17 +14,12 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<android.support.design.widget.FloatingActionButton
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fab"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end|right"
-    android:layout_marginRight="@dimen/fab_margin"
-    android:layout_marginBottom="@dimen/fab_margin"
-    android:src="@drawable/ic_view_module"
-    app:fabSize="normal"
-    tools:ignore="RtlHardcoded" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="@color/cardview_dark_background"
+    app:cardCornerRadius="32dp">
+
+</android.support.v7.widget.CardView>

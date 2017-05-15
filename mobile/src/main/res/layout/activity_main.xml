@@ -17,8 +17,10 @@
 
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -27,6 +29,23 @@
         android:padding="@dimen/activity_vertical_margin"
         android:clipToPadding="false" />
 
-    <include layout="@layout/view_fab" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/select_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:src="@drawable/ic_view_module" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/lock_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_lock_outline"
+        android:clickable="true"
+        app:backgroundTint="@color/primary_dark" />
 
 </android.support.design.widget.CoordinatorLayout>

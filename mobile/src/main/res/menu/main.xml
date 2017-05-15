@@ -20,6 +20,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/flavor"
         android:icon="@drawable/ic_casino"
         android:orderInCategory="100"
         android:title="@string/points"
@@ -28,7 +29,7 @@
         <menu>
 
             <group
-                android:id="@+id/flavor"
+                android:id="@+id/flavor_group"
                 android:menuCategory="alternative"
                 android:checkableBehavior="single">
 
@@ -57,6 +58,6 @@
         android:icon="@drawable/ic_info"
         android:orderInCategory="101"
         android:title="@string/help_and_feedback"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
 </menu>

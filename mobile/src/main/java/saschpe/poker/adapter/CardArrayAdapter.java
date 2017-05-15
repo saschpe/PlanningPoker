@@ -35,11 +35,12 @@ import saschpe.poker.R;
 
 public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapter.CardViewHolder> {
     public static final int BIG_CARD_VIEW_TYPE = 1;
-    public static final int SMALL_CARD_VIEW_TYPE = 2;
-    private static final int HELP_CARD_VIEW_TYPE = 3;
+    public static final int BIG_BLACK_CARD_VIEW_TYPE = 2;
+    public static final int SMALL_CARD_VIEW_TYPE = 3;
+    private static final int HELP_CARD_VIEW_TYPE = 4;
     private static final String PREF_HELP_DISMISSED = "help_dismissed";
 
-    @IntDef({BIG_CARD_VIEW_TYPE, SMALL_CARD_VIEW_TYPE})
+    @IntDef({BIG_CARD_VIEW_TYPE, BIG_BLACK_CARD_VIEW_TYPE, SMALL_CARD_VIEW_TYPE})
     @interface ViewType {}
 
     public interface OnSmallCardClickListener {
@@ -90,6 +91,8 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
             case BIG_CARD_VIEW_TYPE:
             default:
                 return new BigCardViewHolder(inflater.inflate(R.layout.view_big_card, parent, false));
+            case BIG_BLACK_CARD_VIEW_TYPE:
+                return new BigBlackCardViewHolder(inflater.inflate(R.layout.view_big_black_card, parent, false));
         }
     }
 
@@ -122,6 +125,8 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
                             }
                         }
                     });
+                    break;
+                case BIG_BLACK_CARD_VIEW_TYPE:
                     break;
                 case BIG_CARD_VIEW_TYPE:
                 default:
@@ -177,6 +182,12 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
             bottomLeft = (TextView) itemView.findViewById(R.id.bottomLeft);
             center = (TextView) itemView.findViewById(R.id.center);
             topRight = (TextView) itemView.findViewById(R.id.topRight);
+        }
+    }
+
+    private static final class BigBlackCardViewHolder extends CardViewHolder {
+        BigBlackCardViewHolder(View itemView) {
+            super(itemView);
         }
     }
 }
