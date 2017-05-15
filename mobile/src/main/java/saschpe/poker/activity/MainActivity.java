@@ -16,7 +16,10 @@
 
 package saschpe.poker.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -37,6 +40,7 @@ import saschpe.android.utils.widget.SpacesItemDecoration;
 import saschpe.poker.R;
 import saschpe.poker.adapter.CardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
+import saschpe.poker.util.ShakeDetector;
 
 import static saschpe.poker.util.PlanningPoker.DEFAULTS;
 import static saschpe.poker.util.PlanningPoker.VALUES;
@@ -55,6 +59,10 @@ public final class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SpacesItemDecoration gridSpacesDecoration;
 
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private ShakeDetector shakeDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +72,7 @@ public final class MainActivity extends AppCompatActivity {
         float marginDp = 8;
         int spacePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
 
-        // Setup recycler layout managers
+        // Recycler layout managers
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         linearSnapHelper = new LinearSnapHelper();
         gridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
@@ -82,7 +90,7 @@ public final class MainActivity extends AppCompatActivity {
                     .getInt(PREFS_FLAVOR, PlanningPoker.FIBONACCI);
         }
 
-        // Setup recycler adapter
+        // Recycler adapter
         final Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         final Animation smallCardClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         arrayAdapter = new CardArrayAdapter(this, VALUES.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, DEFAULTS.get(flavor));
@@ -109,7 +117,7 @@ public final class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Setup recycler view
+        // Recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, SpacesItemDecoration.HORIZONTAL));
@@ -122,13 +130,11 @@ public final class MainActivity extends AppCompatActivity {
         }
         linearSnapHelper.attachToRecyclerView(recyclerView);
 
-        // Setup floating action button
-
+        // Floating action button
         final Animation fabClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         fabClickFadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
             }
 
             @Override
@@ -144,10 +150,8 @@ public final class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
-
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,22 +159,30 @@ public final class MainActivity extends AppCompatActivity {
                 recyclerView.startAnimation(fabClickFadeOutAnimation);
             }
         });
+
+        // Shaking!
+        final Animation shakeAnimation = AnimationUtils.loadAnimation(this, R.anim.shake);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        shakeDetector = new ShakeDetector();
+        shakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+            @Override
+            public void onShake(int count) {
+                recyclerView.startAnimation(shakeAnimation);
+            }
+        });
     }
 
-    private void displayBigCards() {
-        arrayAdapter.setViewType(CardArrayAdapter.BIG_CARD_VIEW_TYPE);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.removeItemDecoration(gridSpacesDecoration);
-        linearSnapHelper.attachToRecyclerView(recyclerView);
-        fab.setImageResource(R.drawable.ic_view_module);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI);
     }
 
-    private void displaySmallCards() {
-        arrayAdapter.setViewType(CardArrayAdapter.SMALL_CARD_VIEW_TYPE);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addItemDecoration(gridSpacesDecoration);
-        linearSnapHelper.attachToRecyclerView(null);
-        fab.setImageResource(R.drawable.ic_view_array);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(shakeDetector);
     }
 
     @Override
@@ -227,6 +239,22 @@ public final class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void displayBigCards() {
+        arrayAdapter.setViewType(CardArrayAdapter.BIG_CARD_VIEW_TYPE);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.removeItemDecoration(gridSpacesDecoration);
+        linearSnapHelper.attachToRecyclerView(recyclerView);
+        fab.setImageResource(R.drawable.ic_view_module);
+    }
+
+    private void displaySmallCards() {
+        arrayAdapter.setViewType(CardArrayAdapter.SMALL_CARD_VIEW_TYPE);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addItemDecoration(gridSpacesDecoration);
+        linearSnapHelper.attachToRecyclerView(null);
+        fab.setImageResource(R.drawable.ic_view_array);
     }
 
     private void updateFlavor(@PlanningPoker.Flavor int flavor) {
