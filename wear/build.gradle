@@ -53,11 +53,11 @@ android {
 
 dependencies {
     // Compile-time dependencies
-    provided 'com.google.android.wearable:wearable:2.0.1'
+    provided 'com.google.android.wearable:wearable:2.0.3'
 
     // Application dependencies
-    compile 'com.google.android.support:wearable:2.0.1'
-    compile 'com.google.android.gms:play-services-wearable:10.2.4'
+    compile 'com.google.android.support:wearable:2.0.3'
+    compile 'com.google.android.gms:play-services-wearable:11.0.1'
     debugCompile project(path: ':common', configuration: 'debug')
     releaseCompile project(path: ':common', configuration: 'release')
 }
