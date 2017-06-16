@@ -22,7 +22,6 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.cookpad.android.licensetools:license-tools-plugin:0.19.0'
     }
 }
 
