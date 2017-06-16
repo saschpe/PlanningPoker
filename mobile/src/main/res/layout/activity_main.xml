@@ -36,6 +36,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/ic_view_module" />
 
     <android.support.design.widget.FloatingActionButton
@@ -46,6 +47,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_lock_outline"
         android:clickable="true"
+        android:focusable="true"
         app:backgroundTint="@color/primary_dark" />
 
 </android.support.design.widget.CoordinatorLayout>

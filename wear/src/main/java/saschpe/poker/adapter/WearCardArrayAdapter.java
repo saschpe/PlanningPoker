@@ -73,7 +73,7 @@ public final class WearCardArrayAdapter extends ArrayAdapter<String, WearCardArr
     }
 
     static abstract class WearCardViewHolder extends RecyclerView.ViewHolder {
-        private TextView center;
+        private final TextView center;
 
         WearCardViewHolder(View itemView) {
             super(itemView);

@@ -31,7 +31,7 @@ public final class ShakeDetector implements SensorEventListener {
     private int shakeCount;
 
     public interface OnShakeListener {
-        public void onShake(int count);
+        void onShake(int count);
     }
 
     public void setOnShakeListener(final OnShakeListener onShakeListener) {
@@ -85,17 +85,6 @@ public final class ShakeDetector implements SensorEventListener {
         }
     }
 
-    /**
-     * Called when the accuracy of the registered sensor has changed.  Unlike
-     * onSensorChanged(), this is only called when this accuracy value changes.
-     * <p>
-     * <p>See the SENSOR_STATUS_* constants in
-     * {@link SensorManager SensorManager} for details.
-     *
-     * @param sensor
-     * @param accuracy The new accuracy of this sensor, one of
-     *                 {@code SensorManager.SENSOR_STATUS_*}
-     */
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }

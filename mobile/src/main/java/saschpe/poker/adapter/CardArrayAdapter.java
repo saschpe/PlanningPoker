@@ -155,7 +155,7 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
     }
 
     private static final class HelpCardViewHolder extends CardViewHolder {
-        Button dismiss;
+        final Button dismiss;
 
         HelpCardViewHolder(View itemView) {
             super(itemView);
@@ -164,7 +164,7 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
     }
 
     private static final class SmallCardViewHolder extends CardViewHolder {
-        TextView center;
+        final TextView center;
 
         SmallCardViewHolder(View itemView) {
             super(itemView);
@@ -173,9 +173,9 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
     }
 
     private static final class BigCardViewHolder extends CardViewHolder {
-        TextView bottomLeft;
-        TextView center;
-        TextView topRight;
+        final TextView bottomLeft;
+        final TextView center;
+        final TextView topRight;
 
         BigCardViewHolder(View itemView) {
             super(itemView);
