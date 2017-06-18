@@ -15,5 +15,5 @@
   -->
 
 <resources>
-    <string name="app_name">DEBUG Planning Poker</string>
+    <string name="app_name" translatable="false">DEBUG Planning Poker</string>
 </resources>
