@@ -19,7 +19,6 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion '26.0.0'
-    publishNonDefault true
 
     defaultConfig {
         applicationId 'saschpe.poker'
@@ -41,23 +40,36 @@ android {
         }
     }
 
+    flavorDimensions 'wear'
+    flavorSelection 'wear', 'wear2'
     productFlavors {
         wear1 {
             // Use the defaultConfig value
+            dimension 'wear'
         }
         wear2 {
             minSdkVersion 24 // Standalone Wear 2.0 app
+            dimension 'wear'
         }
     }
 }
 
 dependencies {
     // Compile-time dependencies
-    provided 'com.google.android.wearable:wearable:2.0.3'
+    compileOnly 'com.google.android.wearable:wearable:2.0.3'
 
     // Application dependencies
-    compile 'com.google.android.support:wearable:2.0.3'
-    compile 'com.google.android.gms:play-services-wearable:11.0.1'
-    debugCompile project(path: ':common', configuration: 'debug')
-    releaseCompile project(path: ':common', configuration: 'release')
+    implementation 'com.android.support:cardview-v7:25.4.0'
+    implementation 'com.android.support:recyclerview-v7:25.4.0'
+    implementation 'com.google.android.support:wearable:2.0.3'
+    implementation 'com.google.android.gms:play-services-wearable:11.0.1'
+    implementation 'saschpe.android:utils:1.0.8.2'
+    implementation 'saschpe.android:versioninfo:1.2.8'
+    implementation project(':common')
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.android.support:support-v4:25.4.0'
+    }
 }
