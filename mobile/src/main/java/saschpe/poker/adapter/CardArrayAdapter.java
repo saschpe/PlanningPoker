@@ -34,7 +34,7 @@ import java.util.List;
 import saschpe.android.utils.adapter.base.ArrayAdapter;
 import saschpe.poker.R;
 
-public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapter.CardViewHolder> {
+public final class CardArrayAdapter extends ArrayAdapter<String, RecyclerView.ViewHolder> {
     public static final int BIG_CARD_VIEW_TYPE = 1;
     public static final int BIG_BLACK_CARD_VIEW_TYPE = 2;
     public static final int SMALL_CARD_VIEW_TYPE = 3;
@@ -55,7 +55,10 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
     private final int helpViewPosition;
     private OnSmallCardClickListener onSmallCardClickListener;
 
-    public CardArrayAdapter(@NonNull Context context, @NonNull List<String> objects, @ViewType int viewType, int helpViewPosition) {
+    public CardArrayAdapter(final @NonNull Context context,
+                            final @NonNull List<String> objects,
+                            final @ViewType int viewType,
+                            final int helpViewPosition) {
         super(objects);
         inflater = LayoutInflater.from(context);
         this.viewType = viewType;
@@ -74,7 +77,7 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
     }
 
     @Override
-    public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case HELP_CARD_VIEW_TYPE:
                 return new HelpCardViewHolder(inflater.inflate(R.layout.view_help_card, parent, false));
@@ -89,7 +92,7 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
     }
 
     @Override
-    public void onBindViewHolder(final CardViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (isHelpOnPosition(position)) {
             HelpCardViewHolder helpCardViewHolder = (HelpCardViewHolder) holder;
             helpCardViewHolder.dismiss.setOnClickListener(new View.OnClickListener() {
@@ -140,12 +143,12 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
         return count;
     }
 
-    public void setViewType(int viewType) {
+    public void setViewType(final int viewType) {
         this.viewType = viewType;
         notifyDataSetChanged();
     }
 
-    public void setOnSmallCardClickListener(OnSmallCardClickListener onSmallCardClickListener) {
+    public void setOnSmallCardClickListener(final OnSmallCardClickListener onSmallCardClickListener) {
         this.onSmallCardClickListener = onSmallCardClickListener;
     }
 
@@ -162,40 +165,34 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
         };
     }
 
-    private boolean isHelpOnPosition(int position) {
+    private boolean isHelpOnPosition(final int position) {
         return !helpDismissed && position == helpViewPosition;
     }
 
-    static abstract class CardViewHolder extends RecyclerView.ViewHolder {
-        CardViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    private static final class HelpCardViewHolder extends CardViewHolder {
+    private static final class HelpCardViewHolder extends RecyclerView.ViewHolder {
         final Button dismiss;
 
-        HelpCardViewHolder(View itemView) {
+        HelpCardViewHolder(final View itemView) {
             super(itemView);
             dismiss = (Button) itemView.findViewById(R.id.dismiss);
         }
     }
 
-    private static final class SmallCardViewHolder extends CardViewHolder {
+    private static final class SmallCardViewHolder extends RecyclerView.ViewHolder {
         final TextView center;
 
-        SmallCardViewHolder(View itemView) {
+        SmallCardViewHolder(final View itemView) {
             super(itemView);
             center = (TextView) itemView.findViewById(R.id.center);
         }
     }
 
-    private static final class BigCardViewHolder extends CardViewHolder {
+    private static final class BigCardViewHolder extends RecyclerView.ViewHolder {
         final TextView bottomLeft;
         final TextView center;
         final TextView topRight;
 
-        BigCardViewHolder(View itemView) {
+        BigCardViewHolder(final View itemView) {
             super(itemView);
             bottomLeft = (TextView) itemView.findViewById(R.id.bottomLeft);
             center = (TextView) itemView.findViewById(R.id.center);
@@ -203,8 +200,8 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
         }
     }
 
-    private static final class BigBlackCardViewHolder extends CardViewHolder {
-        BigBlackCardViewHolder(View itemView) {
+    private static final class BigBlackCardViewHolder extends RecyclerView.ViewHolder {
+        BigBlackCardViewHolder(final View itemView) {
             super(itemView);
         }
     }
