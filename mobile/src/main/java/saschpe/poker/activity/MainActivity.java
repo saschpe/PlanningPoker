@@ -27,10 +27,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,10 +53,10 @@ public final class MainActivity extends AppCompatActivity {
     private static final String STATE_FLAVOR = "flavor";
     private static final String STATE_LINEAR_LAYOUT_MANAGER = "linear_layout_manager";
 
-    private CardArrayAdapter arrayAdapter;
+    private CardArrayAdapter adapter;
     private FloatingActionButton selectorFab;
     private FloatingActionButton lockFab;
-    private StaggeredGridLayoutManager gridLayoutManager;
+    private GridLayoutManager gridLayoutManager;
     private LinearLayoutManager linearLayoutManager;
     private LinearSnapHelper linearSnapHelper;
     private @PlanningPoker.Flavor int flavor;
@@ -77,12 +77,6 @@ public final class MainActivity extends AppCompatActivity {
         // Compute spacing between cards
         int margin8dpInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
 
-        // Recycler layout managers
-        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        linearSnapHelper = new LinearSnapHelper();
-        gridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-        gridSpacesDecoration = new SpacesItemDecoration(margin8dpInPx, SpacesItemDecoration.VERTICAL);
-
         Parcelable linearLayoutManagerState = null;
         if (savedInstanceState != null) {
             //noinspection WrongConstant
@@ -98,8 +92,8 @@ public final class MainActivity extends AppCompatActivity {
         // Recycler adapter
         final Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         final Animation smallCardClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
-        arrayAdapter = new CardArrayAdapter(this, VALUES.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, DEFAULTS.get(flavor));
-        arrayAdapter.setOnSmallCardClickListener(new CardArrayAdapter.OnSmallCardClickListener() {
+        adapter = new CardArrayAdapter(this, VALUES.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, DEFAULTS.get(flavor));
+        adapter.setOnSmallCardClickListener(new CardArrayAdapter.OnSmallCardClickListener() {
             @Override
             public void onCardClick(final int position) {
                 smallCardClickFadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -122,11 +116,21 @@ public final class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Recycler layout managers
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        linearSnapHelper = new LinearSnapHelper();
+        gridLayoutManager = new GridLayoutManager(this, 3);
+
+        gridLayoutManager.setSpanSizeLookup(adapter.getSpanSizeLookup(gridLayoutManager));
+
+        gridSpacesDecoration = new SpacesItemDecoration(margin8dpInPx, SpacesItemDecoration.VERTICAL);
+
+
         // Recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(margin8dpInPx, SpacesItemDecoration.HORIZONTAL));
-        recyclerView.setAdapter(arrayAdapter);
+        recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         if (linearLayoutManagerState != null) {
             linearLayoutManager.onRestoreInstanceState(linearLayoutManagerState);
@@ -317,7 +321,7 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     private void displayBigCards() {
-        arrayAdapter.setViewType(CardArrayAdapter.BIG_CARD_VIEW_TYPE);
+        adapter.setViewType(CardArrayAdapter.BIG_CARD_VIEW_TYPE);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.removeItemDecoration(gridSpacesDecoration);
         linearSnapHelper.attachToRecyclerView(recyclerView);
@@ -326,7 +330,7 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     private void displaySmallCards() {
-        arrayAdapter.setViewType(CardArrayAdapter.SMALL_CARD_VIEW_TYPE);
+        adapter.setViewType(CardArrayAdapter.SMALL_CARD_VIEW_TYPE);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(gridSpacesDecoration);
         linearSnapHelper.attachToRecyclerView(null);
@@ -336,7 +340,7 @@ public final class MainActivity extends AppCompatActivity {
 
     private void updateFlavor(@PlanningPoker.Flavor int flavor) {
         this.flavor = flavor;
-        arrayAdapter.replaceAll(VALUES.get(flavor));
+        adapter.replaceAll(VALUES.get(flavor));
         recyclerView.scrollToPosition(DEFAULTS.get(flavor));
     }
 
@@ -345,7 +349,7 @@ public final class MainActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(recyclerViewDisabler);
         selectorFab.hide();
         ActivityCompat.invalidateOptionsMenu(MainActivity.this);
-        arrayAdapter.setViewType(CardArrayAdapter.BIG_BLACK_CARD_VIEW_TYPE);
+        adapter.setViewType(CardArrayAdapter.BIG_BLACK_CARD_VIEW_TYPE);
         Snackbar.make(recyclerView, R.string.shake_to_reveal, Snackbar.LENGTH_SHORT)
                 .show();
     }

@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,6 +147,19 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
             count += 1; // Account for visible help card
         }
         return count;
+    }
+
+    public GridLayoutManager.SpanSizeLookup getSpanSizeLookup(@NonNull final GridLayoutManager gridLayoutManager) {
+        return new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == helpViewPosition) {
+                    return gridLayoutManager.getSpanCount();
+                } else {
+                    return 1;
+                }
+            }
+        };
     }
 
     static abstract class CardViewHolder extends RecyclerView.ViewHolder {
