@@ -6,7 +6,7 @@
 #
 # Semantic Versioning: MAJOR.MINOR.PATCH
 
-. tools/inc.functions.sh
+. scripts/inc.functions.sh
 
 if [ $# -ne 1 ] ; then
     die "Usage: $0 [VERSION_NAME]\n\n\tExample: $0 0.0.1"
