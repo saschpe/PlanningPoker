@@ -52,6 +52,10 @@ android {
             dimension 'wear'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {

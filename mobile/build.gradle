@@ -44,6 +44,10 @@ android {
     }
 
     flavorSelection 'wear', 'wear2'
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
