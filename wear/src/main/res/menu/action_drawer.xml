@@ -20,23 +20,23 @@
 
     <group
         android:id="@+id/flavor"
-        android:menuCategory="alternative"
-        android:checkableBehavior="single">
+        android:checkableBehavior="single"
+        android:menuCategory="alternative">
 
         <item
             android:id="@+id/fibonacci"
             android:icon="@drawable/ic_casino_white_24dp"
-            android:title="@string/fibonacci" />
+            android:title="@string/fibonacci"/>
 
         <item
             android:id="@+id/t_shirt_sizes"
             android:icon="@drawable/ic_casino_white_24dp"
-            android:title="@string/t_shirt_sizes" />
+            android:title="@string/t_shirt_sizes"/>
 
         <item
             android:id="@+id/ideal_days"
             android:icon="@drawable/ic_casino"
-            android:title="@string/ideal_days" />
+            android:title="@string/ideal_days"/>
 
     </group>
 
@@ -44,6 +44,6 @@
         android:id="@+id/version_info"
         android:icon="@drawable/ic_info"
         android:orderInCategory="101"
-        android:title="@string/info" />
+        android:title="@string/info"/>
 
 </menu>

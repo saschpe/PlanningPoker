@@ -19,9 +19,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="saschpe.poker">
 
-    <uses-feature android:name="android.hardware.type.watch" />
+    <uses-feature android:name="android.hardware.type.watch"/>
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -34,18 +34,22 @@
         <activity
             android:name=".activity.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <activity
             android:name=".activity.InfoActivity"
-            android:label="@string/info" />
+            android:label="@string/info"/>
+
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="false"/>
 
         <uses-library
             android:name="com.google.android.wearable"
-            android:required="false" />
+            android:required="false"/>
 
     </application>
 

@@ -40,7 +40,9 @@ public final class WearCardArrayAdapter extends ArrayAdapter<String, WearCardArr
     private @ViewType int viewType;
     private final LayoutInflater inflater;
 
-    public WearCardArrayAdapter(@NonNull Context context, @NonNull List<String> objects, @ViewType int viewType) {
+    public WearCardArrayAdapter(final @NonNull Context context,
+                                final @NonNull List<String> objects,
+                                final @ViewType int viewType) {
         super(objects);
         inflater = LayoutInflater.from(context);
         this.viewType = viewType;
@@ -75,7 +77,7 @@ public final class WearCardArrayAdapter extends ArrayAdapter<String, WearCardArr
     static abstract class WearCardViewHolder extends RecyclerView.ViewHolder {
         private final TextView center;
 
-        WearCardViewHolder(View itemView) {
+        WearCardViewHolder(final View itemView) {
             super(itemView);
             center = (TextView) itemView.findViewById(R.id.center);
         }
@@ -86,13 +88,13 @@ public final class WearCardArrayAdapter extends ArrayAdapter<String, WearCardArr
     }
 
     static final class LightCardViewHolder extends WearCardViewHolder {
-        LightCardViewHolder(View itemView) {
+        LightCardViewHolder(final View itemView) {
             super(itemView);
         }
     }
 
     static final class DarkCardViewHolder extends WearCardViewHolder {
-        DarkCardViewHolder(View itemView) {
+        DarkCardViewHolder(final View itemView) {
             super(itemView);
         }
     }

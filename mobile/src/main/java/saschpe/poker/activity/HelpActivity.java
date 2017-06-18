@@ -37,7 +37,7 @@ import saschpe.poker.R;
 import saschpe.poker.fragment.OpenSourceLicensesFragment;
 import saschpe.poker.fragment.SocialFragment;
 
-public class HelpActivity extends AppCompatActivity {
+public final class HelpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

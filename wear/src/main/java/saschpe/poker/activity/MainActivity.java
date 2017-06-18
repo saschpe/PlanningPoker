@@ -45,7 +45,7 @@ import saschpe.poker.util.PlanningPoker;
 import static saschpe.poker.util.PlanningPoker.DEFAULTS;
 import static saschpe.poker.util.PlanningPoker.VALUES;
 
-public class MainActivity extends WearableActivity implements
+public final class MainActivity extends WearableActivity implements
         WearableActionDrawer.OnMenuItemClickListener {
     private static final String PREFS_FLAVOR = "flavor2";
     private static final String STATE_FLAVOR = "flavor";
@@ -155,12 +155,6 @@ public class MainActivity extends WearableActivity implements
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateFlavor(@PlanningPoker.Flavor int flavor) {
-        this.flavor = flavor;
-        arrayAdapter.replaceAll(VALUES.get(flavor));
-        recyclerView.scrollToPosition(DEFAULTS.get(flavor));
-    }
-
     @Override
     public void onEnterAmbient(Bundle ambientDetails) {
         super.onEnterAmbient(ambientDetails);
@@ -177,6 +171,12 @@ public class MainActivity extends WearableActivity implements
     public void onExitAmbient() {
         updateDisplay();
         super.onExitAmbient();
+    }
+
+    private void updateFlavor(@PlanningPoker.Flavor int flavor) {
+        this.flavor = flavor;
+        arrayAdapter.replaceAll(VALUES.get(flavor));
+        recyclerView.scrollToPosition(DEFAULTS.get(flavor));
     }
 
     private void updateDisplay() {

@@ -24,7 +24,7 @@ import saschpe.android.versioninfo.VersionInfoUtils;
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
 
-public class InfoActivity extends WearableActivity {
+public final class InfoActivity extends WearableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
