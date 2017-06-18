@@ -64,18 +64,9 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
         this.helpViewPosition = helpViewPosition;
     }
 
-    public void setViewType(int viewType) {
-        this.viewType = viewType;
-        notifyDataSetChanged();
-    }
-
-    public void setOnSmallCardClickListener(OnSmallCardClickListener onSmallCardClickListener) {
-        this.onSmallCardClickListener = onSmallCardClickListener;
-    }
-
     @Override
     public int getItemViewType(int position) {
-        if (!helpDismissed && position == helpViewPosition) {
+        if (isHelpOnPosition(position)) {
             return HELP_CARD_VIEW_TYPE;
         } else {
             return viewType;
@@ -99,7 +90,7 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
 
     @Override
     public void onBindViewHolder(final CardViewHolder holder, int position) {
-        if (!helpDismissed && position == helpViewPosition) {
+        if (isHelpOnPosition(position)) {
             HelpCardViewHolder helpCardViewHolder = (HelpCardViewHolder) holder;
             helpCardViewHolder.dismiss.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,17 +140,30 @@ public final class CardArrayAdapter extends ArrayAdapter<String, CardArrayAdapte
         return count;
     }
 
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+        notifyDataSetChanged();
+    }
+
+    public void setOnSmallCardClickListener(OnSmallCardClickListener onSmallCardClickListener) {
+        this.onSmallCardClickListener = onSmallCardClickListener;
+    }
+
     public GridLayoutManager.SpanSizeLookup getSpanSizeLookup(@NonNull final GridLayoutManager gridLayoutManager) {
         return new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (position == helpViewPosition) {
+                if (isHelpOnPosition(position)) {
                     return gridLayoutManager.getSpanCount();
                 } else {
                     return 1;
                 }
             }
         };
+    }
+
+    private boolean isHelpOnPosition(int position) {
+        return !helpDismissed && position == helpViewPosition;
     }
 
     static abstract class CardViewHolder extends RecyclerView.ViewHolder {
