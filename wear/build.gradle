@@ -27,6 +27,7 @@ android {
         versionCode 231123
         versionName '1.2.3'
         archivesBaseName = "${applicationId}-${versionName}"
+        flavorSelection 'wear', 'wear2'
     }
 
     buildTypes {
@@ -41,7 +42,6 @@ android {
     }
 
     flavorDimensions 'wear'
-    flavorSelection 'wear', 'wear2'
     productFlavors {
         wear1 {
             // Use the defaultConfig value

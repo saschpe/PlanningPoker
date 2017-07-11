@@ -29,6 +29,7 @@ android {
         archivesBaseName = "${applicationId}-${versionName}"
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
+        flavorSelection 'wear', 'wear2'
     }
 
     buildTypes {
@@ -42,8 +43,6 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-
-    flavorSelection 'wear', 'wear2'
 
     lintOptions {
         abortOnError false
