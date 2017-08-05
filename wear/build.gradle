@@ -17,13 +17,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '26.0.1'
 
     defaultConfig {
         applicationId 'saschpe.poker'
         minSdkVersion 22
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 231123
         versionName '1.2.3'
         archivesBaseName = "${applicationId}-${versionName}"
