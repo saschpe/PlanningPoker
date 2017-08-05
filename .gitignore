@@ -1,6 +1,4 @@
-.idea/misc.xml
-
-### https://raw.github.com/github/gitignore/ef8772f1346e95272f6ee2fa76ce502c88444a7b/Android.gitignore
+### https://raw.github.com/github/gitignore/af988f5c1ed081c88e1d4d33945bb2f14d9a9d4e/Android.gitignore
 
 # Built application files
 *.apk
@@ -39,38 +37,54 @@ captures/
 # Intellij
 *.iml
 .idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/dictionaries
 .idea/libraries
 
 # Keystore files
 *.jks
 
+# External native build folder generated in Android Studio 2.2 and later
+.externalNativeBuild
 
-### https://raw.github.com/github/gitignore/ef8772f1346e95272f6ee2fa76ce502c88444a7b/Global/JetBrains.gitignore
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Freeline
+freeline.py
+freeline/
+freeline_project_description.json
+
+
+### https://raw.github.com/github/gitignore/af988f5c1ed081c88e1d4d33945bb2f14d9a9d4e/Global/JetBrains.gitignore
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-.idea/workspace.xml
-.idea/tasks.xml
+.idea/**/workspace.xml
+.idea/**/tasks.xml
 .idea/dictionaries
-.idea/vcs.xml
-.idea/jsLibraryMappings.xml
 
 # Sensitive or high-churn files:
-.idea/dataSources.ids
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.xml
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
 
 # Gradle:
-.idea/gradle.xml
-.idea/libraries
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# CMake
+cmake-build-debug/
 
 # Mongo Explorer plugin:
-.idea/mongoSettings.xml
+.idea/**/mongoSettings.xml
 
 ## File-based project format:
 *.iws
@@ -78,7 +92,7 @@ captures/
 ## Plugin-specific files:
 
 # IntelliJ
-/out/
+out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -86,10 +100,31 @@ captures/
 # JIRA plugin
 atlassian-ide-plugin.xml
 
+# Cursive Clojure plugin
+.idea/replstate.xml
+
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+
+### https://raw.github.com/github/gitignore/af988f5c1ed081c88e1d4d33945bb2f14d9a9d4e/Global/Vim.gitignore
+
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
 
 
