@@ -15,5 +15,7 @@
   -->
 
 <resources>
+
     <dimen name="wear_text_size">96sp</dimen>
+
 </resources>

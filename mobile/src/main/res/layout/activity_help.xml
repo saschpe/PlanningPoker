@@ -38,7 +38,7 @@
                 android:layout_height="128dp"
                 android:layout_gravity="bottom|center_horizontal"
                 android:contentDescription="@string/launcher"
-                android:src="@drawable/ic_launcher" />
+                android:src="@mipmap/ic_launcher" />
 
         </android.support.v7.widget.Toolbar>
 
