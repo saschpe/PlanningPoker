@@ -30,7 +30,7 @@
         android:required="true"/>
 
     <application
-        android:name=".Application"
+        android:name=".application.Application"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"

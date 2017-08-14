@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Sascha Peilicke
+ * Copyright 2017 Sascha Peilicke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package saschpe.poker;
+package saschpe.poker.application;
 
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatDelegate;
+
+import saschpe.poker.BuildConfig;
 
 public final class Application extends android.app.Application {
     @Override
