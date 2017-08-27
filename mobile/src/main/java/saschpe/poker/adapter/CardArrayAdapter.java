@@ -174,7 +174,7 @@ public final class CardArrayAdapter extends ArrayAdapter<String, RecyclerView.Vi
 
         HelpCardViewHolder(final View itemView) {
             super(itemView);
-            dismiss = (Button) itemView.findViewById(R.id.dismiss);
+            dismiss = itemView.findViewById(R.id.dismiss);
         }
     }
 
@@ -183,7 +183,7 @@ public final class CardArrayAdapter extends ArrayAdapter<String, RecyclerView.Vi
 
         SmallCardViewHolder(final View itemView) {
             super(itemView);
-            center = (TextView) itemView.findViewById(R.id.center);
+            center = itemView.findViewById(R.id.center);
         }
     }
 
@@ -194,9 +194,9 @@ public final class CardArrayAdapter extends ArrayAdapter<String, RecyclerView.Vi
 
         BigCardViewHolder(final View itemView) {
             super(itemView);
-            bottomLeft = (TextView) itemView.findViewById(R.id.bottomLeft);
-            center = (TextView) itemView.findViewById(R.id.center);
-            topRight = (TextView) itemView.findViewById(R.id.topRight);
+            bottomLeft = itemView.findViewById(R.id.bottomLeft);
+            center = itemView.findViewById(R.id.center);
+            topRight = itemView.findViewById(R.id.topRight);
         }
     }
 

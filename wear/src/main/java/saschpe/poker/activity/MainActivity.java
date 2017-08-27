@@ -75,14 +75,14 @@ public final class MainActivity extends WearableActivity implements
                     .getInt(PREFS_FLAVOR, PlanningPoker.FIBONACCI);
         }
 
-        clock = (TextView) findViewById(R.id.clock);
+        clock = findViewById(R.id.clock);
 
         // Compute spacing between cards
         float marginDp = getResources().getDimension(R.dimen.activity_horizontal_margin) / 8;
         int spacePx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
 
         // Setup recycler
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, layoutManager.getOrientation()));
@@ -94,9 +94,9 @@ public final class MainActivity extends WearableActivity implements
         snapHelper.attachToRecyclerView(recyclerView);
 
         // Main Wearable Drawer Layout that wraps all content
-        drawerLayout = (WearableDrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
         // Bottom Action Drawer
-        actionDrawer = (WearableActionDrawer) findViewById(R.id.bottom_action_drawer);
+        actionDrawer = findViewById(R.id.bottom_action_drawer);
         // Populate Action Drawer Menu
         Menu menu = actionDrawer.getMenu();
         getMenuInflater().inflate(R.menu.action_drawer, menu);

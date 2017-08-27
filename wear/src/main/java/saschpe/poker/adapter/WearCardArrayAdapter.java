@@ -79,7 +79,7 @@ public final class WearCardArrayAdapter extends ArrayAdapter<String, WearCardArr
 
         WearCardViewHolder(final View itemView) {
             super(itemView);
-            center = (TextView) itemView.findViewById(R.id.center);
+            center = itemView.findViewById(R.id.center);
         }
 
         void bind(String item) {

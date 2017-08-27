@@ -127,7 +127,7 @@ public final class MainActivity extends AppCompatActivity {
 
 
         // Recycler view
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(margin8dpInPx, SpacesItemDecoration.HORIZONTAL));
         recyclerView.setAdapter(adapter);
@@ -162,7 +162,7 @@ public final class MainActivity extends AppCompatActivity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        selectorFab = (FloatingActionButton) findViewById(R.id.select_fab);
+        selectorFab = findViewById(R.id.select_fab);
         selectorFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,7 +202,7 @@ public final class MainActivity extends AppCompatActivity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        lockFab = (FloatingActionButton) findViewById(R.id.lock_fab);
+        lockFab = findViewById(R.id.lock_fab);
         lockFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
