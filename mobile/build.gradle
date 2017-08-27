@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.android.support:design:26.0.1'
     implementation 'com.android.support:support-vector-drawable:26.0.1'
     implementation 'saschpe.android:utils:1.0.8.2'
-    implementation 'saschpe.android:versioninfo:1.2.8'
+    implementation 'saschpe.android:versioninfo:1.2.9'
     implementation project(':common')
     wearApp project(':wear')
 }

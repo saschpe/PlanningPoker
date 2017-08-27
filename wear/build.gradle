@@ -68,6 +68,6 @@ dependencies {
     implementation 'com.google.android.support:wearable:2.0.4'
     implementation 'com.google.android.gms:play-services-wearable:11.0.4'
     implementation 'saschpe.android:utils:1.0.8.2'
-    implementation 'saschpe.android:versioninfo:1.2.8'
+    implementation 'saschpe.android:versioninfo:1.2.9'
     implementation project(':common')
 }
