@@ -66,7 +66,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.0.1'
     implementation 'com.android.support:support-v4:26.0.1'
     implementation 'com.google.android.support:wearable:2.0.4'
-    implementation 'com.google.android.gms:play-services-wearable:11.0.4'
+    implementation 'com.google.android.gms:play-services-wearable:11.2.0'
     implementation 'saschpe.android:utils:1.0.8.2'
     implementation 'saschpe.android:versioninfo:1.2.9'
     implementation project(':common')
