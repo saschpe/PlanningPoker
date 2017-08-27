@@ -231,19 +231,21 @@ public final class MainActivity extends AppCompatActivity {
             }
         });
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        shakeDetector = new ShakeDetector();
-        shakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
-            @Override
-            public void onShake(int count) {
-                // Only start animation in big card view mode
-                if (recyclerView.getLayoutManager() == linearLayoutManager) {
-                    recyclerView.startAnimation(shakeAnimation);
-                } else {
-                    displayBigCards();
+        if (sensorManager != null) {
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            shakeDetector = new ShakeDetector();
+            shakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+                @Override
+                public void onShake(int count) {
+                    // Only start animation in big card view mode
+                    if (recyclerView.getLayoutManager() == linearLayoutManager) {
+                        recyclerView.startAnimation(shakeAnimation);
+                    } else {
+                        displayBigCards();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
