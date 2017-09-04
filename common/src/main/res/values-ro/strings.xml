@@ -21,11 +21,7 @@
     <string name="app_help_text">Glisează spre stânga sau dreapta pentru a schimba cartea selectată. Modifică stilul cărților folosind meniul din dreapta sus.</string>
     <string name="app_name">Planning Poker</string>
     <string name="dismiss">Închide</string>
-    <string name="feedback_mail_subject_template">Feedback-ul pentru %s</string>
     <string name="fibonacci">Fibonacci</string>
-    <string name="follow">Urma</string>
-    <string name="follow_on_twitter">Urmărește-ne pe Twitter</string>
-    <string name="get_app_template">Obțineți %s aplicația Android</string>
     <string name="help_and_feedback">Ajutor și feedback</string>
     <string name="ideal_days">Zile ideale</string>
     <string name="info">Info</string>
@@ -35,13 +31,7 @@
     <string name="points">Story points</string>
     <string name="poker_help">Cum se joacă Planning Poker</string>
     <string name="poker_help_text">În Planning Poker, membrii grupului propun estimări selectând cărțile numerotate fără să le dezvăluie, în loc să spună numărul cu voce tare. După ce se arată cărțile, estimările se pot discuta. \n&#8212; Wikipedia</string>
-    <string name="provide_feedback">Oferi feedback</string>
-    <string name="rate_us_in_the_play_store">Ne rata în Magazin Play</string>
-    <string name="recommend_to_a_friend">Recomanda-l unui prieten</string>
-    <string name="send_email">Trimite email…</string>
-    <string name="share_via">Spune-le prietenilor prin …</string>
     <string name="social">Social</string>
-    <string name="support_us">Ajuta-ne</string>
     <string name="t_shirt_sizes">Mărimi de tricou</string>
     <string name="version_info">Informații despre versiune</string>
 

@@ -21,11 +21,7 @@
     <string name="app_help_text">Прокручивайте влево или вправо, чтобы поменять выбранную карту. Изменяйте стиль выбранной колоды, используя меню в верхнем правом углу экрана.</string>
     <string name="app_name">Planning Poker</string>
     <string name="dismiss">Убрать</string>
-    <string name="feedback_mail_subject_template">Обратная связь для %s</string>
     <string name="fibonacci">Фибоначчи</string>
-    <string name="follow">следить</string>
-    <string name="follow_on_twitter">Следуйте за нами на Twitter</string>
-    <string name="get_app_template">Получить %s в приложение для Android</string>
     <string name="help_and_feedback">Помощь и обратная связь</string>
     <string name="ideal_days">Идеальные дни</string>
     <string name="info">Информация</string>
@@ -34,13 +30,7 @@
     <string name="points">Баллы</string>
     <string name="poker_help">Как играть в покер планирования</string>
     <string name="poker_help_text">Играя в покер планирования, члены команды оценивают истории, выбирая карты, максимально соответстующую сложности истории. Они выкладывают карты на стол рубашкой вверх, вместо того, чтобы озвучивать голосом. После того, как карты раскрываются, оценки истории обсуждаются командой.</string>
-    <string name="provide_feedback">Обеспечить обратную связь</string>
-    <string name="rate_us_in_the_play_store">Оцените нас в Play Store</string>
-    <string name="recommend_to_a_friend">Рекомендовать другу</string>
-    <string name="send_email">Отправить по электронной почте …</string>
-    <string name="share_via">Отправить по…</string>
     <string name="social">Социальное</string>
-    <string name="support_us">Поддерживать нас</string>
     <string name="t_shirt_sizes">Размер футболок</string>
     <string name="version_info">Информация о версии</string>
 

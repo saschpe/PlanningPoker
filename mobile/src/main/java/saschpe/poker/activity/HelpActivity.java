@@ -31,11 +31,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import saschpe.android.socialfragment.app.SocialFragment;
 import saschpe.android.versioninfo.widget.VersionInfoDialogFragment;
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
 import saschpe.poker.fragment.OpenSourceLicensesFragment;
-import saschpe.poker.fragment.SocialFragment;
 
 public final class HelpActivity extends AppCompatActivity {
     @Override
@@ -93,9 +93,11 @@ public final class HelpActivity extends AppCompatActivity {
 
     private static final class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         private final String[] pageTitles;
+        private final String applicationName;
 
         MyFragmentPagerAdapter(final Context context, final FragmentManager fm) {
             super(fm);
+            applicationName = context.getString(R.string.app_name);
             pageTitles = new String[] {
                     context.getString(R.string.social),
                     context.getString(R.string.open_source_licenses)
@@ -107,7 +109,18 @@ public final class HelpActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                 default:
-                    return new SocialFragment();
+                    return new SocialFragment.Builder()
+                            // Mandatory
+                            .setApplicationId(BuildConfig.APPLICATION_ID)
+                            // Optional
+                            .setApplicationName(applicationName)
+                            .setContactEmailAddress("sascha+gp@peilicke.de")
+                            .setGithubProject("saschpe/PlanningPoker")
+                            .setTwitterProfile("saschpe")
+                            // Visual customization
+                            .setHeaderTextColor(R.color.accent)
+                            .setIconTint(android.R.color.white)
+                            .build();
                 case 1:
                     return new OpenSourceLicensesFragment();
             }
