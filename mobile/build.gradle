@@ -24,7 +24,7 @@ android {
         applicationId 'saschpe.poker'
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 160125
+        versionCode 170125
         versionName '1.2.5'
         archivesBaseName = "${applicationId}-${versionName}"
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
