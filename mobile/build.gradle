@@ -54,5 +54,4 @@ dependencies {
     implementation 'saschpe.android:utils:1.0.8.2'
     implementation 'saschpe.android:versioninfo:1.2.9'
     implementation project(':common')
-    wearApp project(':wear')
 }

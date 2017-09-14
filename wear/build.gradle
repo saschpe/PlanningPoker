@@ -22,7 +22,7 @@ android {
 
     defaultConfig {
         applicationId 'saschpe.poker'
-        minSdkVersion 22
+        minSdkVersion 24 // Standalone Wear 2.0 app
         targetSdkVersion 26
         versionCode 231125
         versionName '1.2.5'
@@ -37,18 +37,6 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
-        }
-    }
-
-    flavorDimensions 'wear'
-    productFlavors {
-        wear1 {
-            // Use the defaultConfig value
-            dimension 'wear'
-        }
-        wear2 {
-            minSdkVersion 24 // Standalone Wear 2.0 app
-            dimension 'wear'
         }
     }
 }
