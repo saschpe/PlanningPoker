@@ -24,8 +24,8 @@ android {
         applicationId 'saschpe.poker'
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 170125
-        versionName '1.2.5'
+        versionCode 170126
+        versionName '1.2.6'
         archivesBaseName = "${applicationId}-${versionName}"
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
