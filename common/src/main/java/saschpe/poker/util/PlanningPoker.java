@@ -20,6 +20,8 @@ import android.support.annotation.IntDef;
 import android.support.v4.util.SimpleArrayMap;
 import android.util.SparseIntArray;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public final class PlanningPoker {
     public static final int T_SHIRT_SIZES = 2;
     public static final int IDEAL_DAYS = 3;
     @IntDef({FIBONACCI, T_SHIRT_SIZES, IDEAL_DAYS})
+    @Retention(RetentionPolicy.SOURCE)
     public @interface Flavor {}
 
     public static final SimpleArrayMap<Integer, List<String>> VALUES = new SimpleArrayMap<>(3);
