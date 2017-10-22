@@ -1,39 +1,51 @@
 language: android
 jdk: oraclejdk8
 sudo: false
-android:
-  components:
-    - platform-tools
-    - tools
-    - build-tools-26.0.2
-    - android-26
-    - extra-android-m2repository
-    - extra-google-m2repository 
-  licenses:
-    - android-sdk-license-.+
-    - android-sdk-preview-license-.+
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
 env:
   global:
-    - secure: "sH3nvB01OfdbX/53CiPKGSwHYcjIcRfOPHDVslexcaRWc58hPPwOiFC7NSbdeqX78pl4jtUnK56QVwJgkg01neSPNcBtEkOcUa7TBDBMO7+G9woyRSLdA6knIDbFBRk01WD7Zq6YiyWb7Uar/i0+cPx68PJa926Gd7hd2V3Ab322Kf0vRRMDg4wVY6mml6U1wL4p51Ikl/9BHx/y8BdCam7eL5/HDEkt+QuQGP4q/R+ff9EG07sjLRx/RnyzaBGR7bra81XdY0HRR9irK2Np1C2NHJVOIRoVsV/DcBnjLCg0fAxq3rUyhcmgvp0fvy9nr4Xan4mz8CXGEp8vHVIYkLlD3EhZykjmnxiuYpoY7Ufu/2RwvbTRkzycjLrugOBVPweDo2Gx4Dcc6tzRMggG0whQPIhJ154JRWTRkOOWQtwFsOQKr1pjprmoJioTLKiuRcJQMnGMxrhNPNZJIEmU7PSj/yHbRelP1F4jgacQicNPRo5o+BhC0ef9UBwQFbV4KIEBuYofGFOhSQDWLcjzpzukKSD39Reqw4l27Mp1pZLcZ6NOXyCH9XsjzAp5AUep6Cz7kCiaWQJjEaCy00b+qSyf31v9dOax7+Fu3H2XUwMrrfUKVaqN1aUSqG/jyb/W2S6eMtwKYFC035PPu+1MCF5xI90ymiIPUTMZgoG3uUQ="
-    - secure: "aMZOsvEWsI0Ga8Z40w3xRe56KBE2qanFvpqQRxmmz9IWHoDemodlVcsj6qenNas96L1SpD2RDhrw9soywtT1/VEBo78geJeSNiYhXKnuNVOF19tMa9XHA/8AyBQEA//uv1SljsNqeSTQyDPSZaH2EF6AQcm0Khw1f4wYEyQn7EOr6L11eHPAelov5ISXJYvx8uTz3hDPnuASs8s4+G0uAOqYJKIvlpb640BxF20zwEgv3IeORlxGgqooVsR5CJeGIKpKCIc8V81NzskWLSxYLkBU+aajnrdF0o72nEMuaK3gyCJG37r4BPgpeHZfu/+I4YuLHiNCjvSm9r61XapPJJUq/HUzAgbM4l8KyFXz408aiNCyoIU+gV0ZciewSxAW9nyhuu1lYdWC9ViiNzalAVmVj0r+x1/nF+xaA6lFVgzY1AfQkp3OckNIGIItD8k4yPH1nzJDDNrL3mXLH6hGSHI0GB/lPfiw3hymGHjMkGLcYPgAXtroUgxAOvv1qAFS4DEFpvJvIHMNFTzKfz1DY1JQ2/IYHhesAsSXoOiDn8tRlYSxad3GY3tNjQL7T4pI2n20kZA0ykH6t2asAn8JSGjPtDIWMQxD1Q9Z3kM3jo4B/PhAHV4cebj4DTBZAgwOwL5DEPJ9gh0Zh/SWWp8z/z6YvS6y6LYf+hDTHD84Zxg="
+  - secure: sH3nvB01OfdbX/53CiPKGSwHYcjIcRfOPHDVslexcaRWc58hPPwOiFC7NSbdeqX78pl4jtUnK56QVwJgkg01neSPNcBtEkOcUa7TBDBMO7+G9woyRSLdA6knIDbFBRk01WD7Zq6YiyWb7Uar/i0+cPx68PJa926Gd7hd2V3Ab322Kf0vRRMDg4wVY6mml6U1wL4p51Ikl/9BHx/y8BdCam7eL5/HDEkt+QuQGP4q/R+ff9EG07sjLRx/RnyzaBGR7bra81XdY0HRR9irK2Np1C2NHJVOIRoVsV/DcBnjLCg0fAxq3rUyhcmgvp0fvy9nr4Xan4mz8CXGEp8vHVIYkLlD3EhZykjmnxiuYpoY7Ufu/2RwvbTRkzycjLrugOBVPweDo2Gx4Dcc6tzRMggG0whQPIhJ154JRWTRkOOWQtwFsOQKr1pjprmoJioTLKiuRcJQMnGMxrhNPNZJIEmU7PSj/yHbRelP1F4jgacQicNPRo5o+BhC0ef9UBwQFbV4KIEBuYofGFOhSQDWLcjzpzukKSD39Reqw4l27Mp1pZLcZ6NOXyCH9XsjzAp5AUep6Cz7kCiaWQJjEaCy00b+qSyf31v9dOax7+Fu3H2XUwMrrfUKVaqN1aUSqG/jyb/W2S6eMtwKYFC035PPu+1MCF5xI90ymiIPUTMZgoG3uUQ=
+  - secure: aMZOsvEWsI0Ga8Z40w3xRe56KBE2qanFvpqQRxmmz9IWHoDemodlVcsj6qenNas96L1SpD2RDhrw9soywtT1/VEBo78geJeSNiYhXKnuNVOF19tMa9XHA/8AyBQEA//uv1SljsNqeSTQyDPSZaH2EF6AQcm0Khw1f4wYEyQn7EOr6L11eHPAelov5ISXJYvx8uTz3hDPnuASs8s4+G0uAOqYJKIvlpb640BxF20zwEgv3IeORlxGgqooVsR5CJeGIKpKCIc8V81NzskWLSxYLkBU+aajnrdF0o72nEMuaK3gyCJG37r4BPgpeHZfu/+I4YuLHiNCjvSm9r61XapPJJUq/HUzAgbM4l8KyFXz408aiNCyoIU+gV0ZciewSxAW9nyhuu1lYdWC9ViiNzalAVmVj0r+x1/nF+xaA6lFVgzY1AfQkp3OckNIGIItD8k4yPH1nzJDDNrL3mXLH6hGSHI0GB/lPfiw3hymGHjMkGLcYPgAXtroUgxAOvv1qAFS4DEFpvJvIHMNFTzKfz1DY1JQ2/IYHhesAsSXoOiDn8tRlYSxad3GY3tNjQL7T4pI2n20kZA0ykH6t2asAn8JSGjPtDIWMQxD1Q9Z3kM3jo4B/PhAHV4cebj4DTBZAgwOwL5DEPJ9gh0Zh/SWWp8z/z6YvS6y6LYf+hDTHD84Zxg=
+android:
+  components:
+  - platform-tools
+  - tools
+  - build-tools-26.0.2
+  - android-26
+  - extra-android-m2repository
+  - extra-google-m2repository
+  licenses:
+  - android-sdk-license-.+
+  - android-sdk-preview-license-.+
 branches:
   except:
-    - gh-pages
+  - gh-pages
+before_script:
+- "./scripts/create-test-keystore"
+script:
+- echo "Travis branch is $TRAVIS_BRANCH"
+- echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
+- "./gradlew check"
+deploy:
+  provider: releases
+  api_key:
+    secure: dk5zdLbCvGIIpOcZ0dvaNs2Eppbj+rC5kuOilHkakQZEoE5kKV0wHt/izq7iJVkjK+6bnPOUyc/JCB6Zjjps31zRMk+RTy98BOp/vNDqUdK5014wUcRZr4rN6CQDawHhZDUMBbY6XFLWmPWIVhoU//33r7MLnBbMGIBXzr7vfakIbFzfQ5MMPk9bb1OhrJtjpucpd/zx7PcSeoUGSYclLVt3rsHe23hbzl6RwgRH2GEClMj+mJvkUP6od/1MAqoAegJji/QHvXU6YLd+h82CDxazXgUKFfIhK/OYLQhPl73ek/vvG3CNL8qjcYpHRPewQ4GfS6l2kc7Jz8wZIiRQNmtF6kNJzfLFTVjvQpe5XySr0uBC4m+VCYGp6GxPyxDnQ7iS4C8XVzzBKR/mVonjauyd2Wv4Fokq+Mdy6Bcu1ZtuxgDARJMBkvZujnZi6cz9TgDUi74ezYiXkAznTfn/wJ8Y9kuwa+J8EKdet+Mn0NB7N/NneIpRh4iLbLZ7qX8wMS3sd+3t1ZVYfuV9DFHPt8ejqQN11mSPLU/jNXVN9M9Xv+1EjQQCQI0N61+TltPnGHO/TmeHj2FrNaBJd+01kCb/f0Pcp0d29jLcU22LQiOK1qHSIORGDC5BOGG/Qari9Ln5ZJaaX1DyGmbm/J9Vzb2lMIAq6l9k9KAJIXz4aWk=
+  file_glob: true
+  file: 
+    - mobile/build/outputs/apk/release/saschpe.poker-*-release.apk
+    - wear/build/outputs/apk/release/saschpe.poker-*-release.apk
+  on:
+    repo: saschpe/PlanningPoker
 notifications:
   email:
     recipients:
-      - sascha@peilicke.de
-    on_success: never # default: change
-    on_failure: always # default: always
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
-script:
-    - echo "Travis branch is $TRAVIS_BRANCH"
-    - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
-    - ./gradlew check
+    - sascha@peilicke.de
+    on_success: never
+    on_failure: always
