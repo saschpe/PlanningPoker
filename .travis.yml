@@ -43,6 +43,7 @@ deploy:
     - wear/build/outputs/apk/release/saschpe.poker-*-release.apk
   on:
     repo: saschpe/PlanningPoker
+    tags: true
 notifications:
   email:
     recipients:
