@@ -95,13 +95,10 @@ public final class CardArrayAdapter extends ArrayAdapter<String, RecyclerView.Vi
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (isHelpOnPosition(position)) {
             HelpCardViewHolder helpCardViewHolder = (HelpCardViewHolder) holder;
-            helpCardViewHolder.dismiss.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    helpDismissed = true;
-                    notifyItemRemoved(helpViewPosition);
-                    prefs.edit().putBoolean(PREF_HELP_DISMISSED, true).apply();
-                }
+            helpCardViewHolder.dismiss.setOnClickListener(view -> {
+                helpDismissed = true;
+                notifyItemRemoved(helpViewPosition);
+                prefs.edit().putBoolean(PREF_HELP_DISMISSED, true).apply();
             });
         } else {
             if (!helpDismissed && position > helpViewPosition) {
@@ -112,12 +109,9 @@ public final class CardArrayAdapter extends ArrayAdapter<String, RecyclerView.Vi
                 case SMALL_CARD_VIEW_TYPE:
                     SmallCardViewHolder smallCardViewHolder = (SmallCardViewHolder) holder;
                     smallCardViewHolder.center.setText(getItem(position));
-                    smallCardViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (onSmallCardClickListener != null) {
-                                onSmallCardClickListener.onCardClick(holder.getAdapterPosition());
-                            }
+                    smallCardViewHolder.itemView.setOnClickListener(view -> {
+                        if (onSmallCardClickListener != null) {
+                            onSmallCardClickListener.onCardClick(holder.getAdapterPosition());
                         }
                     });
                     break;
