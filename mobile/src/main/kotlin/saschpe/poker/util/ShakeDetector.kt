@@ -21,24 +21,11 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 
-class ShakeDetector : SensorEventListener {
-    private var onShakeListener: OnShakeListener? = null
+class ShakeDetector(private var onShakeListener: (Any) -> Unit) : SensorEventListener {
     private var shakeTimestamp: Long = 0
     private var shakeCount: Int = 0
 
-    interface OnShakeListener {
-        fun onShake(count: Int)
-    }
-
-    fun setOnShakeListener(onShakeListener: OnShakeListener) {
-        this.onShakeListener = onShakeListener
-    }
-
     override fun onSensorChanged(event: SensorEvent) {
-        if (onShakeListener == null) {
-            return
-        }
-
         val gX = event.values[0] / SensorManager.GRAVITY_EARTH
         val gY = event.values[1] / SensorManager.GRAVITY_EARTH
         val gZ = event.values[2] / SensorManager.GRAVITY_EARTH
@@ -50,7 +37,6 @@ class ShakeDetector : SensorEventListener {
             if (shakeTimestamp + SHAKE_SLOP_TIME_MS > now) {
                 return
             }
-
             if (shakeTimestamp + SHAKE_COUNT_RESET_TIME_MS < now) {
                 shakeCount = 0
             }
@@ -58,7 +44,7 @@ class ShakeDetector : SensorEventListener {
             shakeTimestamp = now
             shakeCount++
 
-            onShakeListener!!.onShake(shakeCount)
+            onShakeListener.invoke(shakeCount)
         }
     }
 
