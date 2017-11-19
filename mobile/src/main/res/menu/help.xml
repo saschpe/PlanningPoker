@@ -5,9 +5,16 @@
     tools:context=".activity.HelpActivity">
 
     <item
-        android:id="@+id/version_info"
+        android:id="@+id/open_source_licenses"
         android:icon="@drawable/ic_info"
         android:orderInCategory="101"
+        android:title="@string/open_source_licenses"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/version_info"
+        android:icon="@drawable/ic_info"
+        android:orderInCategory="102"
         android:title="@string/version_info"
         app:showAsAction="never" />
 

@@ -17,6 +17,7 @@
 package saschpe.poker.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -31,11 +32,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
+
 import saschpe.android.socialfragment.app.SocialFragment;
 import saschpe.android.versioninfo.widget.VersionInfoDialogFragment;
 import saschpe.poker.BuildConfig;
 import saschpe.poker.R;
-import saschpe.poker.fragment.OpenSourceLicensesFragment;
 
 public final class HelpActivity extends AppCompatActivity {
     @Override
@@ -78,6 +80,9 @@ public final class HelpActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.open_source_licenses:
+                startActivity(new Intent(this, OssLicensesMenuActivity.class));
+                break;
             case R.id.version_info:
                 VersionInfoDialogFragment
                         .newInstance(
@@ -99,8 +104,7 @@ public final class HelpActivity extends AppCompatActivity {
             super(fm);
             applicationName = context.getString(R.string.app_name);
             pageTitles = new String[] {
-                    context.getString(R.string.social),
-                    context.getString(R.string.open_source_licenses)
+                    context.getString(R.string.social)
             };
         }
 
@@ -121,8 +125,6 @@ public final class HelpActivity extends AppCompatActivity {
                             .setHeaderTextColor(R.color.accent)
                             .setIconTint(android.R.color.white)
                             .build();
-                case 1:
-                    return new OpenSourceLicensesFragment();
             }
         }
 
@@ -133,7 +135,7 @@ public final class HelpActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 1;
         }
     }
 }
