@@ -42,9 +42,6 @@ import saschpe.poker.R;
 import saschpe.poker.adapter.WearCardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
 
-import static saschpe.poker.util.PlanningPoker.DEFAULTS;
-import static saschpe.poker.util.PlanningPoker.VALUES;
-
 public final class MainActivity extends WearableActivity implements
         WearableActionDrawer.OnMenuItemClickListener {
     private static final String PREFS_FLAVOR = "flavor2";
@@ -86,9 +83,9 @@ public final class MainActivity extends WearableActivity implements
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacePx, layoutManager.getOrientation()));
-        arrayAdapter = new WearCardArrayAdapter(this, VALUES.get(flavor), WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
+        arrayAdapter = new WearCardArrayAdapter(this, PlanningPoker.INSTANCE.getValues().get(flavor), WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
         recyclerView.setAdapter(arrayAdapter);
-        recyclerView.scrollToPosition(DEFAULTS.get(flavor));
+        recyclerView.scrollToPosition(PlanningPoker.INSTANCE.getDefaults().get(flavor));
 
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
@@ -175,8 +172,8 @@ public final class MainActivity extends WearableActivity implements
 
     private void updateFlavor(@PlanningPoker.Flavor int flavor) {
         this.flavor = flavor;
-        arrayAdapter.replaceAll(VALUES.get(flavor));
-        recyclerView.scrollToPosition(DEFAULTS.get(flavor));
+        arrayAdapter.replaceAll(PlanningPoker.INSTANCE.getValues().get(flavor));
+        recyclerView.scrollToPosition(PlanningPoker.INSTANCE.getDefaults().get(flavor));
     }
 
     private void updateDisplay() {

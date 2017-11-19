@@ -15,6 +15,7 @@
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 27
@@ -37,4 +38,5 @@ android {
 
 dependencies {
     implementation 'com.android.support:support-v4:27.0.1'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jre8:1.1.60'
 }

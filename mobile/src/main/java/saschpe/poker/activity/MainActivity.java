@@ -33,7 +33,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -43,9 +42,6 @@ import saschpe.poker.adapter.CardArrayAdapter;
 import saschpe.poker.adapter.RecyclerViewDisabler;
 import saschpe.poker.util.PlanningPoker;
 import saschpe.poker.util.ShakeDetector;
-
-import static saschpe.poker.util.PlanningPoker.DEFAULTS;
-import static saschpe.poker.util.PlanningPoker.VALUES;
 
 public final class MainActivity extends AppCompatActivity {
     private static final String PREFS_FLAVOR = "flavor2";
@@ -91,28 +87,25 @@ public final class MainActivity extends AppCompatActivity {
         // Recycler adapter
         final Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         final Animation smallCardClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
-        adapter = new CardArrayAdapter(this, VALUES.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, DEFAULTS.get(flavor));
-        adapter.setOnSmallCardClickListener(new CardArrayAdapter.OnSmallCardClickListener() {
-            @Override
-            public void onCardClick(final int position) {
-                smallCardClickFadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                    }
+        adapter = new CardArrayAdapter(this, PlanningPoker.INSTANCE.getValues().get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, PlanningPoker.INSTANCE.getDefaults().get(flavor));
+        adapter.setOnSmallCardClickListener(position -> {
+            smallCardClickFadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        displayBigCards();
-                        recyclerView.scrollToPosition(position);
-                        recyclerView.startAnimation(fadeInAnimation);
-                    }
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    displayBigCards();
+                    recyclerView.scrollToPosition(position);
+                    recyclerView.startAnimation(fadeInAnimation);
+                }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-                    }
-                });
-                recyclerView.startAnimation(smallCardClickFadeOutAnimation);
-            }
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            recyclerView.startAnimation(smallCardClickFadeOutAnimation);
         });
 
         // Recycler layout managers
@@ -134,7 +127,7 @@ public final class MainActivity extends AppCompatActivity {
         if (linearLayoutManagerState != null) {
             linearLayoutManager.onRestoreInstanceState(linearLayoutManagerState);
         } else {
-            recyclerView.scrollToPosition(DEFAULTS.get(flavor));
+            recyclerView.scrollToPosition(PlanningPoker.INSTANCE.getDefaults().get(flavor));
         }
         linearSnapHelper.attachToRecyclerView(recyclerView);
         recyclerViewDisabler = new RecyclerViewDisabler();
@@ -152,7 +145,7 @@ public final class MainActivity extends AppCompatActivity {
                     displaySmallCards();
                 } else {
                     displayBigCards();
-                    recyclerView.scrollToPosition(DEFAULTS.get(flavor));
+                    recyclerView.scrollToPosition(PlanningPoker.INSTANCE.getDefaults().get(flavor));
                 }
                 recyclerView.startAnimation(fadeInAnimation);
             }
@@ -162,12 +155,7 @@ public final class MainActivity extends AppCompatActivity {
             }
         });
         selectorFab = findViewById(R.id.select_fab);
-        selectorFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recyclerView.startAnimation(fabClickFadeOutAnimation);
-            }
-        });
+        selectorFab.setOnClickListener(view -> recyclerView.startAnimation(fabClickFadeOutAnimation));
 
         // Lock current card floating action button
         isLocked = false;
@@ -202,14 +190,11 @@ public final class MainActivity extends AppCompatActivity {
             }
         });
         lockFab = findViewById(R.id.lock_fab);
-        lockFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isLocked) {
-                    recyclerView.startAnimation(unlockAnimation);
-                } else {
-                    recyclerView.startAnimation(lockAnimation);
-                }
+        lockFab.setOnClickListener(v -> {
+            if (isLocked) {
+                recyclerView.startAnimation(unlockAnimation);
+            } else {
+                recyclerView.startAnimation(lockAnimation);
             }
         });
 
@@ -233,15 +218,12 @@ public final class MainActivity extends AppCompatActivity {
         if (sensorManager != null) {
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             shakeDetector = new ShakeDetector();
-            shakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
-                @Override
-                public void onShake(int count) {
-                    // Only start animation in big card view mode
-                    if (recyclerView.getLayoutManager() == linearLayoutManager) {
-                        recyclerView.startAnimation(shakeAnimation);
-                    } else {
-                        displayBigCards();
-                    }
+            shakeDetector.setOnShakeListener(count -> {
+                // Only start animation in big card view mode
+                if (recyclerView.getLayoutManager() == linearLayoutManager) {
+                    recyclerView.startAnimation(shakeAnimation);
+                } else {
+                    displayBigCards();
                 }
             });
         }
@@ -341,8 +323,8 @@ public final class MainActivity extends AppCompatActivity {
 
     private void updateFlavor(@PlanningPoker.Flavor int flavor) {
         this.flavor = flavor;
-        adapter.replaceAll(VALUES.get(flavor));
-        recyclerView.scrollToPosition(DEFAULTS.get(flavor));
+        adapter.replaceAll(PlanningPoker.INSTANCE.getValues().get(flavor));
+        recyclerView.scrollToPosition(PlanningPoker.INSTANCE.getDefaults().get(flavor));
     }
 
     private void lock() {
