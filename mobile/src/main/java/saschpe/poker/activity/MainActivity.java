@@ -25,7 +25,6 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -350,7 +349,7 @@ public final class MainActivity extends AppCompatActivity {
         isLocked = true;
         recyclerView.addOnItemTouchListener(recyclerViewDisabler);
         selectorFab.hide();
-        ActivityCompat.invalidateOptionsMenu(MainActivity.this);
+        invalidateOptionsMenu();
         adapter.setViewType(CardArrayAdapter.BIG_BLACK_CARD_VIEW_TYPE);
         Snackbar.make(recyclerView, R.string.shake_to_reveal, Snackbar.LENGTH_SHORT)
                 .show();
@@ -360,7 +359,7 @@ public final class MainActivity extends AppCompatActivity {
         isLocked = false;
         displayBigCards();
         selectorFab.show();
-        ActivityCompat.invalidateOptionsMenu(MainActivity.this);
+        invalidateOptionsMenu();
         recyclerView.removeOnItemTouchListener(recyclerViewDisabler);
     }
 }
