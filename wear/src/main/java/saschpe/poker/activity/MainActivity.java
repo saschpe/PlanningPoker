@@ -23,11 +23,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.support.wear.widget.drawer.WearableActionDrawerView;
 import android.support.wearable.activity.WearableActivity;
-import android.support.wearable.view.drawer.WearableActionDrawer;
-import android.support.wearable.view.drawer.WearableDrawerLayout;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +41,7 @@ import saschpe.poker.adapter.WearCardArrayAdapter;
 import saschpe.poker.util.PlanningPoker;
 
 public final class MainActivity extends WearableActivity implements
-        WearableActionDrawer.OnMenuItemClickListener {
+        MenuItem.OnMenuItemClickListener {
     private static final String PREFS_FLAVOR = "flavor2";
     private static final String STATE_FLAVOR = "flavor";
     private static final SimpleDateFormat AMBIENT_DATE_FORMAT =
@@ -51,8 +49,7 @@ public final class MainActivity extends WearableActivity implements
 
     private @PlanningPoker.Flavor int flavor;
     private WearCardArrayAdapter arrayAdapter;
-    private WearableActionDrawer actionDrawer;
-    private WearableDrawerLayout drawerLayout;
+    private WearableActionDrawerView bottomActionDrawer;
     private RecyclerView recyclerView;
     private TextView clock;
 
@@ -86,16 +83,13 @@ public final class MainActivity extends WearableActivity implements
         arrayAdapter = new WearCardArrayAdapter(this, PlanningPoker.INSTANCE.getValues().get(flavor), WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
         recyclerView.setAdapter(arrayAdapter);
         recyclerView.scrollToPosition(PlanningPoker.INSTANCE.getDefaults().get(flavor));
-
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
 
-        // Main Wearable Drawer Layout that wraps all content
-        drawerLayout = findViewById(R.id.drawer_layout);
         // Bottom Action Drawer
-        actionDrawer = findViewById(R.id.bottom_action_drawer);
+        bottomActionDrawer = findViewById(R.id.bottom_action_drawer);
         // Populate Action Drawer Menu
-        Menu menu = actionDrawer.getMenu();
+        Menu menu = bottomActionDrawer.getMenu();
         getMenuInflater().inflate(R.menu.action_drawer, menu);
         switch (flavor) {
             case PlanningPoker.FIBONACCI:
@@ -108,9 +102,8 @@ public final class MainActivity extends WearableActivity implements
                 menu.findItem(R.id.ideal_days).setChecked(true);
                 break;
         }
-        actionDrawer.setOnMenuItemClickListener(this);
-        // Peeks action drawer on the bottom.
-        drawerLayout.peekDrawer(Gravity.BOTTOM);
+        bottomActionDrawer.getController().peekDrawer();
+        bottomActionDrawer.setOnMenuItemClickListener(this);
     }
 
     @Override
@@ -148,7 +141,7 @@ public final class MainActivity extends WearableActivity implements
                 startActivity(new Intent(this, InfoActivity.class));
                 break;
         }
-        actionDrawer.closeDrawer();
+        bottomActionDrawer.getController().closeDrawer();
         return super.onOptionsItemSelected(item);
     }
 
@@ -181,7 +174,7 @@ public final class MainActivity extends WearableActivity implements
             arrayAdapter.setViewType(WearCardArrayAdapter.DARK_CARD_VIEW_TYPE);
             clock.setText(AMBIENT_DATE_FORMAT.format(new Date()));
             clock.setVisibility(View.VISIBLE);
-            drawerLayout.closeDrawer(Gravity.BOTTOM);
+            bottomActionDrawer.getController().closeDrawer();
         } else {
             arrayAdapter.setViewType(WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE);
             clock.setVisibility(View.GONE);

@@ -17,7 +17,9 @@
 apply plugin: 'com.android.application'
 
 def localProperties = new Properties()
-file("$rootProject.projectDir/local.properties").withInputStream { localProperties.load(it) }
+file("$rootProject.projectDir/local.properties").withInputStream {
+    localProperties.load(it)
+}
 
 android {
     compileSdkVersion 27
@@ -68,8 +70,9 @@ dependencies {
     implementation 'com.android.support:percent:27.0.1'
     implementation 'com.android.support:recyclerview-v7:27.0.1'
     implementation 'com.android.support:support-v4:27.0.1'
-    implementation 'com.google.android.support:wearable:2.1.0'
+    implementation 'com.android.support:wear:27.0.1'
     implementation 'com.google.android.gms:play-services-wearable:11.6.0'
+    implementation 'com.google.android.support:wearable:2.1.0'
     implementation 'saschpe.android:utils:1.2.0'
     implementation 'saschpe.android:versioninfo:1.3.0'
     implementation project(':common')
