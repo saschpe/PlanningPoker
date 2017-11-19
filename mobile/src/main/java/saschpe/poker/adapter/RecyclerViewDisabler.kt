@@ -14,22 +14,16 @@
  * limitations under the License.
  */
 
-package saschpe.poker.adapter;
+package saschpe.poker.adapter
 
-import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
+import android.support.v7.widget.RecyclerView
+import android.view.MotionEvent
 
-public final class RecyclerViewDisabler implements RecyclerView.OnItemTouchListener {
-    @Override
-    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-        return true;
-    }
+class RecyclerViewDisabler : RecyclerView.OnItemTouchListener {
+    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean =
+            true
 
-    @Override
-    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-    }
+    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
 
-    @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-    }
+    override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
 }

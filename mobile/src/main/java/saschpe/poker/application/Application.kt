@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-package saschpe.poker.application;
+package saschpe.poker.application
 
-import android.os.StrictMode;
-import android.support.v7.app.AppCompatDelegate;
+import android.os.StrictMode
+import android.support.v7.app.AppCompatDelegate
 
-import saschpe.poker.BuildConfig;
+import saschpe.poker.BuildConfig
 
-public final class Application extends android.app.Application {
-    @Override
-    public void onCreate() {
-        super.onCreate();
+class Application : android.app.Application() {
+    override fun onCreate() {
+        super.onCreate()
         if (BuildConfig.DEBUG) {
-            StrictMode.enableDefaults();
+            StrictMode.enableDefaults()
         }
 
         // Support vector drawable support for pre-Lollipop devices
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 }
