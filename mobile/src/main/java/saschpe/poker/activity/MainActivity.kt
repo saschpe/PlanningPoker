@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
     private var recyclerViewDisabler: RecyclerView.OnItemTouchListener? = null
     private var gridSpacesDecoration: SpacesItemDecoration? = null
     private var isLocked: Boolean = false
-
     private var sensorManager: SensorManager? = null
     private var accelerometer: Sensor? = null
     private var shakeDetector: ShakeDetector? = null
@@ -78,42 +77,39 @@ class MainActivity : AppCompatActivity() {
         val fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         val smallCardClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
         adapter = CardArrayAdapter(this, PlanningPoker.values.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, PlanningPoker.defaults.get(flavor))
-        adapter!!.setOnSmallCardClickListener { position ->
+        adapter?.setOnSmallCardClickListener { position ->
             smallCardClickFadeOutAnimation.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation) {}
 
                 override fun onAnimationEnd(animation: Animation) {
                     displayBigCards()
-                    recycler_view!!.scrollToPosition(position)
-                    recycler_view!!.startAnimation(fadeInAnimation)
+                    recycler_view.scrollToPosition(position)
+                    recycler_view.startAnimation(fadeInAnimation)
                 }
 
                 override fun onAnimationRepeat(animation: Animation) {}
             })
-            recycler_view!!.startAnimation(smallCardClickFadeOutAnimation)
+            recycler_view.startAnimation(smallCardClickFadeOutAnimation)
         }
 
         // Recycler layout managers
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        linearSnapHelper = LinearSnapHelper()
         gridLayoutManager = GridLayoutManager(this, 3)
-
-        gridLayoutManager!!.spanSizeLookup = adapter!!.getSpanSizeLookup(gridLayoutManager!!)
-
+        gridLayoutManager?.spanSizeLookup = adapter?.getSpanSizeLookup(gridLayoutManager!!)
         gridSpacesDecoration = SpacesItemDecoration(margin8dpInPx, SpacesItemDecoration.VERTICAL)
 
-
         // Recycler view
-        recycler_view!!.layoutManager = linearLayoutManager
-        recycler_view!!.addItemDecoration(SpacesItemDecoration(margin8dpInPx, SpacesItemDecoration.HORIZONTAL))
-        recycler_view!!.adapter = adapter
-        recycler_view!!.setHasFixedSize(true)
+        recycler_view.layoutManager = linearLayoutManager
+        recycler_view.addItemDecoration(SpacesItemDecoration(margin8dpInPx, SpacesItemDecoration.HORIZONTAL))
+        recycler_view.adapter = adapter
+        recycler_view.setHasFixedSize(true)
         if (linearLayoutManagerState != null) {
-            linearLayoutManager!!.onRestoreInstanceState(linearLayoutManagerState)
+            linearLayoutManager?.onRestoreInstanceState(linearLayoutManagerState)
         } else {
-            recycler_view!!.scrollToPosition(PlanningPoker.defaults.get(flavor))
+            recycler_view.scrollToPosition(PlanningPoker.defaults.get(flavor))
         }
-        linearSnapHelper!!.attachToRecyclerView(recycler_view)
+        linearSnapHelper = LinearSnapHelper()
+        linearSnapHelper?.attachToRecyclerView(recycler_view)
         recyclerViewDisabler = RecyclerViewDisabler()
 
         // Card selector floating action button
@@ -133,7 +129,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onAnimationRepeat(animation: Animation) {}
         })
-        select_fab!!.setOnClickListener { recycler_view!!.startAnimation(fabClickFadeOutAnimation) }
+        select_fab.setOnClickListener { recycler_view!!.startAnimation(fabClickFadeOutAnimation) }
 
         // Lock current card floating action button
         isLocked = false
@@ -157,11 +153,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onAnimationRepeat(animation: Animation) {}
         })
-        lock_fab!!.setOnClickListener {
+        lock_fab.setOnClickListener {
             if (isLocked) {
-                recycler_view!!.startAnimation(unlockAnimation)
+                recycler_view.startAnimation(unlockAnimation)
             } else {
-                recycler_view!!.startAnimation(lockAnimation)
+                recycler_view.startAnimation(lockAnimation)
             }
         }
 
@@ -171,18 +167,18 @@ class MainActivity : AppCompatActivity() {
             override fun onAnimationStart(animation: Animation) {}
 
             override fun onAnimationEnd(animation: Animation) {
-                recycler_view!!.startAnimation(unlockAnimation)
+                recycler_view.startAnimation(unlockAnimation)
             }
 
             override fun onAnimationRepeat(animation: Animation) {}
         })
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         if (sensorManager != null) {
-            accelerometer = sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+            accelerometer = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
             shakeDetector = ShakeDetector({
                 // Only start animation in big card view mode
-                if (recycler_view!!.layoutManager === linearLayoutManager) {
-                    recycler_view!!.startAnimation(shakeAnimation)
+                if (recycler_view.layoutManager === linearLayoutManager) {
+                    recycler_view.startAnimation(shakeAnimation)
                 } else {
                     displayBigCards()
                 }
@@ -192,12 +188,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        sensorManager!!.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
+        sensorManager?.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
     }
 
     override fun onPause() {
         super.onPause()
-        sensorManager!!.unregisterListener(shakeDetector)
+        sensorManager?.unregisterListener(shakeDetector)
     }
 
     override fun onDestroy() {
@@ -208,11 +204,11 @@ class MainActivity : AppCompatActivity() {
                 .apply()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         // Save current flavor over configuration change
-        outState!!.putInt(STATE_FLAVOR, flavor)
-        outState.putParcelable(STATE_LINEAR_LAYOUT_MANAGER, linearLayoutManager!!.onSaveInstanceState())
+        outState.putInt(STATE_FLAVOR, flavor)
+        outState.putParcelable(STATE_LINEAR_LAYOUT_MANAGER, linearLayoutManager?.onSaveInstanceState())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -253,45 +249,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayBigCards() {
-        adapter!!.setViewType(CardArrayAdapter.BIG_CARD_VIEW_TYPE)
-        recycler_view!!.layoutManager = linearLayoutManager
-        recycler_view!!.removeItemDecoration(gridSpacesDecoration)
-        linearSnapHelper!!.attachToRecyclerView(recycler_view)
-        select_fab!!.setImageResource(R.drawable.ic_view_module)
-        lock_fab!!.show()
+        adapter?.setViewType(CardArrayAdapter.BIG_CARD_VIEW_TYPE)
+        recycler_view.layoutManager = linearLayoutManager
+        recycler_view.removeItemDecoration(gridSpacesDecoration)
+        linearSnapHelper?.attachToRecyclerView(recycler_view)
+        select_fab.setImageResource(R.drawable.ic_view_module)
+        lock_fab.show()
     }
 
     private fun displaySmallCards() {
-        adapter!!.setViewType(CardArrayAdapter.SMALL_CARD_VIEW_TYPE)
-        recycler_view!!.layoutManager = gridLayoutManager
-        recycler_view!!.addItemDecoration(gridSpacesDecoration)
-        linearSnapHelper!!.attachToRecyclerView(null)
-        select_fab!!.setImageResource(R.drawable.ic_view_array)
-        lock_fab!!.hide()
+        adapter?.setViewType(CardArrayAdapter.SMALL_CARD_VIEW_TYPE)
+        recycler_view.layoutManager = gridLayoutManager
+        recycler_view.addItemDecoration(gridSpacesDecoration)
+        linearSnapHelper?.attachToRecyclerView(null)
+        select_fab.setImageResource(R.drawable.ic_view_array)
+        lock_fab.hide()
     }
 
     private fun updateFlavor(@PlanningPoker.Flavor flavor: Int) {
         this.flavor = flavor
-        adapter!!.replaceAll(PlanningPoker.values.get(flavor))
-        recycler_view!!.scrollToPosition(PlanningPoker.defaults.get(flavor))
+        adapter?.replaceAll(PlanningPoker.values.get(flavor))
+        recycler_view.scrollToPosition(PlanningPoker.defaults.get(flavor))
     }
 
     private fun lock() {
         isLocked = true
-        recycler_view!!.addOnItemTouchListener(recyclerViewDisabler)
-        select_fab!!.hide()
+        recycler_view.addOnItemTouchListener(recyclerViewDisabler)
+        select_fab.hide()
         invalidateOptionsMenu()
-        adapter!!.setViewType(CardArrayAdapter.BIG_BLACK_CARD_VIEW_TYPE)
-        Snackbar.make(recycler_view!!, R.string.shake_to_reveal, Snackbar.LENGTH_SHORT)
+        adapter?.setViewType(CardArrayAdapter.BIG_BLACK_CARD_VIEW_TYPE)
+        Snackbar.make(recycler_view, R.string.shake_to_reveal, Snackbar.LENGTH_SHORT)
                 .show()
     }
 
     private fun unlock() {
         isLocked = false
         displayBigCards()
-        select_fab!!.show()
+        select_fab.show()
         invalidateOptionsMenu()
-        recycler_view!!.removeOnItemTouchListener(recyclerViewDisabler)
+        recycler_view.removeOnItemTouchListener(recyclerViewDisabler)
     }
 
     companion object {

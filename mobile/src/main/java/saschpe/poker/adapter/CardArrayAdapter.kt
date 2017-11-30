@@ -38,15 +38,11 @@ class CardArrayAdapter(context: Context,
                        private val helpViewPosition: Int) : ArrayAdapter<String, RecyclerView.ViewHolder>(objects) {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    private var helpDismissed: Boolean = false
+    private var helpDismissed: Boolean = prefs.getBoolean(PREF_HELP_DISMISSED, false)
     private var onSmallCardClickListener: ((Int) -> Any)? = null
 
     @IntDef(BIG_CARD_VIEW_TYPE.toLong(), BIG_BLACK_CARD_VIEW_TYPE.toLong(), SMALL_CARD_VIEW_TYPE.toLong())
     internal annotation class ViewType
-
-    init {
-        helpDismissed = prefs.getBoolean(PREF_HELP_DISMISSED, false)
-    }
 
     override fun getItemViewType(position: Int): Int {
         return if (isHelpOnPosition(position)) {
@@ -85,9 +81,7 @@ class CardArrayAdapter(context: Context,
                     val smallCardViewHolder = holder as SmallCardViewHolder
                     smallCardViewHolder.center.text = getItem(myPosition)
                     smallCardViewHolder.itemView.setOnClickListener { _ ->
-                        if (onSmallCardClickListener != null) {
-                            onSmallCardClickListener!!.invoke(holder.getAdapterPosition())
-                        }
+                        onSmallCardClickListener?.invoke(holder.getAdapterPosition())
                     }
                 }
                 BIG_BLACK_CARD_VIEW_TYPE -> {

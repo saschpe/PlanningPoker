@@ -51,24 +51,24 @@ class MainActivity : WearableActivity(), MenuItem.OnMenuItemClickListener {
 
         // Setup recycler
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recycler_view!!.layoutManager = layoutManager
-        recycler_view!!.addItemDecoration(SpacesItemDecoration(spacePx, layoutManager.orientation))
+        recycler_view.layoutManager = layoutManager
+        recycler_view.addItemDecoration(SpacesItemDecoration(spacePx, layoutManager.orientation))
         arrayAdapter = WearCardArrayAdapter(this, PlanningPoker.values.get(flavor), WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE)
-        recycler_view!!.adapter = arrayAdapter
-        recycler_view!!.scrollToPosition(PlanningPoker.defaults.get(flavor))
+        recycler_view.adapter = arrayAdapter
+        recycler_view.scrollToPosition(PlanningPoker.defaults.get(flavor))
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(recycler_view)
 
         // Bottom Action Drawer
-        val menu = bottom_action_drawer!!.menu
+        val menu = bottom_action_drawer.menu
         menuInflater.inflate(R.menu.action_drawer, menu)
         when (flavor) {
             PlanningPoker.FIBONACCI -> menu.findItem(R.id.fibonacci).isChecked = true
             PlanningPoker.T_SHIRT_SIZES -> menu.findItem(R.id.t_shirt_sizes).isChecked = true
             PlanningPoker.IDEAL_DAYS -> menu.findItem(R.id.ideal_days).isChecked = true
         }
-        bottom_action_drawer!!.controller.peekDrawer()
-        bottom_action_drawer!!.setOnMenuItemClickListener(this)
+        bottom_action_drawer.controller.peekDrawer()
+        bottom_action_drawer.setOnMenuItemClickListener(this)
     }
 
     override fun onDestroy() {
@@ -101,7 +101,7 @@ class MainActivity : WearableActivity(), MenuItem.OnMenuItemClickListener {
             }
             R.id.version_info -> startActivity(Intent(this, InfoActivity::class.java))
         }
-        bottom_action_drawer!!.controller.closeDrawer()
+        bottom_action_drawer.controller.closeDrawer()
         return super.onOptionsItemSelected(item)
     }
 
@@ -122,25 +122,25 @@ class MainActivity : WearableActivity(), MenuItem.OnMenuItemClickListener {
 
     private fun updateFlavor(@PlanningPoker.Flavor flavor: Int) {
         this.flavor = flavor
-        arrayAdapter!!.replaceAll(PlanningPoker.values.get(flavor))
-        recycler_view!!.scrollToPosition(PlanningPoker.defaults.get(flavor))
+        arrayAdapter?.replaceAll(PlanningPoker.values.get(flavor))
+        recycler_view.scrollToPosition(PlanningPoker.defaults.get(flavor))
     }
 
     private fun updateDisplay() {
         if (isAmbient) {
-            arrayAdapter!!.setViewType(WearCardArrayAdapter.DARK_CARD_VIEW_TYPE)
-            clock!!.text = AMBIENT_DATE_FORMAT.format(Date())
-            clock!!.visibility = View.VISIBLE
-            bottom_action_drawer!!.controller.closeDrawer()
+            arrayAdapter?.setViewType(WearCardArrayAdapter.DARK_CARD_VIEW_TYPE)
+            clock.text = AMBIENT_DATE_FORMAT.format(Date())
+            clock.visibility = View.VISIBLE
+            bottom_action_drawer.controller.closeDrawer()
         } else {
-            arrayAdapter!!.setViewType(WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE)
-            clock!!.visibility = View.GONE
+            arrayAdapter?.setViewType(WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE)
+            clock.visibility = View.GONE
         }
     }
 
     companion object {
-        private val PREFS_FLAVOR = "flavor2"
-        private val STATE_FLAVOR = "flavor"
+        private const val PREFS_FLAVOR = "flavor2"
+        private const val STATE_FLAVOR = "flavor"
         private val AMBIENT_DATE_FORMAT = SimpleDateFormat("HH:mm", Locale.US)
     }
 }
