@@ -84,15 +84,7 @@ class CardArrayAdapter(context: Context,
                         onSmallCardClickListener?.invoke(holder.getAdapterPosition())
                     }
                 }
-                BIG_BLACK_CARD_VIEW_TYPE -> {
-                }
                 BIG_CARD_VIEW_TYPE -> {
-                    val bigCardViewHolder = holder as BigCardViewHolder
-                    bigCardViewHolder.bottomLeft.text = getItem(myPosition)
-                    bigCardViewHolder.center.text = getItem(myPosition)
-                    bigCardViewHolder.topRight.text = getItem(myPosition)
-                }
-                else -> {
                     val bigCardViewHolder = holder as BigCardViewHolder
                     bigCardViewHolder.bottomLeft.text = getItem(myPosition)
                     bigCardViewHolder.center.text = getItem(myPosition)
