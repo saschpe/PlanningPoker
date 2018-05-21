@@ -29,7 +29,7 @@ object PlanningPoker {
     val values = SimpleArrayMap<Int, List<String>>(3)
     val defaults = SparseIntArray(3)
 
-    @IntDef(FIBONACCI.toLong(), T_SHIRT_SIZES.toLong(), IDEAL_DAYS.toLong())
+    @IntDef(FIBONACCI, T_SHIRT_SIZES, IDEAL_DAYS)
     annotation class Flavor
 
     init {

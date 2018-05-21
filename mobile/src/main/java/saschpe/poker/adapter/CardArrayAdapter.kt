@@ -41,7 +41,7 @@ class CardArrayAdapter(context: Context,
     private var helpDismissed: Boolean = prefs.getBoolean(PREF_HELP_DISMISSED, false)
     private var onSmallCardClickListener: ((Int) -> Any)? = null
 
-    @IntDef(BIG_CARD_VIEW_TYPE.toLong(), BIG_BLACK_CARD_VIEW_TYPE.toLong(), SMALL_CARD_VIEW_TYPE.toLong())
+    @IntDef(BIG_CARD_VIEW_TYPE, BIG_BLACK_CARD_VIEW_TYPE, SMALL_CARD_VIEW_TYPE)
     internal annotation class ViewType
 
     override fun getItemViewType(position: Int): Int {

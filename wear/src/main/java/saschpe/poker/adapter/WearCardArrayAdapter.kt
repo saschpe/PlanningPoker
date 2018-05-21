@@ -32,7 +32,7 @@ internal class WearCardArrayAdapter(context: Context,
                                     @param:ViewType @field:ViewType private var viewType: Int) : ArrayAdapter<String, WearCardArrayAdapter.WearCardViewHolder>(objects) {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
-    @IntDef(LIGHT_CARD_VIEW_TYPE.toLong(), DARK_CARD_VIEW_TYPE.toLong())
+    @IntDef(LIGHT_CARD_VIEW_TYPE, DARK_CARD_VIEW_TYPE)
     internal annotation class ViewType
 
     fun setViewType(viewType: Int) {
