@@ -27,17 +27,33 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-
 import kotlinx.android.synthetic.main.activity_help.*
-
 import saschpe.android.socialfragment.app.SocialFragment
 import saschpe.android.versioninfo.widget.VersionInfoDialogFragment
 import saschpe.poker.BuildConfig
 import saschpe.poker.R
+import saschpe.poker.application.Application
+import saschpe.poker.customtabs.CustomTabs
 
 class HelpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val intent = intent
+        if (intent != null) {
+            if (intent.scheme != null && intent.scheme == Application.INTENT_SCHEME) {
+                val uri = intent.data
+                if (uri != null && uri.host != null && uri.host == "about") {
+                    when (uri.path) {
+                        "/privacy" -> {
+                            CustomTabs.startPrivacyPolicy(this)
+                            finish()
+                        }
+                    }
+                }
+            }
+        }
+
         setContentView(R.layout.activity_help)
 
         // Set up toolbar
@@ -67,6 +83,7 @@ class HelpActivity : AppCompatActivity() {
                 finish()
                 return true
             }
+            R.id.privacy_policy -> CustomTabs.startPrivacyPolicy(this)
             R.id.open_source_licenses -> {
                 startActivity(Intent(this, OssLicensesMenuActivity::class.java))
             }

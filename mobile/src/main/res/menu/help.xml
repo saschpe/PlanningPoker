@@ -5,6 +5,13 @@
     tools:context=".activity.HelpActivity">
 
     <item
+        android:id="@+id/privacy_policy"
+        android:icon="@drawable/ic_info"
+        android:orderInCategory="100"
+        android:title="@string/privacy_policy"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/open_source_licenses"
         android:icon="@drawable/ic_info"
         android:orderInCategory="101"

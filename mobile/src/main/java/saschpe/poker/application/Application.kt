@@ -18,7 +18,6 @@ package saschpe.poker.application
 
 import android.os.StrictMode
 import android.support.v7.app.AppCompatDelegate
-
 import saschpe.poker.BuildConfig
 
 class Application : android.app.Application() {
@@ -30,5 +29,9 @@ class Application : android.app.Application() {
 
         // Support vector drawable support for pre-Lollipop devices
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+    }
+
+    companion object {
+        const val INTENT_SCHEME = "planningpoker"
     }
 }
