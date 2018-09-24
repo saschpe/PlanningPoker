@@ -77,7 +77,7 @@ class HelpActivity : AppCompatActivity() {
                                 BuildConfig.VERSION_NAME,
                                 "Sascha Peilicke",
                                 R.mipmap.ic_launcher)
-                        .show(fragmentManager, "version_info")
+                        .show(supportFragmentManager, "version_info")
                 return true
             }
         }
