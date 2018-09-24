@@ -175,14 +175,14 @@ class MainActivity : AppCompatActivity() {
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         if (sensorManager != null) {
             accelerometer = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-            shakeDetector = ShakeDetector({
+            shakeDetector = ShakeDetector {
                 // Only start animation in big card view mode
                 if (recycler_view.layoutManager === linearLayoutManager) {
                     recycler_view.startAnimation(shakeAnimation)
                 } else {
                     displayBigCards()
                 }
-            })
+            }
         }
     }
 

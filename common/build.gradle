@@ -38,5 +38,5 @@ android {
 
 dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.40'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70'
 }
