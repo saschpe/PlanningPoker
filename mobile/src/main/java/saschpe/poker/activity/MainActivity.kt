@@ -28,14 +28,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
-import android.support.v7.widget.RecyclerView
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import kotlinx.android.synthetic.main.activity_main.*
-
 import saschpe.android.utils.widget.SpacesItemDecoration
 import saschpe.poker.R
 import saschpe.poker.adapter.CardArrayAdapter
@@ -49,8 +47,8 @@ class MainActivity : AppCompatActivity() {
     private var linearLayoutManager: LinearLayoutManager? = null
     private var linearSnapHelper: LinearSnapHelper? = null
     @PlanningPoker.Flavor private var flavor: Int = 0
-    private var recyclerViewDisabler: RecyclerView.OnItemTouchListener? = null
-    private var gridSpacesDecoration: SpacesItemDecoration? = null
+    private var recyclerViewDisabler = RecyclerViewDisabler()
+    private lateinit var gridSpacesDecoration: SpacesItemDecoration
     private var isLocked: Boolean = false
     private var sensorManager: SensorManager? = null
     private var accelerometer: Sensor? = null
@@ -76,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         // Recycler adapter
         val fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         val smallCardClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
-        adapter = CardArrayAdapter(this, PlanningPoker.values.get(flavor), CardArrayAdapter.BIG_CARD_VIEW_TYPE, PlanningPoker.defaults.get(flavor))
+        adapter = CardArrayAdapter(this, PlanningPoker.values.get(flavor)!!, CardArrayAdapter.BIG_CARD_VIEW_TYPE, PlanningPoker.defaults.get(flavor))
         adapter?.setOnSmallCardClickListener { position ->
             smallCardClickFadeOutAnimation.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation) {}
@@ -110,7 +108,6 @@ class MainActivity : AppCompatActivity() {
         }
         linearSnapHelper = LinearSnapHelper()
         linearSnapHelper?.attachToRecyclerView(recycler_view)
-        recyclerViewDisabler = RecyclerViewDisabler()
 
         // Card selector floating action button
         val fabClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
@@ -175,14 +172,14 @@ class MainActivity : AppCompatActivity() {
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         if (sensorManager != null) {
             accelerometer = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-            shakeDetector = ShakeDetector({
+            shakeDetector = ShakeDetector {
                 // Only start animation in big card view mode
                 if (recycler_view.layoutManager === linearLayoutManager) {
                     recycler_view.startAnimation(shakeAnimation)
                 } else {
                     displayBigCards()
                 }
-            })
+            }
         }
     }
 
