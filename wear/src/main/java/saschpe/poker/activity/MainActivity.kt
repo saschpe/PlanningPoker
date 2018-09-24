@@ -53,7 +53,7 @@ class MainActivity : WearableActivity(), MenuItem.OnMenuItemClickListener {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recycler_view.layoutManager = layoutManager
         recycler_view.addItemDecoration(SpacesItemDecoration(spacePx, layoutManager.orientation))
-        arrayAdapter = WearCardArrayAdapter(this, PlanningPoker.values.get(flavor), WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE)
+        arrayAdapter = WearCardArrayAdapter(this, PlanningPoker.values.get(flavor)!!, WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE)
         recycler_view.adapter = arrayAdapter
         recycler_view.scrollToPosition(PlanningPoker.defaults.get(flavor))
         val snapHelper = LinearSnapHelper()
