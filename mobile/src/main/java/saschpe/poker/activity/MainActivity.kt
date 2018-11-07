@@ -31,6 +31,7 @@ import android.support.v7.widget.LinearSnapHelper
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import kotlinx.android.synthetic.main.activity_main.*
@@ -57,6 +58,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         // Compute spacing between cards
         val margin8dpInPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt()
