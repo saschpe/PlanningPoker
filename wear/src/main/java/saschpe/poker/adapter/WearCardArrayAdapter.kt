@@ -17,19 +17,20 @@
 package saschpe.poker.adapter
 
 import android.content.Context
-import android.support.annotation.IntDef
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
+import androidx.annotation.IntDef
+import androidx.recyclerview.widget.RecyclerView
 import saschpe.android.utils.adapter.base.ArrayAdapter
 import saschpe.poker.R
 
-internal class WearCardArrayAdapter(context: Context,
-                                    objects: List<String>,
-                                    @param:ViewType @field:ViewType private var viewType: Int) : ArrayAdapter<String, WearCardArrayAdapter.WearCardViewHolder>(objects) {
+internal class WearCardArrayAdapter(
+    context: Context,
+    objects: List<String>,
+    @param:ViewType @field:ViewType private var viewType: Int
+) : ArrayAdapter<String, WearCardArrayAdapter.WearCardViewHolder>(objects) {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
     @IntDef(LIGHT_CARD_VIEW_TYPE, DARK_CARD_VIEW_TYPE)
@@ -40,18 +41,15 @@ internal class WearCardArrayAdapter(context: Context,
         notifyDataSetChanged()
     }
 
-    override fun getItemViewType(position: Int): Int = viewType
+    override fun getItemViewType(position: Int) = viewType
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WearCardViewHolder =
-            when (viewType) {
-                LIGHT_CARD_VIEW_TYPE -> LightCardViewHolder(inflater.inflate(R.layout.view_light_card, parent, false))
-                DARK_CARD_VIEW_TYPE -> DarkCardViewHolder(inflater.inflate(R.layout.view_dark_card, parent, false))
-                else -> LightCardViewHolder(inflater.inflate(R.layout.view_light_card, parent, false))
-            }
-
-    override fun onBindViewHolder(holder: WearCardViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
+        LIGHT_CARD_VIEW_TYPE -> LightCardViewHolder(inflater.inflate(R.layout.view_light_card, parent, false))
+        DARK_CARD_VIEW_TYPE -> DarkCardViewHolder(inflater.inflate(R.layout.view_dark_card, parent, false))
+        else -> LightCardViewHolder(inflater.inflate(R.layout.view_light_card, parent, false))
     }
+
+    override fun onBindViewHolder(holder: WearCardViewHolder, position: Int) = holder.bind(getItem(position))
 
     internal abstract class WearCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val center: TextView = itemView.findViewById(R.id.center)

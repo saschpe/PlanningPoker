@@ -48,7 +48,7 @@ class ShakeDetector(private var onShakeListener: (Any) -> Unit) : SensorEventLis
         }
     }
 
-    override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+    override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) = Unit
 
     companion object {
         private const val SHAKE_COUNT_RESET_TIME_MS = 3000

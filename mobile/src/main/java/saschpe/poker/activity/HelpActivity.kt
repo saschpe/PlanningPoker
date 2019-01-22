@@ -19,14 +19,14 @@ package saschpe.poker.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_help.*
 import saschpe.android.socialfragment.app.SocialFragment
 import saschpe.android.versioninfo.widget.VersionInfoDialogFragment
@@ -84,46 +84,41 @@ class HelpActivity : AppCompatActivity() {
                 return true
             }
             R.id.privacy_policy -> CustomTabs.startPrivacyPolicy(this)
-            R.id.open_source_licenses -> {
-                startActivity(Intent(this, OssLicensesMenuActivity::class.java))
-            }
+            R.id.open_source_licenses -> startActivity(Intent(this, OssLicensesMenuActivity::class.java))
             R.id.version_info -> {
                 VersionInfoDialogFragment
-                        .newInstance(
-                                getString(R.string.app_name),
-                                BuildConfig.VERSION_NAME,
-                                "Sascha Peilicke",
-                                R.mipmap.ic_launcher)
-                        .show(supportFragmentManager, "version_info")
+                    .newInstance(
+                        getString(R.string.app_name),
+                        BuildConfig.VERSION_NAME,
+                        "Sascha Peilicke",
+                        R.mipmap.ic_launcher
+                    )
+                    .show(supportFragmentManager, "version_info")
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private class MyFragmentPagerAdapter internal constructor(context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
-        private val pageTitles: Array<String> = arrayOf(context.getString(R.string.social))
-        private val applicationName: String = context.getString(R.string.app_name)
+    private class MyFragmentPagerAdapter(context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
+        private val pageTitles = arrayOf(context.getString(R.string.social))
+        private val applicationName = context.getString(R.string.app_name)
 
-        override fun getItem(position: Int): Fragment = when (position) {
-            0 -> SocialFragment.Builder()
-                    // Mandatory
-                    .setApplicationId(BuildConfig.APPLICATION_ID)
-                    // Optional
-                    .setApplicationName(applicationName)
-                    .setContactEmailAddress("sascha+gp@peilicke.de")
-                    .setGithubProject("saschpe/PlanningPoker")
-                    .setTwitterProfile("saschpe")
-                    // Visual customization
-                    .setHeaderTextColor(R.color.accent)
-                    .setIconTint(android.R.color.white)
-                    .build()
-            else -> SocialFragment.Builder().setApplicationId(BuildConfig.APPLICATION_ID).setApplicationName(applicationName).setContactEmailAddress("sascha+gp@peilicke.de").setGithubProject("saschpe/PlanningPoker").setTwitterProfile("saschpe").setHeaderTextColor(R.color.accent).setIconTint(android.R.color.white).build()
-        }
+        override fun getItem(position: Int): Fragment = SocialFragment.Builder()
+            // Mandatory
+            .setApplicationId(BuildConfig.APPLICATION_ID)
+            // Optional
+            .setApplicationName(applicationName)
+            .setContactEmailAddress("sascha+gp@peilicke.de")
+            .setGithubProject("saschpe/PlanningPoker")
+            .setTwitterProfile("saschpe")
+            // Visual customization
+            .setHeaderTextColor(R.color.accent)
+            .setIconTint(android.R.color.white)
+            .build()
 
-        override fun getPageTitle(position: Int): CharSequence? =
-                pageTitles[position]
+        override fun getPageTitle(position: Int): String = pageTitles[position]
 
-        override fun getCount(): Int = 1
+        override fun getCount() = 1
     }
 }

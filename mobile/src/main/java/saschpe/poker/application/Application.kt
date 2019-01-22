@@ -17,7 +17,7 @@
 package saschpe.poker.application
 
 import android.os.StrictMode
-import android.support.v7.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate
 import saschpe.poker.BuildConfig
 
 class Application : android.app.Application() {

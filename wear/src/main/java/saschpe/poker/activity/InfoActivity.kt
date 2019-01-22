@@ -28,10 +28,16 @@ class InfoActivity : WearableActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
 
-        copyright.text = resources.getString(R.string.copyright_text_template,
-                VersionInfoUtils.getFormattedVersion(this, packageName,
-                        BuildConfig.VERSION_NAME),
-                VersionInfoUtils.getFormattedCopyright(this, packageName,
-                        "Sascha Peilicke"))
+        copyright.text = resources.getString(
+            R.string.copyright_text_template,
+            VersionInfoUtils.getFormattedVersion(
+                this, packageName,
+                BuildConfig.VERSION_NAME
+            ),
+            VersionInfoUtils.getFormattedCopyright(
+                this, packageName,
+                "Sascha Peilicke"
+            )
+        )
     }
 }

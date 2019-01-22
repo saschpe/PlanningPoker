@@ -19,12 +19,13 @@ package saschpe.poker.activity
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.LinearSnapHelper
 import android.support.wearable.activity.WearableActivity
 import android.util.TypedValue
 import android.view.MenuItem
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import saschpe.android.utils.widget.SpacesItemDecoration
 import saschpe.poker.R
@@ -34,7 +35,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : WearableActivity(), MenuItem.OnMenuItemClickListener {
-    @PlanningPoker.Flavor private var flavor: Int = 0
+    @PlanningPoker.Flavor
+    private var flavor: Int = 0
     private var arrayAdapter: WearCardArrayAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,18 +44,23 @@ class MainActivity : WearableActivity(), MenuItem.OnMenuItemClickListener {
         setContentView(R.layout.activity_main)
         setAmbientEnabled()
 
-        flavor = savedInstanceState?.getInt(STATE_FLAVOR, PlanningPoker.FIBONACCI) ?: PreferenceManager.getDefaultSharedPreferences(this)
-                .getInt(PREFS_FLAVOR, PlanningPoker.FIBONACCI)
+        flavor = savedInstanceState?.getInt(STATE_FLAVOR, PlanningPoker.FIBONACCI) ?:
+                PreferenceManager.getDefaultSharedPreferences(this)
+                    .getInt(PREFS_FLAVOR, PlanningPoker.FIBONACCI)
 
         // Compute spacing between cards
         val marginDp = resources.getDimension(R.dimen.activity_horizontal_margin) / 8
         val spacePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginDp, resources.displayMetrics).toInt()
 
         // Setup recycler
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         recycler_view.layoutManager = layoutManager
         recycler_view.addItemDecoration(SpacesItemDecoration(spacePx, layoutManager.orientation))
-        arrayAdapter = WearCardArrayAdapter(this, PlanningPoker.values.get(flavor)!!, WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE)
+        arrayAdapter = WearCardArrayAdapter(
+            this,
+            PlanningPoker.values.get(flavor)!!,
+            WearCardArrayAdapter.LIGHT_CARD_VIEW_TYPE
+        )
         recycler_view.adapter = arrayAdapter
         recycler_view.scrollToPosition(PlanningPoker.defaults.get(flavor))
         val snapHelper = LinearSnapHelper()
@@ -75,8 +82,8 @@ class MainActivity : WearableActivity(), MenuItem.OnMenuItemClickListener {
         super.onDestroy()
         // Persist current flavor for next invocation
         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                .putInt(PREFS_FLAVOR, flavor)
-                .apply()
+            .putInt(PREFS_FLAVOR, flavor)
+            .apply()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
