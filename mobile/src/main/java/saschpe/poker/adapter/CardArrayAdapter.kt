@@ -20,22 +20,23 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import android.support.annotation.IntDef
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-
+import androidx.annotation.IntDef
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import saschpe.android.utils.adapter.base.ArrayAdapter
 import saschpe.poker.R
 
-class CardArrayAdapter(context: Context,
-                       objects: List<String>,
-                       @param:ViewType @field:ViewType private var viewType: Int,
-                       private val helpViewPosition: Int) : ArrayAdapter<String, RecyclerView.ViewHolder>(objects) {
+class CardArrayAdapter(
+    context: Context,
+    objects: List<String>,
+    @param:ViewType @field:ViewType private var viewType: Int,
+    private val helpViewPosition: Int
+) : ArrayAdapter<String, RecyclerView.ViewHolder>(objects) {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     private var helpDismissed: Boolean = prefs.getBoolean(PREF_HELP_DISMISSED, false)
@@ -44,22 +45,24 @@ class CardArrayAdapter(context: Context,
     @IntDef(BIG_CARD_VIEW_TYPE, BIG_BLACK_CARD_VIEW_TYPE, SMALL_CARD_VIEW_TYPE)
     internal annotation class ViewType
 
-    override fun getItemViewType(position: Int): Int {
-        return if (isHelpOnPosition(position)) {
-            HELP_CARD_VIEW_TYPE
-        } else {
-            viewType
-        }
+    override fun getItemViewType(position: Int) = when {
+        isHelpOnPosition(position) -> HELP_CARD_VIEW_TYPE
+        else -> viewType
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-            when (viewType) {
-                HELP_CARD_VIEW_TYPE -> HelpCardViewHolder(inflater.inflate(R.layout.view_help_card, parent, false))
-                SMALL_CARD_VIEW_TYPE -> SmallCardViewHolder(inflater.inflate(R.layout.view_small_card, parent, false))
-                BIG_CARD_VIEW_TYPE -> BigCardViewHolder(inflater.inflate(R.layout.view_big_card, parent, false))
-                BIG_BLACK_CARD_VIEW_TYPE -> BigBlackCardViewHolder(inflater.inflate(R.layout.view_big_black_card, parent, false))
-                else -> BigCardViewHolder(inflater.inflate(R.layout.view_big_card, parent, false))
-            }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
+        HELP_CARD_VIEW_TYPE -> HelpCardViewHolder(inflater.inflate(R.layout.view_help_card, parent, false))
+        SMALL_CARD_VIEW_TYPE -> SmallCardViewHolder(inflater.inflate(R.layout.view_small_card, parent, false))
+        BIG_CARD_VIEW_TYPE -> BigCardViewHolder(inflater.inflate(R.layout.view_big_card, parent, false))
+        BIG_BLACK_CARD_VIEW_TYPE -> BigBlackCardViewHolder(
+            inflater.inflate(
+                R.layout.view_big_black_card,
+                parent,
+                false
+            )
+        )
+        else -> BigCardViewHolder(inflater.inflate(R.layout.view_big_card, parent, false))
+    }
 
     @SuppressLint("SwitchIntDef")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -111,39 +114,34 @@ class CardArrayAdapter(context: Context,
         this.onSmallCardClickListener = onSmallCardClickListener
     }
 
-    fun getSpanSizeLookup(gridLayoutManager: GridLayoutManager): GridLayoutManager.SpanSizeLookup {
-        return object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (isHelpOnPosition(position)) {
-                    gridLayoutManager.spanCount
-                } else {
-                    1
-                }
+    fun getSpanSizeLookup(gridLayoutManager: GridLayoutManager) =
+        object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int) = when {
+                isHelpOnPosition(position) -> gridLayoutManager.spanCount
+                else -> 1
             }
         }
-    }
 
-    private fun isHelpOnPosition(position: Int): Boolean =
-            !helpDismissed && position == helpViewPosition
+    private fun isHelpOnPosition(position: Int) = !helpDismissed && position == helpViewPosition
 
-    private class HelpCardViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private class HelpCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val dismiss: Button = itemView.findViewById(R.id.dismiss)
     }
 
-    private class SmallCardViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private class SmallCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val center: TextView = itemView.findViewById(R.id.center)
     }
 
-    private class BigCardViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private class BigCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val bottomLeft: TextView = itemView.findViewById(R.id.bottomLeft)
         internal val center: TextView = itemView.findViewById(R.id.center)
         internal val topRight: TextView = itemView.findViewById(R.id.topRight)
     }
 
-    private class BigBlackCardViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView)
+    private class BigBlackCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     companion object {
-        const val BIG_CARD_VIEW_TYPE  = 1
+        const val BIG_CARD_VIEW_TYPE = 1
         const val BIG_BLACK_CARD_VIEW_TYPE = 2
         const val SMALL_CARD_VIEW_TYPE = 3
         private const val HELP_CARD_VIEW_TYPE = 4

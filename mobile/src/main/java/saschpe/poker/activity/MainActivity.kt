@@ -23,16 +23,14 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.Parcelable
 import android.preference.PreferenceManager
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.LinearSnapHelper
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import saschpe.android.utils.widget.SpacesItemDecoration
 import saschpe.poker.R
@@ -43,10 +41,11 @@ import saschpe.poker.util.ShakeDetector
 
 class MainActivity : AppCompatActivity() {
     private var adapter: CardArrayAdapter? = null
-    private var gridLayoutManager: GridLayoutManager? = null
-    private var linearLayoutManager: LinearLayoutManager? = null
-    private var linearSnapHelper: LinearSnapHelper? = null
-    @PlanningPoker.Flavor private var flavor: Int = 0
+    private var gridLayoutManager: androidx.recyclerview.widget.GridLayoutManager? = null
+    private var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager? = null
+    private var linearSnapHelper: androidx.recyclerview.widget.LinearSnapHelper? = null
+    @PlanningPoker.Flavor
+    private var flavor: Int = 0
     private var recyclerViewDisabler = RecyclerViewDisabler()
     private lateinit var gridSpacesDecoration: SpacesItemDecoration
     private var isLocked: Boolean = false
@@ -68,13 +67,18 @@ class MainActivity : AppCompatActivity() {
         } else {
             // Either load flavor from previous invocation or use default
             flavor = PreferenceManager.getDefaultSharedPreferences(this)
-                    .getInt(PREFS_FLAVOR, PlanningPoker.FIBONACCI)
+                .getInt(PREFS_FLAVOR, PlanningPoker.FIBONACCI)
         }
 
         // Recycler adapter
         val fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         val smallCardClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
-        adapter = CardArrayAdapter(this, PlanningPoker.values.get(flavor)!!, CardArrayAdapter.BIG_CARD_VIEW_TYPE, PlanningPoker.defaults.get(flavor))
+        adapter = CardArrayAdapter(
+            this,
+            PlanningPoker.values.get(flavor)!!,
+            CardArrayAdapter.BIG_CARD_VIEW_TYPE,
+            PlanningPoker.defaults.get(flavor)
+        )
         adapter?.setOnSmallCardClickListener { position ->
             smallCardClickFadeOutAnimation.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation) {}
@@ -91,8 +95,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Recycler layout managers
-        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        gridLayoutManager = GridLayoutManager(this, 3)
+        linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            this,
+            androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        gridLayoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 3)
         gridLayoutManager?.spanSizeLookup = adapter?.getSpanSizeLookup(gridLayoutManager!!)
         gridSpacesDecoration = SpacesItemDecoration(margin8dpInPx, SpacesItemDecoration.VERTICAL)
 
@@ -106,49 +114,45 @@ class MainActivity : AppCompatActivity() {
         } else {
             recycler_view.scrollToPosition(PlanningPoker.defaults.get(flavor))
         }
-        linearSnapHelper = LinearSnapHelper()
+        linearSnapHelper = androidx.recyclerview.widget.LinearSnapHelper()
         linearSnapHelper?.attachToRecyclerView(recycler_view)
 
         // Card selector floating action button
         val fabClickFadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
         fabClickFadeOutAnimation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationStart(animation: Animation) = Unit
 
             override fun onAnimationEnd(animation: Animation) {
-                if (recycler_view!!.layoutManager === linearLayoutManager) {
+                if (recycler_view.layoutManager === linearLayoutManager) {
                     displaySmallCards()
                 } else {
                     displayBigCards()
-                    recycler_view!!.scrollToPosition(PlanningPoker.defaults.get(flavor))
+                    recycler_view.scrollToPosition(PlanningPoker.defaults.get(flavor))
                 }
-                recycler_view!!.startAnimation(fadeInAnimation)
+                recycler_view.startAnimation(fadeInAnimation)
             }
 
-            override fun onAnimationRepeat(animation: Animation) {}
+            override fun onAnimationRepeat(animation: Animation) = Unit
         })
-        select_fab.setOnClickListener { recycler_view!!.startAnimation(fabClickFadeOutAnimation) }
+        select_fab.setOnClickListener { recycler_view.startAnimation(fabClickFadeOutAnimation) }
 
         // Lock current card floating action button
         isLocked = false
         val lockAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out)
         lockAnimation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationStart(animation: Animation) = Unit
 
-            override fun onAnimationEnd(animation: Animation) {
-                lock()
-            }
+            override fun onAnimationEnd(animation: Animation) = lock()
 
-            override fun onAnimationRepeat(animation: Animation) {}
+            override fun onAnimationRepeat(animation: Animation) = Unit
         })
         val unlockAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         unlockAnimation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationStart(animation: Animation) = Unit
 
-            override fun onAnimationEnd(animation: Animation) {
-                unlock()
-            }
+            override fun onAnimationEnd(animation: Animation) = unlock()
 
-            override fun onAnimationRepeat(animation: Animation) {}
+            override fun onAnimationRepeat(animation: Animation) = Unit
         })
         lock_fab.setOnClickListener {
             if (isLocked) {
@@ -163,9 +167,7 @@ class MainActivity : AppCompatActivity() {
         shakeAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
 
-            override fun onAnimationEnd(animation: Animation) {
-                recycler_view.startAnimation(unlockAnimation)
-            }
+            override fun onAnimationEnd(animation: Animation) = recycler_view.startAnimation(unlockAnimation)
 
             override fun onAnimationRepeat(animation: Animation) {}
         })
@@ -197,8 +199,8 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         // Persist current flavor for next invocation
         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                .putInt(PREFS_FLAVOR, flavor)
-                .apply()
+            .putInt(PREFS_FLAVOR, flavor)
+            .apply()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -276,7 +278,7 @@ class MainActivity : AppCompatActivity() {
         invalidateOptionsMenu()
         adapter?.setViewType(CardArrayAdapter.BIG_BLACK_CARD_VIEW_TYPE)
         Snackbar.make(recycler_view, R.string.shake_to_reveal, Snackbar.LENGTH_SHORT)
-                .show()
+            .show()
     }
 
     private fun unlock() {

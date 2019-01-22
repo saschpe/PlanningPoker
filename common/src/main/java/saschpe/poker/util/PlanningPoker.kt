@@ -16,9 +16,8 @@
 
 package saschpe.poker.util
 
-import android.support.annotation.IntDef
-import android.support.v4.util.SimpleArrayMap
 import android.util.SparseIntArray
+import androidx.annotation.IntDef
 import java.util.*
 
 object PlanningPoker {
@@ -26,7 +25,7 @@ object PlanningPoker {
     const val T_SHIRT_SIZES = 2
     const val IDEAL_DAYS = 3
 
-    val values = SimpleArrayMap<Int, List<String>>(3)
+    val values = androidx.collection.SimpleArrayMap<Int, List<String>>(3)
     val defaults = SparseIntArray(3)
 
     @IntDef(FIBONACCI, T_SHIRT_SIZES, IDEAL_DAYS)

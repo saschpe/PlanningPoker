@@ -16,14 +16,13 @@
 
 package saschpe.poker.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.MotionEvent
+import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerViewDisabler : RecyclerView.OnItemTouchListener {
-    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean =
-            true
+    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent) = true
 
-    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) = Unit
 
-    override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+    override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) = Unit
 }

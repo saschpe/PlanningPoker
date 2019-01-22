@@ -1,0 +1,7 @@
+# Custom ignore rules, update with:
+# { cat .gitignore-custom ; gibo dump Android Gradle JetBrains Kotlin Vim } > .gitignore
+
+.idea/misc.xml
+*.jks
+buildSrc/src/main/kotlin/Secrets.kt
+

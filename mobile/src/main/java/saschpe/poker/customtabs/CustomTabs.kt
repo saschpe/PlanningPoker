@@ -18,8 +18,8 @@ package saschpe.poker.customtabs
 
 import android.content.Context
 import android.net.Uri
-import android.support.customtabs.CustomTabsIntent
-import android.support.v4.content.res.ResourcesCompat
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.res.ResourcesCompat
 import saschpe.android.customtabs.CustomTabsHelper
 import saschpe.android.customtabs.WebViewFallback
 import saschpe.poker.R
@@ -36,11 +36,9 @@ object CustomTabs {
      *
      * @param context Activity context
      */
-    fun startPrivacyPolicy(context: Context) {
-        startUrl(context, PRIVACY_POLICY_URL)
-    }
+    fun startPrivacyPolicy(context: Context) = startUrl(context, PRIVACY_POLICY_URL)
 
-    fun startUrl(context: Context, url: String, animate: Boolean = false) {
+    private fun startUrl(context: Context, url: String, animate: Boolean = false) {
         val customTabsIntentBuilder = getDefaultCustomTabsIntentBuilder(context)
         if (animate) {
             customTabsIntentBuilder
