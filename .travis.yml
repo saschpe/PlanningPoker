@@ -16,8 +16,6 @@ env:
 branches:
   except:
     - gh-pages
-before_script:
-  - "./scripts/create-test-keystore"
 deploy:
   provider: releases
   api_key:

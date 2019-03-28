@@ -29,8 +29,6 @@ stages:
 
 build:
   stage: build
-  before_script:
-    - ./scripts/create-test-keystore
   script:
     - ./gradlew assembleDebug
   artifacts:
