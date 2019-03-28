@@ -18,9 +18,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-def localProperties = new Properties()
-file("$rootProject.projectDir/local.properties").withInputStream {
-    localProperties.load(it)
+def properties = new Properties()
+if (file("$rootDir/local.properties").exists()) {
+    properties.load(file("$rootDir/local.properties").newDataInputStream())
+}
+if (file("$rootDir/config/play-store-signing.properties").exists()) {
+    print "Using keystore credentials from config/play-store-signing.properties\n"
+    properties.load(file("$rootDir/config/play-store-signing.properties").newDataInputStream())
 }
 
 android {
@@ -30,17 +34,17 @@ android {
         applicationId 'saschpe.poker'
         minSdkVersion 24 // Standalone Wear 2.0 app
         targetSdkVersion 28
-        versionCode 241132
-        versionName '1.3.2'
+        versionCode 241010303
+        versionName "1.3.3"
         archivesBaseName = "${applicationId}-${versionName}"
     }
 
     signingConfigs {
         config {
-            keyAlias localProperties["signing.key.alias"]
-            keyPassword localProperties["signing.key.password"]
-            storeFile file(localProperties["signing.store.file"])
-            storePassword localProperties["signing.store.password"]
+            keyAlias properties.getProperty("signing.key.alias", signingConfigs.debug.keyAlias)
+            keyPassword properties.getProperty("signing.key.password", signingConfigs.debug.keyPassword)
+            storeFile file(properties.getProperty("signing.store.file", signingConfigs.debug.storeFile.path))
+            storePassword properties.getProperty("signing.store.password", signingConfigs.debug.storePassword)
         }
     }
 
