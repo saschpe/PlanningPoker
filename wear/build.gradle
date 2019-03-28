@@ -34,8 +34,8 @@ android {
         applicationId 'saschpe.poker'
         minSdkVersion 24 // Standalone Wear 2.0 app
         targetSdkVersion 28
-        versionCode 241010302
-        versionName "1.3.2"
+        versionCode 241010303
+        versionName "1.3.3"
         archivesBaseName = "${applicationId}-${versionName}"
     }
 
