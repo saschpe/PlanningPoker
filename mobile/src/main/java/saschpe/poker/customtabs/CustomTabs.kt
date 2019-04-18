@@ -26,8 +26,7 @@ import saschpe.poker.R
 import saschpe.poker.util.BitmapHelper
 
 object CustomTabs {
-    private const val PRIVACY_POLICY_URL =
-        "https://sites.google.com/view/planningpoker/privacy-policy"
+    private const val PRIVACY_POLICY_URL = "https://sites.google.com/view/planningpoker/privacy-policy"
 
     /**
      * Start Privacy Policy custom tab.
@@ -48,9 +47,7 @@ object CustomTabs {
         val customTabsIntent = customTabsIntentBuilder.build()
 
         CustomTabsHelper.addKeepAliveExtra(context, customTabsIntent.intent)
-        CustomTabsHelper.openCustomTab(
-            context, customTabsIntent, Uri.parse(url), WebViewFallback()
-        )
+        CustomTabsHelper.openCustomTab(context, customTabsIntent, Uri.parse(url), WebViewFallback())
     }
 
     private fun getDefaultCustomTabsIntentBuilder(context: Context): CustomTabsIntent.Builder {

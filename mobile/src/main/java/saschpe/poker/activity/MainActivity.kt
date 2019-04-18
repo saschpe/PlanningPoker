@@ -29,7 +29,9 @@ import android.view.MenuItem
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import saschpe.android.utils.widget.SpacesItemDecoration
@@ -41,9 +43,9 @@ import saschpe.poker.util.ShakeDetector
 
 class MainActivity : AppCompatActivity() {
     private var adapter: CardArrayAdapter? = null
-    private var gridLayoutManager: androidx.recyclerview.widget.GridLayoutManager? = null
-    private var linearLayoutManager: androidx.recyclerview.widget.LinearLayoutManager? = null
-    private var linearSnapHelper: androidx.recyclerview.widget.LinearSnapHelper? = null
+    private var gridLayoutManager: GridLayoutManager? = null
+    private var linearLayoutManager: LinearLayoutManager? = null
+    private var linearSnapHelper: LinearSnapHelper? = null
     @PlanningPoker.Flavor
     private var flavor: Int = 0
     private var recyclerViewDisabler = RecyclerViewDisabler()
@@ -81,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         )
         adapter?.setOnSmallCardClickListener { position ->
             smallCardClickFadeOutAnimation.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationStart(animation: Animation) {}
+                override fun onAnimationStart(animation: Animation) = Unit
 
                 override fun onAnimationEnd(animation: Animation) {
                     displayBigCards()
@@ -89,18 +91,14 @@ class MainActivity : AppCompatActivity() {
                     recycler_view.startAnimation(fadeInAnimation)
                 }
 
-                override fun onAnimationRepeat(animation: Animation) {}
+                override fun onAnimationRepeat(animation: Animation) = Unit
             })
             recycler_view.startAnimation(smallCardClickFadeOutAnimation)
         }
 
         // Recycler layout managers
-        linearLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(
-            this,
-            androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        gridLayoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 3)
+        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        gridLayoutManager = GridLayoutManager(this, 3)
         gridLayoutManager?.spanSizeLookup = adapter?.getSpanSizeLookup(gridLayoutManager!!)
         gridSpacesDecoration = SpacesItemDecoration(margin8dpInPx, SpacesItemDecoration.VERTICAL)
 
@@ -114,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             recycler_view.scrollToPosition(PlanningPoker.defaults.get(flavor))
         }
-        linearSnapHelper = androidx.recyclerview.widget.LinearSnapHelper()
+        linearSnapHelper = LinearSnapHelper()
         linearSnapHelper?.attachToRecyclerView(recycler_view)
 
         // Card selector floating action button

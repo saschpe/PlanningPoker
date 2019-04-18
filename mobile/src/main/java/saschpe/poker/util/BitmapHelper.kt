@@ -19,7 +19,6 @@ package saschpe.poker.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
@@ -27,15 +26,12 @@ import androidx.core.graphics.drawable.DrawableCompat
 
 object BitmapHelper {
     fun getBitmapFromVectorDrawable(context: Context, @DrawableRes drawableId: Int): Bitmap? {
-        var drawable: Drawable? = AppCompatResources.getDrawable(context, drawableId) ?: return null
+        var drawable = AppCompatResources.getDrawable(context, drawableId) ?: return null
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            drawable = DrawableCompat.wrap(drawable!!).mutate()
+            drawable = DrawableCompat.wrap(drawable).mutate()
         }
 
-        val bitmap = Bitmap.createBitmap(
-            drawable!!.intrinsicWidth,
-            drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
-        )
+        val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         drawable.setBounds(0, 0, canvas.width, canvas.height)
         drawable.draw(canvas)

@@ -83,7 +83,7 @@ class CardArrayAdapter(
                 SMALL_CARD_VIEW_TYPE -> {
                     val smallCardViewHolder = holder as SmallCardViewHolder
                     smallCardViewHolder.center.text = getItem(myPosition)
-                    smallCardViewHolder.itemView.setOnClickListener { _ ->
+                    smallCardViewHolder.itemView.setOnClickListener {
                         onSmallCardClickListener?.invoke(holder.getAdapterPosition())
                     }
                 }

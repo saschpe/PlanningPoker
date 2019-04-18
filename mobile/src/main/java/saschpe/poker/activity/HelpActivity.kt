@@ -39,12 +39,10 @@ class HelpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val intent = intent
         if (intent != null) {
-            if (intent.scheme != null && intent.scheme == Application.INTENT_SCHEME) {
-                val uri = intent.data
-                if (uri != null && uri.host != null && uri.host == "about") {
-                    when (uri.path) {
+            if (intent?.scheme == Application.INTENT_SCHEME) {
+                if (intent?.data?.host == "about") {
+                    when (intent?.data?.path) {
                         "/privacy" -> {
                             CustomTabs.startPrivacyPolicy(this)
                             finish()
