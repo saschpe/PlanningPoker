@@ -28,12 +28,12 @@ if (file("$rootDir/config/play-store-signing.properties").exists()) {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         applicationId 'saschpe.poker'
         minSdkVersion 24 // Standalone Wear 2.0 app
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 241010303
         versionName "1.3.3"
         archivesBaseName = "${applicationId}-${versionName}"
