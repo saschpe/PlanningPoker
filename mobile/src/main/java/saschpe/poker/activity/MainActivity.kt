@@ -217,6 +217,7 @@ class MainActivity : AppCompatActivity() {
             PlanningPoker.FIBONACCI -> menu.findItem(R.id.fibonacci).isChecked = true
             PlanningPoker.T_SHIRT_SIZES -> menu.findItem(R.id.t_shirt_sizes).isChecked = true
             PlanningPoker.IDEAL_DAYS -> menu.findItem(R.id.ideal_days).isChecked = true
+            PlanningPoker.POWERS_OF_TWO -> menu.findItem(R.id.powers_of_two).isChecked = true
         }
         return true
     }
@@ -238,6 +239,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.ideal_days -> {
                 updateFlavor(PlanningPoker.IDEAL_DAYS)
+                item.isChecked = true
+            }
+            R.id.powers_of_two -> {
+                updateFlavor(PlanningPoker.POWERS_OF_TWO)
                 item.isChecked = true
             }
             R.id.help_and_feedback -> {

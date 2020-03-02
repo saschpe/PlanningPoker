@@ -18,30 +18,32 @@ package saschpe.poker.util
 
 import android.util.SparseIntArray
 import androidx.annotation.IntDef
-import java.util.*
 
 object PlanningPoker {
     const val FIBONACCI = 1
     const val T_SHIRT_SIZES = 2
     const val IDEAL_DAYS = 3
+    const val POWERS_OF_TWO = 4
 
     val values = androidx.collection.SimpleArrayMap<Int, List<String>>(3)
-    val defaults = SparseIntArray(3)
+    val defaults = SparseIntArray(4)
 
-    @IntDef(FIBONACCI, T_SHIRT_SIZES, IDEAL_DAYS)
+    @IntDef(FIBONACCI, T_SHIRT_SIZES, IDEAL_DAYS, POWERS_OF_TWO)
     annotation class Flavor
 
     init {
         // Use an "@" for coffee, because "☕" doesn't render correctly on most devices
-        values.put(FIBONACCI, Arrays.asList("0", "½", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?", "@"))
-        values.put(T_SHIRT_SIZES, Arrays.asList("XS", "S", "M", "L", "XL", "XXL"))
-        values.put(IDEAL_DAYS, Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11+"))
+        values.put(FIBONACCI, listOf("0", "½", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?", "@"))
+        values.put(T_SHIRT_SIZES, listOf("XS", "S", "M", "L", "XL", "XXL"))
+        values.put(IDEAL_DAYS, listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11+"))
+        values.put(POWERS_OF_TWO, listOf("0", "1", "2", "4", "8", "16", "32", "64"))
     }
 
     init {
         defaults.append(FIBONACCI, 5)
         defaults.append(T_SHIRT_SIZES, 2)
         defaults.append(IDEAL_DAYS, 5)
+        defaults.append(POWERS_OF_TWO, 2)
     }
 }
 
