@@ -2,5 +2,6 @@
 # { cat .gitignore-custom ; gibo dump Android Gradle JetBrains Kotlin macOS Vim } > .gitignore
 
 .idea/misc.xml
+.idea/jarRepositories.xml
 config/play-store-service.json
 config/play-store-signing.properties
