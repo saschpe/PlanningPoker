@@ -38,6 +38,11 @@
             android:icon="@drawable/ic_casino"
             android:title="@string/ideal_days"/>
 
+        <item
+            android:id="@+id/powers_of_two"
+            android:icon="@drawable/ic_casino"
+            android:title="@string/powers_of_two" />
+
     </group>
 
     <item

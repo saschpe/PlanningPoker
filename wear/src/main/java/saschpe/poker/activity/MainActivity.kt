@@ -73,6 +73,7 @@ class MainActivity : WearableActivity(), MenuItem.OnMenuItemClickListener {
             PlanningPoker.FIBONACCI -> menu.findItem(R.id.fibonacci).isChecked = true
             PlanningPoker.T_SHIRT_SIZES -> menu.findItem(R.id.t_shirt_sizes).isChecked = true
             PlanningPoker.IDEAL_DAYS -> menu.findItem(R.id.ideal_days).isChecked = true
+            PlanningPoker.POWERS_OF_TWO -> menu.findItem(R.id.powers_of_two).isChecked = true
         }
         bottom_action_drawer.controller.peekDrawer()
         bottom_action_drawer.setOnMenuItemClickListener(this)
@@ -104,6 +105,10 @@ class MainActivity : WearableActivity(), MenuItem.OnMenuItemClickListener {
             }
             R.id.ideal_days -> {
                 updateFlavor(PlanningPoker.IDEAL_DAYS)
+                item.isChecked = true
+            }
+            R.id.powers_of_two -> {
+                updateFlavor(PlanningPoker.POWERS_OF_TWO)
                 item.isChecked = true
             }
             R.id.version_info -> startActivity(Intent(this, InfoActivity::class.java))
