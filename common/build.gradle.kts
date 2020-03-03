@@ -14,28 +14,35 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+plugins {
+    id("com.android.library")
+    kotlin("android")
+    kotlin("android.extensions")
+}
+
+repositories {
+    google()
+    jcenter()
+}
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion(29)
 
     defaultConfig {
-        minSdkVersion 17
-        targetSdkVersion 29
-    }
-
-    lintOptions {
-        abortOnError false
+        minSdkVersion(17)
+        targetSdkVersion(29)
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions.jvmTarget = "1.8"
+    lintOptions.isAbortOnError = false
 }
 
 dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61'
+    implementation(kotlin("stdlib-jdk8", "1.3.61"))
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 }
