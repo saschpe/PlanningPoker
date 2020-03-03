@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.oss.licenses.plugin'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id("com.android.application")
+    id("com.google.android.gms.oss-licenses-plugin")
+    id("kotlin-android")
+    id("kotlin-android-extensions")
+}
+
+repositories {
+    google()
+    jcenter()
+}
 
 def properties = new Properties()
 if (file("$rootDir/local.properties").exists()) {
@@ -29,57 +36,62 @@ if (file("$rootDir/config/play-store-signing.properties").exists()) {
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion(29)
 
     defaultConfig {
-        applicationId 'saschpe.poker'
-        minSdkVersion 17
-        targetSdkVersion 29
-        versionCode 170010304
-        versionName "1.3.4"
+        applicationId("saschpe.poker")
+        minSdkVersion(17)
+        targetSdkVersion(29)
+        versionCode = 170010304
+        versionName = "1.3.4"
         archivesBaseName = "${applicationId}-${versionName}"
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
 
     signingConfigs {
-        config {
-            keyAlias properties.getProperty("signing.key.alias", signingConfigs.debug.keyAlias)
-            keyPassword properties.getProperty("signing.key.password", signingConfigs.debug.keyPassword)
-            storeFile file(properties.getProperty("signing.store.file", signingConfigs.debug.storeFile.path))
-            storePassword properties.getProperty("signing.store.password", signingConfigs.debug.storePassword)
+        register("default") {
+            keyAlias = properties.getProperty("signing.key.alias", signingConfigs.debug.keyAlias)
+            keyPassword = properties.getProperty("signing.key.password", signingConfigs.debug.keyPassword)
+            storeFile = file(properties.getProperty("signing.store.file", signingConfigs.debug.storeFile.path))
+            storePassword = properties.getProperty("signing.store.password", signingConfigs.debug.storePassword)
         }
     }
 
     buildTypes {
-        debug {
-            applicationIdSuffix '.debug'
+        named("debug") {
+            applicationIdSuffix = ".debug"
         }
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+        named("release") {
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+            )
+            signingConfig = signingConfigs.getByName("default")
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions.jvmTarget = "1.8"
 }
 
 dependencies {
-    implementation project(':common')
-    implementation 'androidx.browser:browser:1.0.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.gms:play-services-oss-licenses:16.0.2'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61'
-    implementation 'saschpe.android:customtabs:3.0.2'
-    implementation 'saschpe.android:social-fragment:2.0.3'
-    implementation 'saschpe.android:utils:2.0.0'
-    implementation 'saschpe.android:versioninfo:2.1.2'
+    implementation(project(":common"))
+    implementation("androidx.browser:browser:1.0.0")
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("com.google.android.gms:play-services-oss-licenses:16.0.2")
+    implementation("com.google.android.material:material:1.0.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61")
+    implementation("saschpe.android:customtabs:3.0.2")
+    implementation("saschpe.android:social-fragment:2.0.3")
+    implementation("saschpe.android:utils:2.0.0")
+    implementation("saschpe.android:versioninfo:2.1.2")
 }

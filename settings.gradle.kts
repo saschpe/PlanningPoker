@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-include ':common', ':mobile', ':wear'
+include(":common", ":mobile", ":wear")

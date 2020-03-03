@@ -12,17 +12,17 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 # Constants
 GRADLE_FILES=(
-    "mobile/build.gradle"
-    "wear/build.gradle"
+    presentation/build.gradle
+    wear/build.gradle
 )
 
 # Functions
 function get_version_code {
-    echo $(grep versionCode $1 | xargs | cut -d" " -f2)
+    echo $(grep "versionCode = " $1 | xargs | cut -d"=" -f2)
 }
 
 function get_version_name {
-    echo $(grep "versionName \"" $1 | cut -d"\"" -f2)
+    echo $(grep "versionName = " $1 | xargs | cut -d"=" -f2)
 }
 
 function usage {
@@ -59,14 +59,14 @@ for gradle_file in ${GRADLE_FILES[@]} ; do
     fi
 
     # Since we're otherwise fine, start changing the version name..
-    sed2 "s|versionName \"${version_name_old}|versionName \"${version_name_new}|" ${gradle_file}
+    sed2 "s|versionName = \"${version_name_old}|versionName = \"${version_name_new}|" ${gradle_file}
 
     # Increment app version code for Google's Play Store
     version_code_old=$(get_version_code ${gradle_file})
     padded_sem_ver=$(printf "%02d%02d%02d\n" ${version_name_new_array[0]} ${version_name_new_array[1]} ${version_name_new_array[2]})
     # Replace the last six digits with the new padded semantic version
     version_code_new=${version_code_old::${#version_code_old}-6}${padded_sem_ver}
-    sed2 "s/versionCode ${version_code_old}/versionCode ${version_code_new}/" ${gradle_file}
+    sed2 "s/versionCode = ${version_code_old}/versionCode = ${version_code_new}/" ${gradle_file}
 
     git_commit_files="${git_commit_files} ${gradle_file}"
 done
