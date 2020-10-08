@@ -53,6 +53,11 @@
                     android:icon="@drawable/ic_casino"
                     android:title="@string/powers_of_two" />
 
+                <item
+                    android:id="@+id/real_fibonacci"
+                    android:icon="@drawable/ic_casino"
+                    android:title="@string/real_fibonacci" />
+
             </group>
 
         </menu>

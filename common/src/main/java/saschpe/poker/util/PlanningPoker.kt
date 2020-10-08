@@ -24,9 +24,10 @@ object PlanningPoker {
     const val T_SHIRT_SIZES = 2
     const val IDEAL_DAYS = 3
     const val POWERS_OF_TWO = 4
+    const val REAL_FIBONACCI = 5
 
     val values = androidx.collection.SimpleArrayMap<Int, List<String>>(3)
-    val defaults = SparseIntArray(4)
+    val defaults = SparseIntArray(5)
 
     @IntDef(FIBONACCI, T_SHIRT_SIZES, IDEAL_DAYS, POWERS_OF_TWO)
     annotation class Flavor
@@ -37,6 +38,7 @@ object PlanningPoker {
         values.put(T_SHIRT_SIZES, listOf("XS", "S", "M", "L", "XL", "XXL"))
         values.put(IDEAL_DAYS, listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11+"))
         values.put(POWERS_OF_TWO, listOf("0", "1", "2", "4", "8", "16", "32", "64"))
+        values.put(REAL_FIBONACCI, listOf("0", "1", "2", "3", "5", "8", "13", "21", "34", "55", "89", "144", "?", "☕"))
     }
 
     init {
@@ -44,6 +46,7 @@ object PlanningPoker {
         defaults.append(T_SHIRT_SIZES, 2)
         defaults.append(IDEAL_DAYS, 5)
         defaults.append(POWERS_OF_TWO, 2)
+        defaults.append(REAL_FIBONACCI, 5)
     }
 }
 

@@ -39,6 +39,7 @@
     <string name="poker_help">How to play planning poker</string>
     <string name="poker_help_text">In planning poker, members of the group make estimates by playing numbered cards face-down to the table, instead of speaking them aloud. The cards are revealed, and the estimates are then discussed. \n&#8212; Wikipedia</string>
     <string name="powers_of_two">Powers of two</string>
+    <string name="real_fibonacci">Real Fibonacci</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="provide_feedback">Provide feedback</string>
     <string name="rate_us_in_the_play_store">Rate us in the Play Store</string>
